@@ -13,5 +13,6 @@
 	#page {
 		display: grid;
 		grid-template-columns: 250px 1fr;
+		grid-gap: 50px;
 	}
 </style>

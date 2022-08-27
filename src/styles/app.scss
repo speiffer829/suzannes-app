@@ -9,3 +9,13 @@
 	--red: #ff6161;
 	--green: #61ff8d;
 }
+
+body {
+	font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+::selection,
+::-moz-selection {
+	background: var(--coral);
+	color: var(--dark);
+}
