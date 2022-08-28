@@ -1,8 +1,14 @@
+<script>
+	import { page } from '$app/stores';
+
+	$: console.log($page);
+</script>
+
 <aside class="bg-dark min-h-screen text-light flex flex-col">
 	<h2 class="p-6 text-3xl">Hello, <span class="text-pink font-bold">Spenser</span></h2>
 
 	<nav class="p-3">
-		<a href="/" class="px-3 py-2 mb-1">
+		<a href="/" class="px-3 py-2 mb-1" class:active={$page.routeId === '(dashboard)'}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -20,7 +26,7 @@
 			>
 			<span>Home</span>
 		</a>
-		<a href="/" class="px-3 py-2">
+		<a href="/students" class="px-3 py-2" class:active={$page.url.pathname.includes('/students')}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -36,7 +42,7 @@
 			>
 			<span>Students</span>
 		</a>
-		<a href="/" class="px-3 py-2">
+		<a href="/" class="px-3 py-2" class:active={$page.url.pathname.includes('/classes')}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -59,7 +65,7 @@
 			>
 			<span>Classes</span>
 		</a>
-		<a href="/" class="px-3 py-2">
+		<a href="/" class="px-3 py-2" class:active={$page.url.pathname.includes('/time-sheets')}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -75,7 +81,7 @@
 			>
 			<span>Time Sheets</span>
 		</a>
-		<a href="/" class="px-3 py-2">
+		<a href="/" class="px-3 py-2" class:active={$page.url.pathname.includes('/my-account')}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -157,6 +163,10 @@
 				background: hsl(0 0% 100% / 15%);
 			}
 
+			&.active {
+				background: var(--pink);
+				color: var(--dark);
+			}
 			span {
 				display: block;
 			}
