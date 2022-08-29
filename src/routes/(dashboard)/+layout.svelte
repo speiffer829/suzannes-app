@@ -1,10 +1,12 @@
 <script>
 	import Sidebar from './Sidebar.svelte';
+	import Breadcrumbs from './Breadcrumbs.svelte';
 </script>
 
 <div id="page">
 	<Sidebar />
 	<main>
+		<Breadcrumbs />
 		<slot />
 	</main>
 </div>

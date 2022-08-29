@@ -2,15 +2,7 @@
 	import { page } from '$app/stores';
 	import supabase from '$lib/db';
 
-	let student = supabase
-		.from('students')
-		.select(`*, phones(*)`)
-		.eq('id', $page.params.id)
-		.single()
-		.then((res) => {
-			console.log(res);
-			return res;
-		});
+	let student = supabase.from('students').select(`*, phones(*)`).eq('id', $page.params.id).single();
 </script>
 
 <svelte:head>
