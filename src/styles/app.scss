@@ -10,8 +10,13 @@
 	--green: #61ff8d;
 }
 
+* {
+	box-sizing: border-box;
+}
+
 body {
 	font-family: 'Poppins', Arial, Helvetica, sans-serif;
+	color: var(--dark);
 }
 
 ::selection,

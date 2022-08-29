@@ -1,10 +1,8 @@
 <script>
 	import { page } from '$app/stores';
-
-	$: console.log($page);
 </script>
 
-<aside class="bg-dark min-h-screen text-light flex flex-col">
+<aside class="bg-dark h-screen text-light flex flex-col">
 	<h2 class="p-6 text-3xl">Hello, <span class="text-pink font-bold">Spenser</span></h2>
 
 	<nav class="p-3">
@@ -132,12 +130,6 @@
 
 		@media screen and (min-width: 280px) {
 			width: 250px;
-			position: static;
-		}
-
-		@media screen and (min-width: px) {
-			position: static;
-			width: 100%;
 		}
 	}
 
