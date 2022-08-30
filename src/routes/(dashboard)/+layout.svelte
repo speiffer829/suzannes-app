@@ -14,5 +14,12 @@
 <style lang="scss">
 	#page {
 		padding-left: 300px;
+		max-width: 1330px;
+		width: 90%;
+		margin: 0 auto;
+	}
+
+	main {
+		padding: 1rem 0;
 	}
 </style>
