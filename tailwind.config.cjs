@@ -5,6 +5,7 @@ const config = {
 		extend: {
 			colors: {
 				dark: '#0b0e1f',
+				'dark-transparent': 'rgb(11 14 31 / 10%)',
 				pink: '#ff61c7',
 				light: '#f9f8ff',
 				purple: '#372952',

@@ -1,19 +1,63 @@
 <script>
+	import { studentSearch } from '$lib/store';
 	import { format } from 'date-fns';
 	import supabase from '$lib/db';
+	import { scale } from 'svelte/transition';
+	import Loading from '$lib/components/Loading.svelte';
 
-	let search;
-
-	let students = supabase.from('students').select('*').limit(100);
+	let students = $studentSearch
+		? supabase.rpc('fuzzy_search', { search_string: $studentSearch })
+		: supabase.from('students').select('*').order('last_name', { ascending: true }).limit(100);
 
 	async function searchStudents() {
-		students = supabase.rpc('fuzzy_search', { search_string: search });
+		students = supabase.rpc('fuzzy_search', { search_string: $studentSearch });
+	}
+
+	async function allStudents() {
+		$studentSearch = '';
+		students = supabase.from('students').select('*').limit(100);
 	}
 </script>
 
 <form on:submit|preventDefault={searchStudents}>
-	<input type="text" bind:value={search} placeholder="Search Students" />
-	<button type="submit">Search</button>
+	<input type="text" bind:value={$studentSearch} placeholder="Search Students" />
+	{#if $studentSearch}
+		<!-- content here -->
+		<button
+			transition:scale|local={{ duration: 250 }}
+			type="button"
+			on:click|preventDefault={allStudents}
+			class="clear-btn"
+			><svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="feather feather-x"
+				><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg
+			></button
+		>
+	{/if}
+	<button type="submit"
+		><svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			class="feather feather-search"
+			><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+		></button
+	>
 </form>
 
 <a href="/students/add-student" class="btn mb-2">
@@ -39,7 +83,7 @@
 </a>
 
 {#await students}
-	...loading
+	<Loading style="min-height: 500px;" />
 {:then { data }}
 	<table id="students-contain">
 		<thead>
@@ -50,9 +94,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each data as student}
+			{#each data as student (student.id)}
 				<tr>
-					<td><a href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></td>
+					<td
+						><a href={`/students/${student.id}`}
+							>{student.first_name} <strong>{student.last_name}</strong></a
+						></td
+					>
 					<!-- <td><a href={`/students/${student.id}`}>{student.dob}</a></td> -->
 					<td
 						><a href={`/students/${student.id}`}
@@ -77,8 +125,13 @@
 		border-radius: 16px;
 		overflow: hidden;
 
-		tbody tr:hover {
-			color: var(--pink);
+		tbody tr {
+			transition: all 150ms;
+			&:hover {
+				border-radius: 10px;
+				background-color: var(--pink);
+				color: var(--dark);
+			}
 		}
 		tr:nth-of-type(even) {
 			background: rgb(11 14 31 / 10%);
@@ -89,10 +142,6 @@
 				padding: 1rem;
 				width: 100%;
 				display: block;
-
-				&:hover {
-					color: var(--pink);
-				}
 			}
 		}
 	}
@@ -130,7 +179,7 @@
 		button {
 			background: var(--pink);
 			color: var(--dark);
-			padding: 8px 30px;
+			padding: 12px 12px;
 			border-radius: 12px;
 			position: absolute;
 			right: 15px;
@@ -139,6 +188,16 @@
 			font-size: 20px;
 			font-weight: 700;
 			box-shadow: var(--shadow);
+			transition: all 250ms;
+
+			&.clear-btn {
+				right: 70px;
+				background: var(--red);
+			}
+			&:hover {
+				background: var(--dark);
+				color: var(--pink);
+			}
 		}
 	}
 </style>
