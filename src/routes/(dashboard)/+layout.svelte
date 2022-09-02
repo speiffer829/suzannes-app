@@ -3,7 +3,7 @@
 	import Breadcrumbs from './Breadcrumbs.svelte';
 </script>
 
-<div id="page">
+<div id="page" class="pt-16 lg:pt-0">
 	<Sidebar />
 	<main>
 		<Breadcrumbs />
@@ -13,10 +13,13 @@
 
 <style lang="scss">
 	#page {
-		padding-left: 300px;
 		max-width: 1630px;
 		width: 90%;
 		margin: 0 auto;
+
+		@media screen and (min-width: 1024px) {
+			padding-left: 300px;
+		}
 	}
 
 	main {

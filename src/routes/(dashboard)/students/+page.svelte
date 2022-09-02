@@ -10,12 +10,24 @@
 		: supabase.from('students').select('*').order('last_name', { ascending: true }).limit(100);
 
 	async function searchStudents() {
+		if ($studentSearch === '') {
+			students = supabase
+				.from('students')
+				.select('*')
+				.order('last_name', { ascending: true })
+				.limit(100);
+			return;
+		}
 		students = supabase.rpc('fuzzy_search', { search_string: $studentSearch });
 	}
 
 	async function allStudents() {
 		$studentSearch = '';
-		students = supabase.from('students').select('*').limit(100);
+		students = supabase
+			.from('students')
+			.select('*')
+			.order('last_name', { ascending: true })
+			.limit(100);
 	}
 </script>
 
@@ -28,6 +40,7 @@
 			type="button"
 			on:click|preventDefault={allStudents}
 			class="clear-btn"
+			title="Clear Search"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
@@ -43,7 +56,7 @@
 			></button
 		>
 	{/if}
-	<button type="submit"
+	<button type="submit" title="Submit Search"
 		><svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="24"
@@ -60,7 +73,7 @@
 	>
 </form>
 
-<a href="/students/add-student" class="btn mb-2">
+<a href="/students/add-student" class="btn mb-2" title="Add A New Students">
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width="24"
@@ -84,7 +97,7 @@
 
 {#await students}
 	<Loading style="min-height: 500px;" />
-{:then { data }}
+{:then { data, error }}
 	<table id="students-contain">
 		<thead>
 			<tr>
@@ -103,8 +116,7 @@
 					>
 					<!-- <td><a href={`/students/${student.id}`}>{student.dob}</a></td> -->
 					<td
-						><a href={`/students/${student.id}`}
-							>{format(new Date(`${student.dob} 11:11`), 'MM/dd/yyyy')}</a
+						><a href={`/students/${student.id}`}>{format(new Date(student.dob), 'MM/dd/yyyy')}</a
 						></td
 					>
 					<td><a href={`/students/${student.id}`}>{student.grade}</a></td>

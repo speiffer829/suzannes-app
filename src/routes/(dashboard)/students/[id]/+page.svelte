@@ -2,8 +2,17 @@
 	import { format } from 'date-fns';
 	import { page } from '$app/stores';
 	import supabase from '$lib/db';
+	import Loading from '$lib/components/Loading.svelte';
+	import { parseISO, differenceInYears } from 'date-fns';
 
 	let student = supabase.from('students').select(`*, phones(*)`).eq('id', $page.params.id).single();
+
+	function getAge(dob) {
+		const date = parseISO(dob);
+		console.log(date);
+		const age = differenceInYears(new Date(), date);
+		return age;
+	}
 </script>
 
 <svelte:head>
@@ -16,20 +25,20 @@
 	{/await}
 </svelte:head>
 
-<div id="student-grid" class="grid lg:grid-cols-2 ">
-	{#await student}
-		...loading
-	{:then { data }}
-		<section id="main-card" class="card">
+<div id="student-grid" class="grid xl:grid-cols-2 gap-8">
+	<section id="main-card" class="card mt-14">
+		{#await student}
+			<Loading style="min-height: 300px" />
+		{:then { data }}
 			<h1>{data.first_name} {data.last_name}</h1>
 
-			<div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+			<div class=" mb-4 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
 				<div class="grey-box mb-0">
 					<p class="text-sm">Age</p>
-					<p class="text-2xl text-center">28</p>
+					<p class="text-2xl sm:text-center">{getAge(data.dob)}</p>
 				</div>
 
-				<div class="grey-box lg:col-span-2 xl:col-span-3 mb-0">
+				<div class="grey-box sm:col-span-2 md:col-span-3 mb-0">
 					<p class="text-sm">Grade</p>
 					<p class="text-2xl">
 						{data.grade}{data.grade !== 'none' &&
@@ -50,8 +59,8 @@
 			<div class="grey-box">
 				<p class="text-sm">Address</p>
 				<address class="text-2xl">
-					<p>{data.address}</p>
-					<p>{data.city}, PA {data.zip}</p>
+					{data.address}<br />
+					{data.city}, PA {data.zip}
 				</address>
 			</div>
 
@@ -59,10 +68,10 @@
 				<p class="text-sm">Email</p>
 				<p class="text-2xl">{data.email}</p>
 			</div>
-		</section>
-	{:catch error}
-		<!-- student was rejected -->
-	{/await}
+		{:catch error}
+			<!-- student was rejected -->
+		{/await}
+	</section>
 </div>
 
 <style lang="scss">
@@ -89,5 +98,9 @@
 
 	.grey-box {
 		@apply bg-dark-transparent rounded-lg py-1.5 px-2.5 mb-4;
+
+		&.mb-0 {
+			margin-bottom: 0;
+		}
 	}
 </style>
