@@ -9,7 +9,6 @@
 
 	function getAge(dob) {
 		const date = parseISO(dob);
-		console.log(date);
 		const age = differenceInYears(new Date(), date);
 		return age;
 	}
