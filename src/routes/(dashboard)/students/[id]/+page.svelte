@@ -29,7 +29,7 @@
 		{#await student}
 			<Loading style="min-height: 300px" />
 		{:then { data }}
-			<h1>{data.first_name} {data.last_name}</h1>
+			<h1 class="pink-underline">{data.first_name} {data.last_name}</h1>
 
 			<div class=" mb-4 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
 				<div class="grey-box mb-0">
@@ -64,9 +64,35 @@
 			</div>
 
 			<div class="grey-box">
-				<p class="text-sm">Email</p>
+				<p class="text-sm flex items-center gap-1">Email</p>
 				<p class="text-2xl">{data.email}</p>
 			</div>
+
+			{@const { phones } = data}
+
+			{#if phones.length === 1}
+				{@const phone = phones[0]}
+				<div class="grey-box">
+					<p class="text-sm">Phone {phone.label ? `(${phone.label})` : ''}</p>
+					<p class="text-2xl">{phone.phone}</p>
+				</div>
+			{:else if phones.length > 1}
+				<section>
+					<h2 class="text-3xl font-black mb-2 text-center">Phones</h2>
+					<ul class="phones-list">
+						{#each phones as phone (phone.phone_id)}
+							<li>
+								<div class="grey-box">
+									<p class="text-sm flex items-center gap-1">
+										<span class="block">{phone.label ? phone.label : 'Phone'}</span>
+									</p>
+									<p class="text-2xl">{phone.phone}</p>
+								</div>
+							</li>
+						{/each}
+					</ul>
+				</section>
+			{/if}
 		{:catch error}
 			<!-- student was rejected -->
 		{/await}
@@ -74,32 +100,16 @@
 </div>
 
 <style lang="scss">
-	h1 {
-		position: relative;
-		font-weight: 900;
-		font-size: 46px;
-		text-align: center;
-		padding: 10px;
-		margin-bottom: 30px;
-
-		&::after {
-			content: '';
-			width: 70px;
-			height: 10px;
-			background: var(--pink);
-			border-radius: 100px;
-			position: absolute;
-			bottom: -10px;
-			left: 50%;
-			transform: translateX(-50%);
-		}
-	}
-
 	.grey-box {
 		@apply bg-dark-transparent rounded-lg py-1.5 px-2.5 mb-4;
 
 		&.mb-0 {
 			margin-bottom: 0;
 		}
+	}
+
+	.phones-list {
+		list-style: none;
+		padding: 0;
 	}
 </style>
