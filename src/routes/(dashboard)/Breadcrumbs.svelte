@@ -8,7 +8,6 @@
 	$: {
 		// Remove zero-length tokens.
 		const tokens = $page.url.pathname.split('/').filter((t) => t !== '');
-		console.log(tokens);
 
 		// Create { label, href } pairs for each token.
 		let tokenPath = '';

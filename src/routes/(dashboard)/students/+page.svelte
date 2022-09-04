@@ -31,6 +31,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Students | SuzApp</title>
+</svelte:head>
 <form on:submit|preventDefault={searchStudents}>
 	<input type="text" bind:value={$studentSearch} placeholder="Search Students" />
 	{#if $studentSearch}

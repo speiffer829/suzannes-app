@@ -13,7 +13,7 @@
 </script>
 
 <aside
-	class="bg-dark h-screen text-light flex flex-col justify-between"
+	class="bg-dark min-h-screen h-full text-light flex flex-col justify-between"
 	class:active={isNavShowing}
 >
 	<h2 class="p-6 text-3xl">Hello, <span class="text-pink font-bold">Spenser</span></h2>
@@ -141,7 +141,7 @@
 		{#if isNavShowing}
 			<!-- content here -->
 			<svg
-				transition:scale={{ duration: 300 }}
+				transition:scale|local={{ duration: 300 }}
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
 				height="24"
@@ -156,7 +156,7 @@
 			>
 		{:else}
 			<svg
-				transition:scale={{ duration: 300 }}
+				transition:scale|local={{ duration: 300 }}
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
 				height="24"

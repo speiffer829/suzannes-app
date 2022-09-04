@@ -17,11 +17,11 @@
 
 <svelte:head>
 	{#await student}
-		<title>Getting Student...</title>
+		<title>Getting Student... | SuzApp</title>
 	{:then { data }}
-		<title>{data.first_name} {data.last_name}</title>
+		<title>{data.first_name} {data.last_name} | SuzApp</title>
 	{:catch error}
-		<title>Error</title>
+		<title>Error | SuzApp</title>
 	{/await}
 </svelte:head>
 
