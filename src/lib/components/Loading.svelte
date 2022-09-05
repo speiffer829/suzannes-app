@@ -1,10 +1,39 @@
 <script>
 	export let style = '';
+	export let fullScreen = false;
+	export let isShowing = true;
+
+	function teleport(node) {
+		if (fullScreen === false) return;
+		let target;
+
+		function update() {
+			target = document.querySelector('body');
+			target.appendChild(node);
+			node.hidden = false;
+		}
+
+		function destroy() {
+			if (node.parentNode) {
+				// Child demands parent to kill it. dark
+				node.parentNode.removeChild(node);
+			}
+		}
+
+		update();
+
+		return {
+			update,
+			destroy
+		};
+	}
 </script>
 
-<div class="loading-contain" {style}>
-	<span class="spinner" />
-</div>
+{#if isShowing}
+	<div class="loading-contain" class:full-screen={fullScreen} {style} use:teleport>
+		<span class="spinner" />
+	</div>
+{/if}
 
 <style lang="scss">
 	.loading-contain {
@@ -13,6 +42,14 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		&.full-screen {
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 1000;
+			background: hsl(var(--darkHSL) / 50%);
+		}
 	}
 
 	.spinner {

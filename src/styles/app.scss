@@ -1,7 +1,9 @@
 /* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
 :root {
 	--dark: #0b0e1f;
-	--dark-transparent: rgba(11, 14, 31, 0.1);
+	--dark-transparent: hsl(231 47.6% 8.2% / 10%);
+	--darkHSL: 231 47.6% 8.2%;
+
 	--grey: #e7e7e9;
 	--pink: #ff61c7;
 	--light: #f9f8ff;

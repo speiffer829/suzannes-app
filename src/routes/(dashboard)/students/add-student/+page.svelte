@@ -1,16 +1,24 @@
 <script>
 	import DateInput from '$lib/components/DateInput.svelte';
 	import Input from '$lib/components/Input.svelte';
+	import Loading from '$lib/components/Loading.svelte';
 
 	let first_name, last_name, grade, dob;
 
+	let isLoading = false;
+
 	async function handleSubmit(e) {
+		isLoading = true;
 		const data = new FormData(e.target);
-		for (let [name, value] of data) {
-			console.log(name, value);
-		}
+		new Promise((resolve) => {
+			setTimeout(() => {
+				isLoading = false;
+			}, 1000);
+		});
 	}
 </script>
+
+<Loading fullScreen isShowing={isLoading} />
 
 <div class="card mt-14 max-w-xl">
 	<h1 class="pink-underline">Add Student</h1>
