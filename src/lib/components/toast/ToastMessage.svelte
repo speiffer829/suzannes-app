@@ -3,12 +3,14 @@
 	import { onMount } from 'svelte';
 	import { toast } from './toast';
 
-	export let msg, id, duration;
+	export let msg, id, duration, isPersisting;
 	let progress = tweened(100, { duration });
 
 	onMount(async () => {
-		await progress.set(0);
-		toast.remove(id);
+		if (!isPersisting) {
+			await progress.set(0);
+			toast.remove(id);
+		}
 	});
 </script>
 

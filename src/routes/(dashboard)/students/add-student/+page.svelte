@@ -10,12 +10,16 @@
 
 	async function handleSubmit(e) {
 		isLoading = true;
-		const toastId = toast.send({ msg: 'Saving Student...', color: 'yellow' });
-		console.log(toastId);
+		toast.send({ msg: 'Saving Student...', color: 'yellow' });
+
 		const data = new FormData(e.target);
-		new Promise((resolve) => {
+		new Promise((resolve, reject) => {
 			setTimeout(() => {
-				toast.send({ msg: `${first_name} ${last_name} Has Been Added!`, color: 'green' });
+				toast.send({
+					msg: `${first_name} ${last_name} Has Been Added!`,
+					color: 'green',
+					isPersisting: false
+				});
 				isLoading = false;
 			}, 1000);
 		});

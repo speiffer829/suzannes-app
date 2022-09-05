@@ -8,7 +8,7 @@
 
 <Portal>
 	<div class="toast-wrapper">
-		{#each $toast as { msg, duration, id, color } (id)}
+		{#each $toast as { msg, duration, id, color, isPersisting } (id)}
 			<div
 				class="toast {color}"
 				in:fly={{ opacity: 0, x: 100 }}
@@ -16,7 +16,7 @@
 				animate:flip
 				on:click={() => toast.remove(id)}
 			>
-				<ToastMessage {id} {msg} {duration} />
+				<ToastMessage {isPersisting} {id} {msg} {duration} />
 			</div>
 		{/each}
 	</div>

@@ -3,10 +3,9 @@ import { writable } from 'svelte/store';
 function newToast() {
 	const { subscribe, update } = writable([]);
 
-	function send({ msg, duration = 3000, color = 'pink' }) {
+	function send({ msg, duration = 3000, color = 'pink', isPersisting = false }) {
 		const id = Math.floor(Math.random() * 1000);
-		update((state) => [...state, { id, msg, duration, color }]);
-		return id;
+		update((state) => [...state, { id, msg, duration, color, isPersisting }]);
 	}
 
 	function remove(id) {
