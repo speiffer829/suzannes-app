@@ -1,7 +1,8 @@
 <script>
+	import DateInput from '$lib/components/DateInput.svelte';
 	import Input from '$lib/components/Input.svelte';
 
-	let first_name, last_name, grade;
+	let first_name, last_name, grade, dob;
 
 	async function handleSubmit(e) {
 		const data = new FormData(e.target);
@@ -17,6 +18,30 @@
 	<form on:submit|preventDefault={handleSubmit} autocomplete="off">
 		<Input name="first_name" label="First Name" bind:value={first_name} />
 		<Input name="last_name" label="Last Name" bind:value={last_name} />
+
+		<label class="select-label" for="grade">
+			<span>Grade</span>
+		</label>
+		<select name="grade" id="grade" bind:value={grade} tabindex="0" title="Grade">
+			<option value="Select Grade" disabled checked>Select Grade</option>
+			<option value="Pre">Pre</option>
+			<option value="Kindergarden">Kindergarden</option>
+			<option value="1st Grade">1st Grade</option>
+			<option value="2nd Grade">2nd Grade</option>
+			<option value="3rd Grade">3rd Grade</option>
+			<option value="4th Grade">4th Grade</option>
+			<option value="5th Grade">5th Grade</option>
+			<option value="6th Grade">6th Grade</option>
+			<option value="7th Grade">7th Grade</option>
+			<option value="8th Grade">8th Grade</option>
+			<option value="9th Grade">9th Grade</option>
+			<option value="10th Grade">10th Grade</option>
+			<option value="11th Grade">11th Grade</option>
+			<option value="12th Grade">12th Grade</option>
+			<option value="None">None</option>
+		</select>
+
+		<DateInput name="dob" label="Date Of Birth" bind:value={dob} />
 
 		<div class="flex justify-end">
 			<button class="btn mt-16" type="submit">
