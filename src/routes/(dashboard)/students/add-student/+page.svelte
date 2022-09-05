@@ -2,6 +2,7 @@
 	import DateInput from '$lib/components/DateInput.svelte';
 	import Input from '$lib/components/Input.svelte';
 	import Loading from '$lib/components/Loading.svelte';
+	import { toast } from '$lib/components/toast/toast';
 
 	let first_name, last_name, grade, dob;
 
@@ -9,9 +10,11 @@
 
 	async function handleSubmit(e) {
 		isLoading = true;
+		toast.send({ msg: 'Saving Student...', color: 'yellow' });
 		const data = new FormData(e.target);
 		new Promise((resolve) => {
 			setTimeout(() => {
+				toast.send({ msg: `${first_name} ${last_name} Has Been Added!`, color: 'green' });
 				isLoading = false;
 			}, 1000);
 		});

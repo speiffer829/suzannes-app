@@ -3,18 +3,14 @@
 	import { onMount } from 'svelte';
 	import { toast } from './toast';
 
-	export let duration;
-
-	export let msg;
+	export let msg, id, duration;
 	let progress = tweened(100, { duration });
 
 	onMount(async () => {
 		await progress.set(0);
-		toast.remove();
+		toast.remove(id);
 	});
 </script>
-
-<div style={`width: ${$progress}%; height: 10px; background: cyan;`} />
 
 <p>{msg}</p>
 

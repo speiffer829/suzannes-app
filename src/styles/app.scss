@@ -12,6 +12,7 @@
 	--periwinkle: #a2a7ec;
 	--red: #ff6161;
 	--green: #61ff8d;
+	--yellow: #ffe261;
 	--shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1), 0px 10px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
@@ -22,6 +23,8 @@
 body {
 	font-family: 'Poppins', Arial, Helvetica, sans-serif;
 	color: var(--dark);
+	min-height: 100vh;
+	min-height: 100dvh;
 }
 
 .btn {
