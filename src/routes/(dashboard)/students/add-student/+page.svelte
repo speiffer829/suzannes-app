@@ -10,7 +10,8 @@
 
 	async function handleSubmit(e) {
 		isLoading = true;
-		toast.send({ msg: 'Saving Student...', color: 'yellow' });
+		const toastId = toast.send({ msg: 'Saving Student...', color: 'yellow' });
+		console.log(toastId);
 		const data = new FormData(e.target);
 		new Promise((resolve) => {
 			setTimeout(() => {
