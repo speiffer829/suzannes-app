@@ -41,9 +41,9 @@
 					<p class="text-sm">Grade</p>
 					<p class="text-2xl">
 						{data.grade}{data.grade !== 'none' &&
-						data.grade !== 'kindergarden' &&
+						data.grade !== 'Kindergarden' &&
 						data.grade !== 'pre' &&
-						data.grade !== 'graduated'
+						data.grade !== 'Graduated'
 							? ' Grade'
 							: ''}
 					</p>
@@ -51,7 +51,7 @@
 			</div>
 
 			<div class="grey-box">
-				<p class="text-sm">DOB</p>
+				<p class="text-sm">Date Of Birth</p>
 				<p class="text-2xl">{format(new Date(data.dob), 'MMMM dd, yyyy')}</p>
 			</div>
 

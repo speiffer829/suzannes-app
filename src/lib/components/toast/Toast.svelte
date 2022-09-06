@@ -1,26 +1,25 @@
 <script>
 	import { fly, scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
+	import { backIn } from 'svelte/easing';
 	import Portal from '$lib/components/Portal.svelte';
 	import { toast } from './toast';
 	import ToastMessage from './ToastMessage.svelte';
 </script>
 
-<Portal>
-	<div class="toast-wrapper">
-		{#each $toast as { msg, duration, id, color, isPersisting } (id)}
-			<div
-				class="toast {color}"
-				in:fly={{ opacity: 0, x: 100 }}
-				out:scale
-				animate:flip
-				on:click={() => toast.remove(id)}
-			>
-				<ToastMessage {isPersisting} {id} {msg} {duration} />
-			</div>
-		{/each}
-	</div>
-</Portal>
+<div class="toast-wrapper">
+	{#each $toast as { msg, duration, id, color, isPersisting } (id)}
+		<div
+			class="toast {color}"
+			out:scale
+			in:fly={{ x: 100 }}
+			animate:flip={{ duration: 1000 }}
+			on:click={() => toast.remove(id)}
+		>
+			<ToastMessage {isPersisting} {id} {msg} {duration} />
+		</div>
+	{/each}
+</div>
 
 <style lang="scss">
 	.toast-wrapper {
@@ -35,7 +34,7 @@
 		margin-bottom: 1rem;
 		padding: 20px;
 		border-radius: 15px;
-		box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+		box-shadow: var(--shadow);
 		background: var(--pink);
 		color: var(--dark);
 

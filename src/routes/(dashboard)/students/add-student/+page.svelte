@@ -10,7 +10,7 @@
 
 	async function handleSubmit(e) {
 		isLoading = true;
-		toast.send({ msg: 'Saving Student...', color: 'yellow' });
+		toast.send({ msg: 'Saving Student...', color: 'yellow', isPersisting: false });
 
 		const data = new FormData(e.target);
 		new Promise((resolve, reject) => {
@@ -21,10 +21,15 @@
 					isPersisting: false
 				});
 				isLoading = false;
+				resolve();
 			}, 1000);
 		});
 	}
 </script>
+
+<svelte:head>
+	<title>Add Student | SuzApp</title>
+</svelte:head>
 
 <Loading fullScreen isShowing={isLoading} />
 
