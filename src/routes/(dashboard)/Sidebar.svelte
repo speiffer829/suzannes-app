@@ -53,7 +53,7 @@
 			>
 			<span>Students</span>
 		</a>
-		<a href="/" class="px-3 py-1" class:active={$page.url.pathname.includes('/classes')}>
+		<a href="/classes" class="px-3 py-1" class:active={$page.url.pathname.includes('/classes')}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -76,7 +76,11 @@
 			>
 			<span>Classes</span>
 		</a>
-		<a href="/" class="px-3 py-1" class:active={$page.url.pathname.includes('/time-sheets')}>
+		<a
+			href="/time-sheets"
+			class="px-3 py-1"
+			class:active={$page.url.pathname.includes('/time-sheets')}
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -92,7 +96,11 @@
 			>
 			<span>Time Sheets</span>
 		</a>
-		<a href="/" class="px-3 py-1" class:active={$page.url.pathname.includes('/my-account')}>
+		<a
+			href="/my-account"
+			class="px-3 py-1"
+			class:active={$page.url.pathname.includes('/my-account')}
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
