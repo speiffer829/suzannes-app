@@ -49,12 +49,7 @@
 					<div class="grey-box sm:col-span-2 md:col-span-3 mb-0">
 						<p class="text-sm">Grade</p>
 						<p class="text-2xl">
-							{data.grade}{data.grade !== 'none' &&
-							data.grade !== 'Kindergarden' &&
-							data.grade !== 'pre' &&
-							data.grade !== 'Graduated'
-								? ' Grade'
-								: ''}
+							{data.grade}
 						</p>
 					</div>
 				</div>
@@ -110,7 +105,7 @@
 
 	{#await student then { data }}
 		{@const { scanner_cards } = data}
-		<ScannerCards {scanner_cards} />
+		<ScannerCards {scanner_cards} student_id={data.id} />
 	{/await}
 </div>
 

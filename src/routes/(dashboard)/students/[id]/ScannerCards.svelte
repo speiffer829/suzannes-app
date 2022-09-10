@@ -1,5 +1,8 @@
 <script lang="ts">
-	export let scanner_cards;
+	import Modal from '$lib/components/Modal.svelte';
+	import supabase from '$lib/db';
+	export let scanner_cards, student_id;
+	let is_add_card_modal_open = false;
 </script>
 
 <section class="cards-card">
@@ -37,7 +40,11 @@
 			</p>
 			<p class="text-gray-400 mb-4 text-center">Hit the button to add one.</p>
 		{/if}
-		<button class="btn small-btn mx-auto mt-4" class:mx-auto={!scanner_cards.length}>
+		<button
+			class="btn small-btn mx-auto mt-4"
+			class:mx-auto={!scanner_cards.length}
+			on:click={() => (is_add_card_modal_open = !is_add_card_modal_open)}
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -55,3 +62,7 @@
 		</button>
 	</div>
 </section>
+
+<Modal bind:is_open={is_add_card_modal_open}>
+	<h1>Hello</h1>
+</Modal>
