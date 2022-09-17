@@ -1,7 +1,7 @@
-<script>
-	export let style = '';
-	export let fullScreen = false;
-	export let isShowing = true;
+<script lang="ts">
+	export let style: string = '';
+	export let fullScreen: boolean = false;
+	export let isShowing: boolean = true;
 
 	function teleport(node) {
 		if (fullScreen === false) return;
