@@ -7,19 +7,23 @@
 	import type { studentType } from '$lib/types';
 
 	let students = $studentSearch
-		? supabase.rpc('fuzzy_search', { search_string: $studentSearch })
-		: supabase.from('students').select('*').order('last_name', { ascending: true }).limit(100);
+		? supabase.rpc<studentType>('fuzzy_search', { search_string: $studentSearch })
+		: supabase
+				.from<studentType>('students')
+				.select('*')
+				.order('last_name', { ascending: true })
+				.limit(100);
 
 	async function searchStudents() {
 		if ($studentSearch === '') {
 			students = supabase
-				.from('students')
+				.from<studentType>('students')
 				.select('*')
 				.order('last_name', { ascending: true })
 				.limit(100);
 			return;
 		}
-		students = supabase.rpc('fuzzy_search', { search_string: $studentSearch });
+		students = supabase.rpc<studentType>('fuzzy_search', { search_string: $studentSearch });
 	}
 
 	async function allStudents() {

@@ -8,12 +8,12 @@
 	import ScannerCards from './ScannerCards.svelte';
 
 	let student = supabase
-		.from('students')
+		.from<studentType>('students')
 		.select(`*, phones(*), scanner_cards(*)`)
 		.eq('id', $page.params.id)
 		.single();
 
-	function getAge(dob) {
+	function getAge(dob): number {
 		const date = parseISO(dob);
 		const age = differenceInYears(new Date(), date);
 		return age;
