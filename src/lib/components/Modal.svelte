@@ -1,25 +1,17 @@
 <script lang="ts">
-	import { fall } from '$lib/animations/fall';
-	import { fade, scale, slide } from 'svelte/transition';
+	import { fade, scale } from 'svelte/transition';
 	import Portal from '$lib/components/Portal.svelte';
-	import { backInOut, backOut } from 'svelte/easing';
+	import { backInOut } from 'svelte/easing';
 	export let is_open: boolean = false;
 </script>
 
 {#if is_open}
 	<Portal>
-		<div class="overlay" transition:slide={{ duration: 500 }} on:click={() => (is_open = false)}>
-			fud
-		</div>
+		<div class="overlay" transition:fade={{ duration: 500 }} on:click={() => (is_open = false)} />
 	</Portal>
 
 	<Portal>
-		<div
-			style="height: 400px;"
-			class="card modal-body"
-			in:scale={{ easing: backInOut, duration: 500 }}
-			out:fall
-		>
+		<div class="card modal-body" transition:scale={{ easing: backInOut, duration: 500 }}>
 			<slot />
 		</div>
 	</Portal>

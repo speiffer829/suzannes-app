@@ -7,19 +7,21 @@
 	import ToastMessage from './ToastMessage.svelte';
 </script>
 
-<div class="toast-wrapper">
-	{#each $toast as { msg, duration, id, color, isPersisting } (id)}
-		<div
-			class="toast {color}"
-			out:scale={{ easing: backIn }}
-			in:fly={{ x: 100 }}
-			animate:flip={{ duration: 1000, delay: 200 }}
-			on:click={() => toast.remove(id)}
-		>
-			<ToastMessage {isPersisting} {id} {msg} {duration} />
-		</div>
-	{/each}
-</div>
+<Portal>
+	<div class="toast-wrapper">
+		{#each $toast as { msg, duration, id, color, isPersisting } (id)}
+			<div
+				class="toast {color}"
+				out:scale={{ easing: backIn }}
+				in:fly={{ x: 100 }}
+				animate:flip={{ duration: 1000, delay: 200 }}
+				on:click={() => toast.remove(id)}
+			>
+				<ToastMessage {isPersisting} {id} {msg} {duration} />
+			</div>
+		{/each}
+	</div>
+</Portal>
 
 <style lang="scss">
 	.toast-wrapper {

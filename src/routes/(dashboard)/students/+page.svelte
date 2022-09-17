@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 	import { studentSearch } from '$lib/store';
 	import { format } from 'date-fns';
 	import supabase from '$lib/db';
 	import { scale } from 'svelte/transition';
 	import Loading from '$lib/components/Loading.svelte';
+	import type { studentType } from '$lib/types';
 
 	let students = $studentSearch
 		? supabase.rpc('fuzzy_search', { search_string: $studentSearch })

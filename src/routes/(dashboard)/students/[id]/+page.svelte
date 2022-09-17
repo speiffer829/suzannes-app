@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import type { studentType } from '$lib/types';
 	import { format } from 'date-fns';
 	import { page } from '$app/stores';
 	import supabase from '$lib/db';
