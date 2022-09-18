@@ -106,42 +106,50 @@
 {#await students}
 	<Loading style="min-height: 500px;" />
 {:then { data, error }}
-	<table id="students-contain">
-		<thead>
-			<tr>
-				<td>Name</td>
-				<td>D.O.B.</td>
-				<td>Grade</td>
-			</tr>
-		</thead>
-		<tbody>
-			{#each data as student (student.id)}
+	{#if error}
+		<div class="block bg-red rounded-lg p-3">
+			<h2 class="text-center text-2xl">Error</h2>
+			<p>{error}</p>
+		</div>
+	{:else}
+		<table id="students-contain">
+			<thead>
 				<tr>
-					<td
-						><a
-							href={`/students/${student.id}`}
-							title={`View ${student.first_name} ${student.last_name}'s Profile`}
-							>{student.first_name} <strong>{student.last_name}</strong></a
-						></td
-					>
-					<!-- <td><a href={`/students/${student.id}`}>{student.dob}</a></td> -->
-					<td
-						><a
-							href={`/students/${student.id}`}
-							title={`View ${student.first_name} ${student.last_name}'s Profile`}
-							>{format(new Date(student.dob), 'MM/dd/yyyy')}</a
-						></td
-					>
-					<td
-						><a
-							href={`/students/${student.id}`}
-							title={`View ${student.first_name} ${student.last_name}'s Profile`}>{student.grade}</a
-						></td
-					>
+					<td>Name</td>
+					<td>D.O.B.</td>
+					<td>Grade</td>
 				</tr>
-			{/each}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{#each data as student (student.id)}
+					<tr>
+						<td
+							><a
+								href={`/students/${student.id}`}
+								title={`View ${student.first_name} ${student.last_name}'s Profile`}
+								>{student.first_name} <strong>{student.last_name}</strong></a
+							></td
+						>
+						<!-- <td><a href={`/students/${student.id}`}>{student.dob}</a></td> -->
+						<td
+							><a
+								href={`/students/${student.id}`}
+								title={`View ${student.first_name} ${student.last_name}'s Profile`}
+								>{format(new Date(student.dob), 'MM/dd/yyyy')}</a
+							></td
+						>
+						<td
+							><a
+								href={`/students/${student.id}`}
+								title={`View ${student.first_name} ${student.last_name}'s Profile`}
+								>{student.grade}</a
+							></td
+						>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	{/if}
 {:catch error}
 	<h1>Uh oh!</h1>
 	<pre>

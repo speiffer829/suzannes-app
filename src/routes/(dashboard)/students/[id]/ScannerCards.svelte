@@ -1,7 +1,15 @@
 <script lang="ts">
+	import Input from '$lib/components/Input.svelte';
 	import Modal from '$lib/components/Modal.svelte';
 	import supabase from '$lib/db';
+	import { enhance } from '$app/forms';
+	import { is_full_screen_loading } from '$lib/store';
+
 	export let scanner_cards, student_id;
+	export let pathname: string;
+
+	$: console.log(scanner_cards);
+
 	let is_add_card_modal_open = false;
 </script>
 
@@ -64,5 +72,18 @@
 </section>
 
 <Modal bind:is_open={is_add_card_modal_open}>
-	<h1>Hello</h1>
+	<form
+		method="POST"
+		action="?/add_card"
+		use:enhance={() => {
+			$is_full_screen_loading = true;
+			return async (result) => {
+				$is_full_screen_loading = false;
+				is_add_card_modal_open = false;
+			};
+		}}
+	>
+		<Input name="card_number" placeholder="12345" label="Card Number" autofocus />
+		<button class="btn" type="submit">Save</button>
+	</form>
 </Modal>

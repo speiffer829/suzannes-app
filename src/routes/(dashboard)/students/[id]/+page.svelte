@@ -106,7 +106,7 @@
 
 	{#await student then { data }}
 		{@const { scanner_cards } = data}
-		<ScannerCards {scanner_cards} student_id={data.id} />
+		<ScannerCards {scanner_cards} student_id={data.id} pathname={$page.url.pathname} />
 	{/await}
 </div>
 

@@ -52,7 +52,7 @@
 			position: fixed;
 			top: 0;
 			left: 0;
-			z-index: 1000;
+			z-index: 1100;
 			background: hsl(var(--darkHSL) / 50%);
 		}
 	}

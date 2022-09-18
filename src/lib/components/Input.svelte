@@ -1,15 +1,25 @@
 <script lang="ts">
 	export let value: string = null,
 		placeholder: string = null,
-		disabled: boolean = null,
+		disabled: boolean = false,
 		label: string = null,
 		name: string = null;
 	export let classes: string = null;
+	export let autofocus: boolean = false;
 </script>
 
 <label>
 	<span class="w-full block text-lg">{label}</span>
-	<input {name} type="text" bind:value {placeholder} {disabled} title={label} class={classes} />
+	<input
+		{name}
+		type="text"
+		bind:value
+		{placeholder}
+		{disabled}
+		title={label}
+		class={classes}
+		{autofocus}
+	/>
 </label>
 
 <style lang="scss">
