@@ -4,6 +4,7 @@
 	import supabase from '$lib/db';
 	import { enhance } from '$app/forms';
 	import { is_full_screen_loading } from '$lib/store';
+	import Icon from '$lib/components/Icon.svelte';
 
 	export let scanner_cards, student_id;
 	export let pathname: string;
@@ -20,24 +21,7 @@
 			<ul class="mt-3">
 				{#each scanner_cards as { id, card_number } (id)}
 					<li class="py-2 flex items-center gap-2 border-b-dark border-b-2">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="feather feather-credit-card"
-							><rect x="1" y="4" width="22" height="16" rx="2" ry="2" /><line
-								x1="1"
-								y1="10"
-								x2="23"
-								y2="10"
-							/></svg
-						>
+						<Icon icon="credit-card" />
 						<span class="text-xl">{card_number}</span>
 					</li>
 				{/each}
@@ -53,19 +37,7 @@
 			class:mx-auto={!scanner_cards.length}
 			on:click={() => (is_add_card_modal_open = !is_add_card_modal_open)}
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="20"
-				height="20"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				class="feather feather-plus"
-				><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg
-			>
+			<Icon icon="plus" />
 			Add A Card
 		</button>
 	</div>

@@ -4,6 +4,7 @@
 	import supabase from '$lib/db';
 	import { scale } from 'svelte/transition';
 	import Loading from '$lib/components/Loading.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 	import type { studentType } from '$lib/types';
 
 	let students = $studentSearch
@@ -49,57 +50,17 @@
 			on:click|preventDefault={allStudents}
 			class="clear-btn"
 			title="Clear Search"
-			><svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				class="feather feather-x"
-				><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg
-			></button
 		>
+			<Icon icon="x" />
+		</button>
 	{/if}
-	<button type="submit" title="Submit Search"
-		><svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="24"
-			height="24"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class="feather feather-search"
-			><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
-		></button
-	>
+	<button type="submit" title="Submit Search">
+		<Icon icon="search" />
+	</button>
 </form>
 
 <a href="/students/add-student" class="btn mb-2" title="Add A New Students">
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="24"
-		height="24"
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		stroke-width="2"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-		class="feather feather-user-plus"
-		><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="8.5" cy="7" r="4" /><line
-			x1="20"
-			y1="8"
-			x2="20"
-			y2="14"
-		/><line x1="23" y1="11" x2="17" y2="11" /></svg
-	>
+	<Icon icon="user-plus" />
 	<span>New Student</span>
 </a>
 

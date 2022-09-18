@@ -2,6 +2,8 @@
 	import { fade, scale } from 'svelte/transition';
 	import Portal from '$lib/components/Portal.svelte';
 	import { backInOut } from 'svelte/easing';
+	import Icon from './Icon.svelte';
+
 	export let is_open: boolean = false;
 </script>
 
@@ -12,6 +14,9 @@
 
 	<Portal>
 		<div class="card modal-body" transition:scale={{ easing: backInOut, duration: 500 }}>
+			<button class="close-btn" title="close window" on:click={() => (is_open = false)}>
+				<Icon icon="x" size={20} stroke_width={3} />
+			</button>
 			<slot />
 		</div>
 	</Portal>
@@ -35,5 +40,23 @@
 		height: 100%;
 		background: hsl(var(--darkHSL) / 50%);
 		z-index: 1001;
+	}
+
+	.close-btn {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		width: 30px;
+		height: 30px;
+		border-radius: 100px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: var(--dark);
+		transition: all 250ms;
+
+		&:hover {
+			background: var(--red);
+		}
 	}
 </style>
