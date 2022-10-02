@@ -5,15 +5,14 @@
 	import { is_full_screen_loading } from '$store';
 	import Icon from '$lib/components/Icon.svelte';
 	import { toast } from '$toast';
+	import BubbleMenu from '$lib/components/BubbleMenu.svelte';
 
 	export let scanner_cards, student_id;
 	export let pathname: string;
 
 	let is_add_card_modal_open = false;
 
-	async function handleResult({ result }) {
-		console.log(result);
-	}
+	async function removeCard(id) {}
 </script>
 
 <section class="cards-card">
@@ -24,7 +23,8 @@
 				{#each scanner_cards as { id, card_number } (id)}
 					<li class="py-2 flex items-center gap-2 border-b-dark border-b-2">
 						<Icon icon="credit-card" />
-						<span class="text-xl">{card_number}</span>
+						<span class="text-xl flex-1">{card_number}</span>
+						<BubbleMenu options={[{ text: 'Delete Card', callback: () => removeCard(id) }]} />
 					</li>
 				{/each}
 			</ul>

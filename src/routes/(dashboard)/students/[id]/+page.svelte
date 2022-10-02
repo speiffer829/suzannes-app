@@ -31,80 +31,75 @@
 </svelte:head>
 
 <div id="student-grid" class="grid xl:grid-cols-2 gap-8  mt-14">
-	<section id="main-card" class="card">
-		{#await student}
-			<Loading --min-height="600px" />
-		{:then { data, error }}
-			{#if error}
-				<h1 class="pink-underline">This Student Does Not Exist</h1>
-				<a href="/students" class="btn">Back To Students</a>
-			{:else}
-				<h1 class="pink-underline">{data.first_name} {data.last_name}</h1>
-
-				<div class=" mb-4 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
-					<div class="grey-box mb-0">
-						<p class="text-sm">Age</p>
-						<p class="text-2xl sm:text-center">{getAge(data.dob)}</p>
+	<div>
+		<section id="main-card" class="card">
+			{#await student}
+				<Loading --min-height="600px" />
+			{:then { data, error }}
+				{#if error}
+					<h1 class="pink-underline">This Student Does Not Exist</h1>
+					<a href="/students" class="btn">Back To Students</a>
+				{:else}
+					<h1 class="pink-underline">{data.first_name} {data.last_name}</h1>
+					<div class=" mb-4 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+						<div class="grey-box mb-0">
+							<p class="text-sm">Age</p>
+							<p class="text-2xl sm:text-center">{getAge(data.dob)}</p>
+						</div>
+						<div class="grey-box sm:col-span-2 md:col-span-3 mb-0">
+							<p class="text-sm">Grade</p>
+							<p class="text-2xl">
+								{data.grade}
+							</p>
+						</div>
 					</div>
-
-					<div class="grey-box sm:col-span-2 md:col-span-3 mb-0">
-						<p class="text-sm">Grade</p>
-						<p class="text-2xl">
-							{data.grade}
-						</p>
-					</div>
-				</div>
-
-				<div class="grey-box">
-					<p class="text-sm">Date Of Birth</p>
-					<p class="text-2xl">{format(new Date(data.dob), 'MMMM dd, yyyy')}</p>
-				</div>
-
-				<div class="grey-box">
-					<p class="text-sm">Address</p>
-					<address class="text-2xl">
-						{data.address || '--'}<br />
-						{#if data.address}
-							{data.city}, PA {data.zip}
-						{/if}
-					</address>
-				</div>
-
-				<div class="grey-box">
-					<p class="text-sm flex items-center gap-1">Email</p>
-					<p class="text-2xl">{data.email}</p>
-				</div>
-
-				{@const { phones } = data}
-
-				{#if phones.length === 1}
-					{@const phone = phones[0]}
 					<div class="grey-box">
-						<p class="text-sm">Phone {phone.label ? `(${phone.label})` : ''}</p>
-						<p class="text-2xl">{phone.phone}</p>
+						<p class="text-sm">Date Of Birth</p>
+						<p class="text-2xl">{format(new Date(data.dob), 'MMMM dd, yyyy')}</p>
 					</div>
-				{:else if phones.length > 1}
-					<section>
-						<h2 class="text-3xl font-black mb-2 text-center">Phones</h2>
-						<ul class="phones-list">
-							{#each phones as phone (phone.phone_id)}
-								<li>
-									<div class="grey-box">
-										<p class="text-sm flex items-center gap-1">
-											<span class="block">{phone.label ? phone.label : 'Phone'}</span>
-										</p>
-										<p class="text-2xl">{phone.phone}</p>
-									</div>
-								</li>
-							{/each}
-						</ul>
-					</section>
+					<div class="grey-box">
+						<p class="text-sm">Address</p>
+						<address class="text-2xl">
+							{data.address || '--'}<br />
+							{#if data.address}
+								{data.city}, PA {data.zip}
+							{/if}
+						</address>
+					</div>
+					<div class="grey-box">
+						<p class="text-sm flex items-center gap-1">Email</p>
+						<p class="text-2xl">{data.email}</p>
+					</div>
+					{@const { phones } = data}
+					{#if phones.length === 1}
+						{@const phone = phones[0]}
+						<div class="grey-box">
+							<p class="text-sm">Phone {phone.label ? `(${phone.label})` : ''}</p>
+							<p class="text-2xl">{phone.phone}</p>
+						</div>
+					{:else if phones.length > 1}
+						<section>
+							<h2 class="text-3xl font-black mb-2 text-center">Phones</h2>
+							<ul class="phones-list">
+								{#each phones as phone (phone.phone_id)}
+									<li>
+										<div class="grey-box">
+											<p class="text-sm flex items-center gap-1">
+												<span class="block">{phone.label ? phone.label : 'Phone'}</span>
+											</p>
+											<p class="text-2xl">{phone.phone}</p>
+										</div>
+									</li>
+								{/each}
+							</ul>
+						</section>
+					{/if}
 				{/if}
-			{/if}
-		{:catch error}
-			<h1>There Has Been An Error</h1>
-		{/await}
-	</section>
+			{:catch error}
+				<h1>There Has Been An Error</h1>
+			{/await}
+		</section>
+	</div>
 
 	{#await student then { data }}
 		{@const { scanner_cards } = data}
