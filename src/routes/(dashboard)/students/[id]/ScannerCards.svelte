@@ -49,13 +49,14 @@
 		action="?/add_card"
 		use:enhance={() => {
 			$is_full_screen_loading = true;
-			return async (result) => {
+			return async () => {
 				$is_full_screen_loading = false;
 				is_add_card_modal_open = false;
 			};
 		}}
 	>
 		<Input name="card_number" placeholder="12345" label="Card Number" autofocus />
-		<button class="btn" type="submit">Save</button>
+		<input type="hidden" value={student_id} name="sutdent_id" />
+		<button class="btn" type="submit"><Icon icon="plus" /> Add Card</button>
 	</form>
 </Modal>

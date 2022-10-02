@@ -1,17 +1,17 @@
-export type phoneType = {
+export interface phoneType {
 	phone_id: number;
 	student_id: number;
 	phone: string;
 	label: null | string;
-};
+}
 
-export type scannerCardType = {
+export interface scannerCardType {
 	id: number;
 	card_number: number;
 	student_id: number;
-};
+}
 
-export type studentType = {
+export interface studentType {
 	id?: number;
 	first_name?: string;
 	last_name?: string;
@@ -25,4 +25,4 @@ export type studentType = {
 	notes?: string;
 	phones?: phoneType[];
 	scanner_cards?: scannerCardType[];
-};
+}

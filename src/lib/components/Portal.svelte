@@ -1,27 +1,5 @@
 <script>
-	function portal(node) {
-		let target;
-
-		function update() {
-			target = document.querySelector('body')
-			target.appendChild(node)
-			node.hidden = false
-		}
-
-		function destroy() {
-			if(node.parentNode){
-				// Child demands parent to kill it. dark
-				node.parentNode.removeChild(node)
-			}
-		}
-
-		update();
-		
-		return {
-			update,
-			destroy
-		}
-	}
+	import { portal } from '$lib/scripts/portal';
 </script>
 
 <div use:portal hidden>

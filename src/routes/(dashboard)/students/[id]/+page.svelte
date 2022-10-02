@@ -13,7 +13,7 @@
 		.eq('id', $page.params.id)
 		.single();
 
-	function getAge(dob): number {
+	function getAge(dob: string): number {
 		const date = parseISO(dob);
 		const age = differenceInYears(new Date(), date);
 		return age;
@@ -63,8 +63,10 @@
 				<div class="grey-box">
 					<p class="text-sm">Address</p>
 					<address class="text-2xl">
-						{data.address}<br />
-						{data.city}, PA {data.zip}
+						{data.address || '--'}<br />
+						{#if data.address}
+							{data.city}, PA {data.zip}
+						{/if}
 					</address>
 				</div>
 

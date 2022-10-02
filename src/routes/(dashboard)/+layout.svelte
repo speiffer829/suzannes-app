@@ -20,10 +20,6 @@
 		@media screen and (min-width: 1024px) {
 			padding-left: 300px;
 		}
-
-		@media screen and (min-width: 1830px) {
-			padding-left: 0;
-		}
 	}
 
 	main {
