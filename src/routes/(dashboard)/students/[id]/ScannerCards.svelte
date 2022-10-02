@@ -5,6 +5,7 @@
 	import { enhance } from '$app/forms';
 	import { is_full_screen_loading } from '$lib/store';
 	import Icon from '$lib/components/Icon.svelte';
+	import { toast } from '$lib/components/toast/toast';
 
 	export let scanner_cards, student_id;
 	export let pathname: string;
@@ -12,6 +13,10 @@
 	$: console.log(scanner_cards);
 
 	let is_add_card_modal_open = false;
+
+	async function handleResult({ result }) {
+		console.log(result);
+	}
 </script>
 
 <section class="cards-card">
@@ -47,16 +52,21 @@
 	<form
 		method="POST"
 		action="?/add_card"
-		use:enhance={() => {
+		use:enhance={({ form, data, cancel }) => {
 			$is_full_screen_loading = true;
-			return async () => {
+			return async ({ result }) => {
 				$is_full_screen_loading = false;
 				is_add_card_modal_open = false;
+				if (result.type === 'success') {
+					scanner_cards = [...scanner_cards, result.data];
+				} else {
+					toast.send('Uh Oh. There Was An Error');
+				}
 			};
 		}}
 	>
 		<Input name="card_number" placeholder="12345" label="Card Number" autofocus />
-		<input type="hidden" value={student_id} name="sutdent_id" />
+		<input type="hidden" value={student_id} name="student_id" />
 		<button class="btn" type="submit"><Icon icon="plus" /> Add Card</button>
 	</form>
 </Modal>
