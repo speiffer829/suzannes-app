@@ -6,14 +6,14 @@ function newToast() {
 	function send(
 		msg: string,
 		{
-			duration = 3000,
 			color = 'pink',
+			duration = 3000,
 			isPersisting = false
 		}?: {
 			duration?: number;
 			color?: string;
 			isPersisting?: boolean;
-		}
+		} = {}
 	) {
 		const id = Math.floor(Math.random() * 1000);
 		update((state) => [...state, { id, msg, duration, color, isPersisting }]);

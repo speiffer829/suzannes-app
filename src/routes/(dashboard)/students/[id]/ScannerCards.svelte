@@ -6,13 +6,21 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import { toast } from '$toast';
 	import BubbleMenu from '$lib/components/BubbleMenu.svelte';
+	import { flip } from 'svelte/animate';
+	import { fade, slide } from 'svelte/transition';
+	import supabase from '$lib/db';
 
 	export let scanner_cards, student_id;
 	export let pathname: string;
 
 	let is_add_card_modal_open = false;
 
-	async function removeCard(id) {}
+	async function removeCard(id) {
+		const { data, error } = await supabase.from('scanner_cards').delete().eq('id', id);
+		if (!error) {
+			scanner_cards = [...scanner_cards].filter((card) => card.id !== id);
+		}
+	}
 </script>
 
 <section class="cards-card">
@@ -21,10 +29,17 @@
 		{#if scanner_cards.length}
 			<ul class="mt-3">
 				{#each scanner_cards as { id, card_number } (id)}
-					<li class="py-2 flex items-center gap-2 border-b-dark border-b-2">
+					<li
+						class="py-2 flex items-center gap-2 border-b-dark border-b-2"
+						animate:flip
+						in:slide
+						out:fade
+					>
 						<Icon icon="credit-card" />
 						<span class="text-xl flex-1">{card_number}</span>
-						<BubbleMenu options={[{ text: 'Delete Card', callback: () => removeCard(id) }]} />
+						<BubbleMenu
+							options={[{ text: `Delete Card #${card_number}`, callback: () => removeCard(id) }]}
+						/>
 					</li>
 				{/each}
 			</ul>
@@ -54,10 +69,13 @@
 			return async ({ result }) => {
 				$is_full_screen_loading = false;
 				is_add_card_modal_open = false;
+				console.log(result);
+
 				if (result.type === 'success') {
 					scanner_cards = [...scanner_cards, result.data];
-				} else {
-					toast.send('Uh Oh. There Was An Error');
+					toast.send(`Card #${result.data.card_number} Has Been Added!`);
+				} else if (result.type === 'error') {
+					toast.send(`Error: ${result.error.message}`, { duration: 10000, color: 'red' });
 				}
 			};
 		}}
