@@ -1,16 +1,13 @@
 <script lang="ts">
 	import Input from '$lib/components/Input.svelte';
 	import Modal from '$lib/components/Modal.svelte';
-	import supabase from '$lib/db';
 	import { enhance } from '$app/forms';
-	import { is_full_screen_loading } from '$lib/store';
+	import { is_full_screen_loading } from '$store';
 	import Icon from '$lib/components/Icon.svelte';
-	import { toast } from '$lib/components/toast/toast';
+	import { toast } from '$toast';
 
 	export let scanner_cards, student_id;
 	export let pathname: string;
-
-	$: console.log(scanner_cards);
 
 	let is_add_card_modal_open = false;
 
@@ -54,7 +51,6 @@
 		action="?/add_card"
 		use:enhance={({ form, data, cancel }) => {
 			$is_full_screen_loading = true;
-			// @ts-ignore
 			return async ({ result }) => {
 				$is_full_screen_loading = false;
 				is_add_card_modal_open = false;

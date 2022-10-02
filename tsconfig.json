@@ -10,6 +10,8 @@
 		"sourceMap": true,
 		"strict": false,
 		"paths": {
+			"$lib": ["src/lib"],
+			"$lib/*": ["src/lib/*"],
 			"$toast": ["src/lib/components/toast/toast.ts"],
 			"$store": ["src/lib/store.ts"]
 		}

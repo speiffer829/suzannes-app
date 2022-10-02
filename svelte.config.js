@@ -12,7 +12,12 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		alias: {
+			$toast: '/src/lib/components/toast/toast.ts',
+			$store: '/src/lib/store.ts',
+			$types: '/src/lib/types.ts'
+		}
 	}
 };
 
