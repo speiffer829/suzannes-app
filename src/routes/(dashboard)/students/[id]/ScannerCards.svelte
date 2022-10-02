@@ -54,6 +54,7 @@
 		action="?/add_card"
 		use:enhance={({ form, data, cancel }) => {
 			$is_full_screen_loading = true;
+			// @ts-ignore
 			return async ({ result }) => {
 				$is_full_screen_loading = false;
 				is_add_card_modal_open = false;

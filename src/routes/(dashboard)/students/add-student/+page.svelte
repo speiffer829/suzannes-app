@@ -11,13 +11,12 @@
 
 	async function handleSubmit(e) {
 		isLoading = true;
-		toast.send({ msg: 'Saving Student...', color: 'yellow', isPersisting: false });
+		toast.send('Saving Student...', { color: 'yellow', isPersisting: false });
 
 		const data = new FormData(e.target);
 		new Promise((resolve, reject) => {
 			setTimeout(() => {
-				toast.send({
-					msg: `${first_name} ${last_name} Has Been Added!`,
+				toast.send(`${first_name} ${last_name} Has Been Added!`, {
 					color: 'green',
 					isPersisting: false
 				});

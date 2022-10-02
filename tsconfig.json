@@ -8,7 +8,11 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": false
+		"strict": false,
+		"paths": {
+			"$toast": ["src/lib/components/toast/toast.ts"],
+			"$store": ["src/lib/store.ts"]
+		}
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
