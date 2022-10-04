@@ -33,7 +33,7 @@
 						class="py-2 flex items-center gap-2 border-b-dark border-b-2"
 						animate:flip
 						in:slide
-						out:fade
+						out:fade|local
 					>
 						<Icon icon="credit-card" />
 						<span class="text-xl flex-1">{card_number}</span>
@@ -73,7 +73,7 @@
 
 				if (result.type === 'success') {
 					scanner_cards = [...scanner_cards, result.data];
-					toast.send(`Card #${result.data.card_number} Has Been Added!`);
+					toast.send(`Card #${result.data.card_number} Has Been Added!`, { color: 'green' });
 				} else if (result.type === 'error') {
 					toast.send(`Error: ${result.error.message}`, { duration: 10000, color: 'red' });
 				}
