@@ -1,8 +1,8 @@
 export interface phoneType {
 	phone_id: number;
-	student_id: number;
+	student_id?: number;
 	phone: string;
-	label: null | string;
+	label?: null | string;
 }
 
 export interface scannerCardType {

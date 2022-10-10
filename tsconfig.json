@@ -13,7 +13,8 @@
 			"$lib": ["src/lib"],
 			"$lib/*": ["src/lib/*"],
 			"$toast": ["src/lib/components/toast/toast.ts"],
-			"$store": ["src/lib/store.ts"]
+			"$store": ["src/lib/store.ts"],
+			"$types": ["src/lib/types.ts"]
 		}
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias

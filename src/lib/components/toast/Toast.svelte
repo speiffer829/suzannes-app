@@ -29,7 +29,7 @@
 		bottom: 20px;
 		right: 20px;
 		width: min(80%, 300px);
-		z-index: 1001;
+		z-index: 1500;
 	}
 
 	.toast {
