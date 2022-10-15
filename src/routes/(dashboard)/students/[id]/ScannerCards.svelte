@@ -19,6 +19,9 @@
 		const { data, error } = await supabase.from('scanner_cards').delete().eq('id', id);
 		if (!error) {
 			scanner_cards = [...scanner_cards].filter((card) => card.id !== id);
+			toast.send('Card Removed');
+		} else {
+			toast.send('There was an error. Try again', { color: 'red' });
 		}
 	}
 </script>
@@ -50,6 +53,7 @@
 			<p class="text-gray-400 mb-4 text-center">Hit the button to add one.</p>
 		{/if}
 		<button
+			title="Add Scan Card"
 			class="btn small-btn mx-auto mt-4"
 			class:mx-auto={!scanner_cards.length}
 			on:click={() => (is_add_card_modal_open = !is_add_card_modal_open)}

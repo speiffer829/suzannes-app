@@ -3,6 +3,7 @@
 		| 'activity'
 		| 'alert-circle'
 		| 'clipboard'
+		| 'check'
 		| 'clock'
 		| 'credit-card'
 		| 'home'
@@ -72,6 +73,19 @@
 			rx="1"
 			ry="1"
 		/></svg
+	>
+{:else if icon == 'check'}
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width={size}
+		height={size}
+		stroke-width={stroke_width}
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		class="{classes} feather feather-check"><polyline points="20 6 9 17 4 12" /></svg
 	>
 {:else if icon == 'clock'}
 	<svg
