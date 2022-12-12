@@ -6,6 +6,7 @@
 		name: string = null;
 	export let classes: string = null;
 	export let autofocus: boolean = false;
+	export let other_stuff = {};
 </script>
 
 <label class="input">
@@ -19,5 +20,6 @@
 		title={label}
 		class={classes}
 		{autofocus}
+		{...other_stuff}
 	/>
 </label>

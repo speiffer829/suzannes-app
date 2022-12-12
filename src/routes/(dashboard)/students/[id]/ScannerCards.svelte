@@ -11,7 +11,6 @@
 	import supabase from '$lib/db';
 
 	export let scanner_cards, student_id;
-	export let pathname: string;
 
 	let is_add_card_modal_open = false;
 
@@ -84,7 +83,13 @@
 			};
 		}}
 	>
-		<Input name="card_number" placeholder="12345" label="Card Number" autofocus />
+		<Input
+			name="card_number"
+			placeholder="12345"
+			label="Card Number"
+			autofocus
+			other_stuff={{ autocomplete: 'off' }}
+		/>
 		<input type="hidden" value={student_id} name="student_id" />
 		<button class="btn" type="submit"><Icon icon="plus" /> Add Card</button>
 	</form>

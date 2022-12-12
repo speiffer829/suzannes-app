@@ -70,7 +70,7 @@
 	{#if error}
 		<div class="block bg-red rounded-lg p-3">
 			<h2 class="text-center text-2xl">Error</h2>
-			<p>{error}</p>
+			<p>{error.message}</p>
 		</div>
 	{:else}
 		<table id="students-contain">

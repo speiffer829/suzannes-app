@@ -6,6 +6,7 @@
 	import { toast } from '$lib/components/toast/toast';
 	import { scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
+	import { enhance } from '$app/forms';
 
 	let isLoading = false;
 
@@ -13,26 +14,17 @@
 
 	let phoneArr = [1];
 
-	async function handleSubmit(e) {
-		isLoading = true;
-		toast.send('Saving Student...', { color: 'yellow' });
-
-		const data = new FormData(e.target);
-		new Promise<void>((resolve, reject) => {
-			setTimeout(() => {
-				toast.send(`${first_name} ${last_name} Has Been Added!`, {
-					color: 'green',
-					isPersisting: false
-				});
-				isLoading = false;
-				resolve();
-			}, 1000);
-		});
-	}
-
-	function removePhoneGroup(id) {
+	function removePhoneGroup(id): void {
 		phoneArr = [...phoneArr].filter((p) => p !== id);
 	}
+
+	function useRegex(input) {
+		let regex = /phone\[[0-9]+\]/i;
+		return regex.test(input);
+	}
+
+	console.log('test 1', useRegex('phone[1]'));
+	console.log('test 12', useRegex('phoe[1]'));
 </script>
 
 <svelte:head>
@@ -42,9 +34,18 @@
 <Loading fullScreen isShowing={isLoading} />
 
 <div class="max-w-xl">
-	<form on:submit|preventDefault={handleSubmit} autocomplete="off">
+	<form
+		method="POST"
+		autocomplete="off"
+		use:enhance={() => {
+			return async ({ result }) => {
+				// @ts-ignore
+				console.log(result.data);
+			};
+		}}
+	>
 		<div class="card mt-14">
-			<h1 class="pink-underline">Add Student</h1>
+			<h1 class="pink-underline text-4xl font-black">Add Student</h1>
 			<Input name="first_name" label="First Name" bind:value={first_name} />
 			<Input name="last_name" label="Last Name" bind:value={last_name} />
 			<label class="select-label" for="grade">
@@ -74,16 +75,21 @@
 		<!-- PHONE STUFF  -->
 
 		<div class="card mt-14">
-			<h2 class="text-3xl font-black mt-6 text-center -mb-4">Phones</h2>
+			<h2 class="text-3xl font-black mb-6 text-left pink-underline">Phones</h2>
 			{#each phoneArr as phone_item (phone_item)}
-				<div class="phone-group" animate:flip={{ duration: 200 }} transition:scale|local>
+				<fieldset class="phone-group" animate:flip={{ duration: 200 }} transition:scale|local>
 					<label class="input">
 						<span class="w-full block text-lg">Phone Label</span>
-						<input name={`phone-${phone_item}`} type="tel" title="phone" placeholder="Optional" />
+						<input
+							name={`phone-label[${phone_item}]`}
+							type="text"
+							title="phone label"
+							placeholder="Optional"
+						/>
 					</label>
 					<label class="input">
 						<span class="w-full block text-lg">Phone Number</span>
-						<input name={`phone-${phone_item}`} type="tel" title="phone" />
+						<input name={`phone[${phone_item}]`} type="tel" title="phone" />
 					</label>
 					{#if phoneArr.length > 1}
 						<button
@@ -107,7 +113,7 @@
 							>
 						</button>
 					{/if}
-				</div>
+				</fieldset>
 			{/each}
 			<button
 				class="more-btn"

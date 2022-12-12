@@ -1,7 +1,6 @@
 <script>
 	import { scale } from 'svelte/transition';
-	import { page } from '$app/stores';
-	import { navigating } from '$app/stores';
+	import { page, navigating } from '$app/stores';
 	import Icon from '$lib/components/Icon.svelte';
 
 	$: {
@@ -11,6 +10,8 @@
 	}
 
 	let isNavShowing = false;
+
+	console.log($page);
 </script>
 
 <aside
@@ -20,7 +21,7 @@
 	<h2 class="p-6 text-3xl">Hello, <span class="text-pink font-bold">Spenser</span></h2>
 
 	<nav class="p-3">
-		<a href="/" class="px-3 py-1 mb-1" class:active={$page.routeId === '(dashboard)'}>
+		<a href="/" class="px-3 py-1 mb-1" class:active={$page.route.id === '/(dashboard)'}>
 			<Icon icon="home" size={20} />
 			<span>Home</span>
 		</a>
@@ -151,6 +152,7 @@
 			font-size: 20px;
 			border-radius: 100px;
 			margin-bottom: 10px;
+			padding: 10px;
 			transition: all 250ms;
 
 			&:hover {
