@@ -1,7 +1,10 @@
-<script>
+<script lang="ts">
 	import { scale } from 'svelte/transition';
 	import { page, navigating } from '$app/stores';
 	import Icon from '$lib/components/Icon.svelte';
+	import { enhance, type SubmitFunction } from '$app/forms';
+	import supabase from '$lib/db';
+	import { toast } from '$lib/components/toast/toast';
 
 	$: {
 		if ($navigating !== null && isNavShowing) {
@@ -12,6 +15,14 @@
 	let isNavShowing = false;
 
 	console.log($page);
+
+	async function submitLogout({ cancel }) {
+		const { error } = await supabase.auth.signOut();
+		if (error) {
+			toast.send('Logout Error');
+		}
+		cancel();
+	}
 </script>
 
 <aside
@@ -52,10 +63,12 @@
 	</nav>
 
 	<nav class="secondary-nav px-3 py-2 ">
-		<button href="/" class="px-3 py-1">
-			<Icon icon="logout" size={20} />
-			<span>Logout</span>
-		</button>
+		<form action="/logout" method="Post">
+			<button type="submit" class="px-3 py-1">
+				<Icon icon="logout" size={20} />
+				<span>Logout</span>
+			</button>
+		</form>
 	</nav>
 	<button
 		class:active={isNavShowing}

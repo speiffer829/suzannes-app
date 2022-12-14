@@ -1,7 +1,13 @@
-<script>
+<script lang="ts">
+	export let data;
+
+	$: console.log(data);
 </script>
 
 <h1>Welcome to SvelteKit</h1>
 
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<a href="/sign-in">Sign In</a>
+{#if data.session}
+	<h2>you can be here {data.session.user.email}</h2>
+{:else}
+	<h2>You can't be here</h2>
+{/if}

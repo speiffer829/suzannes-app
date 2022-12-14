@@ -3,10 +3,10 @@
 	import Input from '$lib/components/Input.svelte';
 	import Loading from '$lib/components/Loading.svelte';
 	import Icon from '$lib/components/Icon.svelte';
-	import { toast } from '$lib/components/toast/toast';
 	import { scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import { enhance } from '$app/forms';
+	import MaskInput from 'svelte-input-mask/MaskInput.svelte';
 
 	let isLoading = false;
 
@@ -89,7 +89,13 @@
 					</label>
 					<label class="input">
 						<span class="w-full block text-lg">Phone Number</span>
-						<input name={`phone[${phone_item}]`} type="tel" title="phone" />
+						<MaskInput
+							mask="(000) 000-0000"
+							type="tel"
+							title="phone"
+							name={`phone[${phone_item}]`}
+						/>
+						<!-- <input name={`phone[${phone_item}]`} type="tel" title="phone" /> -->
 					</label>
 					{#if phoneArr.length > 1}
 						<button
