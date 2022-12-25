@@ -1,39 +1,26 @@
 <script lang="ts">
 	import { studentSearch } from '$lib/store';
 	import { format } from 'date-fns';
-	import supabase from '$lib/db';
 	import { scale } from 'svelte/transition';
-	import Loading from '$lib/components/Loading.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import type { studentType } from '$lib/types';
+	import type { PageData } from './$types';
+	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
 
-	let students = $studentSearch
-		? supabase.rpc<studentType>('fuzzy_search', { search_string: $studentSearch })
-		: supabase
-				.from<studentType>('students')
-				.select('*')
-				.order('last_name', { ascending: true })
-				.limit(100);
+	export let data: PageData;
+	$: ({ students } = data);
 
-	async function searchStudents() {
-		if ($studentSearch === '') {
-			students = supabase
-				.from<studentType>('students')
-				.select('*')
-				.order('last_name', { ascending: true })
-				.limit(100);
-			return;
-		}
-		students = supabase.rpc<studentType>('fuzzy_search', { search_string: $studentSearch });
-	}
+	let search_form;
 
-	async function allStudents() {
-		$studentSearch = '';
-		students = supabase
-			.from('students')
-			.select('*')
-			.order('last_name', { ascending: true })
-			.limit(100);
+	async function searchStudents() {}
+
+	async function allStudents() {}
+
+	function searchHandle() {
+		return ({ result }) => {
+			data = result.data;
+		};
 	}
 </script>
 
@@ -41,8 +28,8 @@
 	<title>Students | SuzApp</title>
 </svelte:head>
 
-<form on:submit|preventDefault={searchStudents}>
-	<input type="text" bind:value={$studentSearch} placeholder="Search Students" />
+<form bind:this={search_form} method="POST" action="?/search" use:enhance={searchHandle}>
+	<input type="text" name="search" bind:value={$studentSearch} placeholder="Search Students" />
 	{#if $studentSearch}
 		<!-- content here -->
 		<button
@@ -65,59 +52,42 @@
 	<span>New Student</span>
 </a>
 
-{#await students}
-	<Loading style="min-height: 500px;" />
-{:then { data, error }}
-	{#if error}
-		<div class="block bg-red rounded-lg p-3">
-			<h2 class="text-center text-2xl">Error</h2>
-			<p>{error.message}</p>
-		</div>
-	{:else}
-		<table id="students-contain">
-			<thead>
-				<tr>
-					<td>Name</td>
-					<td>D.O.B.</td>
-					<td>Grade</td>
-				</tr>
-			</thead>
-			<tbody>
-				{#each data as student (student.id)}
-					<tr>
-						<td
-							><a
-								href={`/students/${student.id}`}
-								title={`View ${student.first_name} ${student.last_name}'s Profile`}
-								>{student.first_name} <strong>{student.last_name}</strong></a
-							></td
-						>
-						<!-- <td><a href={`/students/${student.id}`}>{student.dob}</a></td> -->
-						<td
-							><a
-								href={`/students/${student.id}`}
-								title={`View ${student.first_name} ${student.last_name}'s Profile`}
-								>{format(new Date(student.dob), 'MM/dd/yyyy')}</a
-							></td
-						>
-						<td
-							><a
-								href={`/students/${student.id}`}
-								title={`View ${student.first_name} ${student.last_name}'s Profile`}
-								>{student.grade}</a
-							></td
-						>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	{/if}
-{:catch error}
-	<h1>Uh oh!</h1>
-	<pre>
-			{error}
-		</pre>
-{/await}
+<table id="students-contain">
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>D.O.B.</td>
+			<td>Grade</td>
+		</tr>
+	</thead>
+	<tbody>
+		{#each students as student (student.id)}
+			<tr>
+				<td
+					><a
+						href={`/students/${student.id}`}
+						title={`View ${student.first_name} ${student.last_name}'s Profile`}
+						>{student.first_name} <strong>{student.last_name}</strong></a
+					></td
+				>
+				<!-- <td><a href={`/students/${student.id}`}>{student.dob}</a></td> -->
+				<td
+					><a
+						href={`/students/${student.id}`}
+						title={`View ${student.first_name} ${student.last_name}'s Profile`}
+						>{format(new Date(student.dob), 'MM/dd/yyyy')}</a
+					></td
+				>
+				<td
+					><a
+						href={`/students/${student.id}`}
+						title={`View ${student.first_name} ${student.last_name}'s Profile`}>{student.grade}</a
+					></td
+				>
+			</tr>
+		{/each}
+	</tbody>
+</table>
 
 <style lang="scss">
 	table {
