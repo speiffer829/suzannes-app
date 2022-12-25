@@ -14,8 +14,6 @@
 
 	let isNavShowing = false;
 
-	console.log($page);
-
 	async function submitLogout({ cancel }) {
 		const { error } = await supabase.auth.signOut();
 		if (error) {

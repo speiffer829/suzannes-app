@@ -5,7 +5,6 @@ import type { Actions } from './$types';
 export const actions: Actions = {
 	register: async ({ request, locals }) => {
 		const body = Object.fromEntries(await request.formData());
-		console.log('locals.sb', locals.sb);
 
 		const { data, error: err } = await locals.sb.auth.signUp({
 			email: body.email as string,

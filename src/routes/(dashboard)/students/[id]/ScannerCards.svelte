@@ -72,7 +72,6 @@
 			return async ({ result }) => {
 				$is_full_screen_loading = false;
 				is_add_card_modal_open = false;
-				console.log(result);
 
 				if (result.type === 'success') {
 					scanner_cards = [...scanner_cards, result.data];

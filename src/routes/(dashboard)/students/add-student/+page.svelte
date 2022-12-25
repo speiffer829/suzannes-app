@@ -22,9 +22,6 @@
 		let regex = /phone\[[0-9]+\]/i;
 		return regex.test(input);
 	}
-
-	console.log('test 1', useRegex('phone[1]'));
-	console.log('test 12', useRegex('phoe[1]'));
 </script>
 
 <svelte:head>
