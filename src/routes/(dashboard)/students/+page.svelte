@@ -26,7 +26,13 @@
 </svelte:head>
 
 <form bind:this={search_form} method="GET">
-	<input type="text" name="search" bind:value={$studentSearch} placeholder="Search Students" />
+	<input
+		type="text"
+		name="search"
+		bind:value={$studentSearch}
+		placeholder="Search Students"
+		autocomplete="off"
+	/>
 	{#if $studentSearch}
 		<button
 			value="clear"
