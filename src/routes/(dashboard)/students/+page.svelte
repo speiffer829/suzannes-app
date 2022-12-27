@@ -1,26 +1,23 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { studentSearch } from '$lib/store';
 	import { format } from 'date-fns';
 	import { scale } from 'svelte/transition';
 	import Icon from '$lib/components/Icon.svelte';
-	import type { studentType } from '$lib/types';
 	import type { PageData } from './$types';
-	import { enhance } from '$app/forms';
-	import { onMount } from 'svelte';
+	import { invalidateAll, goto } from '$app/navigation';
 
 	export let data: PageData;
 	$: ({ students } = data);
 
 	let search_form;
 
-	async function searchStudents() {}
+	async function allStudents() {
+		$studentSearch = '';
+		$page.url.searchParams.delete('search');
 
-	async function allStudents() {}
-
-	function searchHandle() {
-		return ({ result }) => {
-			data = result.data;
-		};
+		$page.url.searchParams.set('search', 'foo');
+		goto('/students');
 	}
 </script>
 
@@ -28,11 +25,11 @@
 	<title>Students | SuzApp</title>
 </svelte:head>
 
-<form bind:this={search_form} method="POST" action="?/search" use:enhance={searchHandle}>
+<form bind:this={search_form} method="GET">
 	<input type="text" name="search" bind:value={$studentSearch} placeholder="Search Students" />
 	{#if $studentSearch}
-		<!-- content here -->
 		<button
+			value="clear"
 			transition:scale|local={{ duration: 250 }}
 			type="button"
 			on:click|preventDefault={allStudents}
