@@ -9,8 +9,11 @@
 	import { flip } from 'svelte/animate';
 	import { fade, slide } from 'svelte/transition';
 	import supabase from '$lib/db';
+	import { invalidateAll } from '$app/navigation';
 
 	export let scanner_cards, student_id;
+	export let form;
+	$: console.log(form);
 
 	let is_add_card_modal_open = false;
 
@@ -22,6 +25,22 @@
 		} else {
 			toast.send('There was an error. Try again', { color: 'red' });
 		}
+	}
+
+	async function handleForm({}) {
+		$is_full_screen_loading = true;
+		return async ({ result }) => {
+			$is_full_screen_loading = false;
+			is_add_card_modal_open = false;
+			console.log(result);
+
+			if (result.type === 'success') {
+				invalidateAll();
+				toast.send(`Card #${result.data.card_number} Has Been Added!`, { color: 'green' });
+			} else if (result.type === 'error') {
+				toast.send(`Error: ${result.error.message}`, { duration: 10000, color: 'red' });
+			}
+		};
 	}
 </script>
 
@@ -64,24 +83,7 @@
 </section>
 
 <Modal bind:is_open={is_add_card_modal_open}>
-	<form
-		method="POST"
-		action="?/add_card"
-		use:enhance={({ form, data, cancel }) => {
-			$is_full_screen_loading = true;
-			return async ({ result }) => {
-				$is_full_screen_loading = false;
-				is_add_card_modal_open = false;
-
-				if (result.type === 'success') {
-					scanner_cards = [...scanner_cards, result.data];
-					toast.send(`Card #${result.data.card_number} Has Been Added!`, { color: 'green' });
-				} else if (result.type === 'error') {
-					toast.send(`Error: ${result.error.message}`, { duration: 10000, color: 'red' });
-				}
-			};
-		}}
-	>
+	<form method="POST" action="?/add_card" use:enhance={handleForm}>
 		<Input
 			name="card_number"
 			placeholder="12345"

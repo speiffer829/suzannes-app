@@ -8,6 +8,7 @@
 	import ScannerCards from './ScannerCards.svelte';
 	import type { PageData } from './$types';
 
+	export let form;
 	export let data: PageData;
 	$: ({ student } = data);
 	$: ({ phones, scanner_cards } = student);
@@ -82,7 +83,7 @@
 		</section>
 	</div>
 
-	<ScannerCards {scanner_cards} student_id={student.id} />
+	<ScannerCards {scanner_cards} student_id={student.id} bind:form />
 </div>
 
 <style lang="scss">
