@@ -41,13 +41,15 @@ export const actions = {
 			console.log(checked_stuff);
 
 			if (formObj.card_number.length !== 5) {
-				throw error(400, 'Card Length Should Be 5 Numbers');
+				return fail(500, 'Card Length Should Be 5 Numbers');
 			}
 
 			const { data: new_card, error: err } = await supabase
 				.from('scanner_cards')
-				.insert([formObj])
-				.single();
+				.upsert(formObj, { ignoreDuplicates: true, onConflict: 'card_number' });
+
+			console.log('new_card', new_card);
+			console.log('err', err);
 			if (err) {
 				throw error('Supabase Error', err);
 			}
@@ -57,11 +59,8 @@ export const actions = {
 			return { ...new_card };
 		} catch (err) {
 			console.error('err', err);
-			const { fieldErrors: errors } = err.flatten();
-			return {
-				data: formObj,
-				errors
-			};
+			return fail(500, err);
+			// const { fieldErrors: errors } = err.flatten();
 		}
 	}
 };

@@ -43,13 +43,13 @@
 	>
 		<div class="card mt-14">
 			<h1 class="pink-underline text-4xl font-black">Add Student</h1>
-			<Input name="first_name" label="First Name" bind:value={first_name} />
-			<Input name="last_name" label="Last Name" bind:value={last_name} />
+			<Input name="first_name" label="First Name" />
+			<Input name="last_name" label="Last Name" />
 			<label class="select-label" for="grade">
 				<span>Grade</span>
 			</label>
-			<select name="grade" id="grade" bind:value={grade} tabindex="0" title="Grade">
-				<option value="Select Grade" disabled checked>Select Grade</option>
+			<select name="grade" id="grade" tabindex="0" title="Grade">
+				<option value="Select Grade" disabled selected>Select Grade</option>
 				<option value="Pre">Pre</option>
 				<option value="Kindergarden">Kindergarden</option>
 				<option value="1st Grade">1st Grade</option>
@@ -86,13 +86,8 @@
 					</label>
 					<label class="input">
 						<span class="w-full block text-lg">Phone Number</span>
-						<MaskInput
-							mask="(000) 000-0000"
-							type="tel"
-							title="phone"
-							name={`phone[${phone_item}]`}
-						/>
-						<!-- <input name={`phone[${phone_item}]`} type="tel" title="phone" /> -->
+
+						<input name={`phone[${phone_item}]`} type="tel" title="phone" />
 					</label>
 					{#if phoneArr.length > 1}
 						<button

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { studentSearch } from '$lib/store';
 	import { format } from 'date-fns';
 	import { scale } from 'svelte/transition';
 	import Icon from '$lib/components/Icon.svelte';
@@ -11,12 +10,12 @@
 	$: ({ students } = data);
 
 	let search_form;
+	let student_search = $page.url.searchParams.get('search') || '';
 
 	async function allStudents() {
-		$studentSearch = '';
+		student_search = '';
 		$page.url.searchParams.delete('search');
 
-		$page.url.searchParams.set('search', 'foo');
 		goto('/students');
 	}
 </script>
@@ -29,11 +28,11 @@
 	<input
 		type="text"
 		name="search"
-		bind:value={$studentSearch}
+		bind:value={student_search}
 		placeholder="Search Students"
 		autocomplete="off"
 	/>
-	{#if $studentSearch}
+	{#if student_search}
 		<button
 			value="clear"
 			transition:scale|local={{ duration: 250 }}

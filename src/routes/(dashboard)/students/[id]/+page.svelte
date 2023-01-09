@@ -7,9 +7,11 @@
 	import { parseISO, differenceInYears } from 'date-fns';
 	import ScannerCards from './ScannerCards.svelte';
 	import type { PageData } from './$types';
+	import Icon from '$lib/components/Icon.svelte';
 
 	export let form;
 	export let data: PageData;
+	let student: studentType;
 	$: ({ student } = data);
 	$: ({ phones, scanner_cards } = student);
 
@@ -18,13 +20,61 @@
 		const age = differenceInYears(new Date(), date);
 		return age;
 	}
+
+	function handlePrint() {
+		//TODO: Print functionality
+	}
 </script>
 
 <svelte:head>
 	<title>{student.first_name} {student.last_name}</title>
 </svelte:head>
 
-<div id="student-grid" class="grid xl:grid-cols-2 gap-8  mt-14">
+<div id="student-grid" class="page-grid gap-8  mt-14">
+	<div class="btn-panel">
+		<div class="sticky">
+			<div class="absolute">
+				<a href="/students" title="Go Back To Students">
+					<span class="icon">
+						<Icon icon="arrow-left" />
+					</span>
+					<span class="text">Go Back</span>
+				</a>
+				<a
+					href={`/students/${student.id}/edit`}
+					style="--color: var(--green)"
+					title={`Edit ${student.first_name}`}
+				>
+					<span class="icon">
+						<Icon icon="edit" />
+					</span>
+					<span class="text">Edit {student.first_name}</span>
+				</a>
+				<button
+					on:click={handlePrint}
+					style="--color: var(--yellow)"
+					title={`Print ${student.first_name}`}
+				>
+					<span class="icon">
+						<Icon icon="printer" />
+					</span>
+					<span class="text">Print {student.first_name}</span>
+				</button>
+				{#if student.active}
+					<button
+						on:click={handlePrint}
+						style="--color: var(--red)"
+						title={`Archive ${student.first_name}`}
+					>
+						<span class="icon">
+							<Icon icon="trash" />
+						</span>
+						<span class="text">Archive {student.first_name}</span>
+					</button>
+				{/if}
+			</div>
+		</div>
+	</div>
 	<div>
 		<section id="main-card" class="card">
 			<h1 class="pink-underline">{student.first_name} {student.last_name}</h1>
@@ -95,6 +145,19 @@
 		}
 	}
 
+	.page-grid {
+		display: grid;
+		grid-template-columns: 45px 1fr;
+
+		.btn-panel {
+			grid-row: 1/-3;
+		}
+
+		@media screen and (min-width: 1250px) {
+			grid-template-columns: 45px 1fr 1fr;
+		}
+	}
+
 	h1 {
 		position: relative;
 		font-weight: 900;
@@ -119,5 +182,51 @@
 	.phones-list {
 		list-style: none;
 		padding: 0;
+	}
+
+	.btn-panel {
+		position: relative;
+		z-index: 100;
+		.absolute {
+			width: 45px;
+			transition: width 300ms;
+			z-index: 100;
+
+			&:hover {
+				width: 200px;
+			}
+		}
+		button,
+		a {
+			--color: var(--pink);
+			width: 100%;
+			overflow: hidden;
+			background: var(--color);
+			display: block;
+			white-space: nowrap;
+			border-radius: 16px;
+			box-shadow: var(--shadow);
+			display: flex;
+			padding: 10px 10px 10px 0;
+			margin-bottom: 15px;
+			transition: background 250ms, color 250ms;
+
+			&:hover {
+				background: var(--dark);
+				color: var(--color);
+			}
+
+			.icon {
+				flex: 0 0 45px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.text {
+				width: fit-content;
+				white-space: nowrap;
+			}
+		}
 	}
 </style>

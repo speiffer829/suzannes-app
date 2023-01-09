@@ -38,7 +38,7 @@
 				invalidateAll();
 				toast.send(`Card #${result.data.card_number} Has Been Added!`, { color: 'green' });
 			} else if (result.type === 'error') {
-				toast.send(`Error: ${result.error.message}`, { duration: 10000, color: 'red' });
+				toast.send(`Error: ${result.error.details}`, { duration: 10000, color: 'red' });
 			}
 		};
 	}
