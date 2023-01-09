@@ -170,7 +170,14 @@
 				background: hsl(0 0% 100% / 15%);
 			}
 
+			&:active {
+				// transition: background 0ms, transform 250ms;
+				// background: var(--periwinkle);
+				transform: scale(0.9);
+			}
+
 			&.active {
+				transition: all 0ms;
 				background: var(--pink);
 				color: var(--dark);
 			}
