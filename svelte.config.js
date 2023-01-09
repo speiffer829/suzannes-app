@@ -7,16 +7,17 @@ const config = {
 	// for more information about preprocessors
 	preprocess: [
 		preprocess({
-			scss: {
-				prependData: '@use "src/variables.scss" as *;'
-			},
-
 			postcss: true
 		})
 	],
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		alias: {
+			$toast: '/src/lib/components/toast/toast.ts',
+			$store: '/src/lib/store.ts',
+			$types: '/src/lib/types.ts'
+		}
 	}
 };
 
