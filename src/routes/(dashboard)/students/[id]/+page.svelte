@@ -1,9 +1,6 @@
 <script lang="ts">
 	import type { studentType } from '$lib/types';
 	import { format } from 'date-fns';
-	import { page } from '$app/stores';
-	import supabase from '$lib/db';
-	import Loading from '$lib/components/Loading.svelte';
 	import { parseISO, differenceInYears } from 'date-fns';
 	import ScannerCards from './ScannerCards.svelte';
 	import type { PageData } from './$types';
@@ -48,7 +45,7 @@
 					<span class="icon">
 						<Icon icon="edit" />
 					</span>
-					<span class="text">Edit {student.first_name}</span>
+					<span class="text">Edit Student</span>
 				</a>
 				<button
 					on:click={handlePrint}
@@ -58,7 +55,7 @@
 					<span class="icon">
 						<Icon icon="printer" />
 					</span>
-					<span class="text">Print {student.first_name}</span>
+					<span class="text">Print Student</span>
 				</button>
 				{#if student.active}
 					<button
@@ -69,7 +66,7 @@
 						<span class="icon">
 							<Icon icon="trash" />
 						</span>
-						<span class="text">Archive {student.first_name}</span>
+						<span class="text">Archive Student</span>
 					</button>
 				{/if}
 			</div>
@@ -203,7 +200,7 @@
 			overflow: hidden;
 			background: var(--color);
 			display: block;
-			white-space: nowrap;
+			// white-space: nowrap;
 			border-radius: 16px;
 			box-shadow: var(--shadow);
 			display: flex;
@@ -225,6 +222,7 @@
 
 			.text {
 				width: fit-content;
+				text-align: left;
 				white-space: nowrap;
 			}
 		}

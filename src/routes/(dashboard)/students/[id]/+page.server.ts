@@ -3,23 +3,6 @@ import { error, fail } from '@sveltejs/kit';
 import type { scannerCardType } from '$types';
 import { z } from 'zod';
 
-export const load: PageLoad = async ({ params }) => {
-	const { id } = params;
-	const { data: student, error: err } = await supabase
-		.from<studentType>('students')
-		.select(`*, phones(*), scanner_cards(*)`)
-		.eq('id', id)
-		.single();
-
-	if (err) {
-		throw fail(err);
-	}
-
-	return {
-		student
-	};
-};
-
 //ZOD Stuff
 const registerSchema = z.object({
 	card_number: z
