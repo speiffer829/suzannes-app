@@ -5,8 +5,6 @@ import { fail } from '@sveltejs/kit';
 export const load: PageLoad = async ({ url }) => {
 	const search = url.searchParams.get('search');
 
-	console.log('search', search);
-
 	if (search) {
 		const { data, error: err } = await supabase.rpc<studentType>('fuzzy_search', {
 			search_string: search
