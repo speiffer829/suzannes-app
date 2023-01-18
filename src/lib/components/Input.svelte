@@ -21,7 +21,6 @@
 			{disabled}
 			title={label}
 			class={classes}
-			{autofocus}
 			{...other_stuff}
 		/>
 	{:else if type === 'email'}
@@ -33,7 +32,6 @@
 			{disabled}
 			title={label}
 			class={classes}
-			{autofocus}
 			{...other_stuff}
 		/>
 	{:else if type === 'password'}
@@ -45,7 +43,6 @@
 			{disabled}
 			title={label}
 			class={classes}
-			{autofocus}
 			{...other_stuff}
 		/>
 	{/if}

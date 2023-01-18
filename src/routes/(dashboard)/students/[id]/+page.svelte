@@ -151,7 +151,7 @@
 		}
 
 		@media screen and (min-width: 1250px) {
-			grid-template-columns: 45px 1fr 1fr;
+			grid-template-columns: 45px 1fr 375px;
 		}
 	}
 
@@ -162,6 +162,7 @@
 		text-align: center;
 		padding: 10px;
 		margin-bottom: 30px;
+		line-height: 1;
 
 		&::after {
 			content: '';

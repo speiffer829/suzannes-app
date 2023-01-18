@@ -9,6 +9,8 @@
 	export let data: PageData;
 	$: ({ students } = data);
 
+	let search_input;
+
 	let search_form;
 	let student_search = $page.url.searchParams.get('search') || '';
 
@@ -18,7 +20,16 @@
 
 		goto('/students');
 	}
+
+	function handleHotKey(e: KeyboardEvent) {
+		if (e.metaKey && e.key === 'k') {
+			search_input.focus();
+			search_input.select();
+		}
+	}
 </script>
+
+<svelte:window on:keydown={handleHotKey} />
 
 <svelte:head>
 	<title>Students | SuzApp</title>
@@ -28,8 +39,9 @@
 	<input
 		type="text"
 		name="search"
+		bind:this={search_input}
 		bind:value={student_search}
-		placeholder="Search Students"
+		placeholder="Search Students (⌘ + k)"
 		autocomplete="off"
 	/>
 	{#if student_search}

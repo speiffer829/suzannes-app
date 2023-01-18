@@ -6,7 +6,7 @@
 <div id="page" class="pt-16 lg:pt-0">
 	<Sidebar />
 	<main>
-		<Breadcrumbs />
+		<!-- <Breadcrumbs /> -->
 		<slot />
 	</main>
 </div>

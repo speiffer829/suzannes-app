@@ -45,6 +45,7 @@
 			<h1 class="pink-underline text-4xl font-black">Add Student</h1>
 			<Input name="first_name" label="First Name" />
 			<Input name="last_name" label="Last Name" />
+			<Input name="something" label="Something" />
 			<label class="select-label" for="grade">
 				<span>Grade</span>
 			</label>

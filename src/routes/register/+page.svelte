@@ -12,7 +12,10 @@
 		<Input label="Email" type="email" name="email" />
 		<Input label="Password" type="password" name="password" />
 
-		<button class="btn" type="submit">Submit</button>
+		<div class="flex justify-between items-end">
+			<button class="btn" type="submit">Submit</button>
+			<a class="text-pink underline" href="/login">Login</a>
+		</div>
 	</form>
 </div>
 
