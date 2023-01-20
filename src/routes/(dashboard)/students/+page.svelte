@@ -164,7 +164,7 @@
 			background: var(--pink);
 			color: var(--dark);
 			padding: 12px 12px;
-			border-radius: 12px;
+			border-radius: 16px;
 			position: absolute;
 			right: 15px;
 			top: 50%;

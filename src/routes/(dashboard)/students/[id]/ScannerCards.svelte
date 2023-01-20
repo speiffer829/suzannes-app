@@ -76,7 +76,7 @@
 			class:mx-auto={!scanner_cards.length}
 			on:click={() => (is_add_card_modal_open = !is_add_card_modal_open)}
 		>
-			<Icon icon="plus" />
+			<Icon icon="plus" size={20} />
 			Add A Card
 		</button>
 	</div>
