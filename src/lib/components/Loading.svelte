@@ -1,32 +1,9 @@
 <script lang="ts">
+	import { teleport } from '$lib/helpers/teleport';
+
 	export let style: string = '';
 	export let fullScreen: boolean = false;
 	export let isShowing: boolean = true;
-
-	function teleport(node) {
-		if (fullScreen === false) return;
-		let target;
-
-		function update() {
-			target = document.querySelector('body');
-			target.appendChild(node);
-			node.hidden = false;
-		}
-
-		function destroy() {
-			if (node.parentNode) {
-				// Child demands parent to kill it. dark
-				node.parentNode.removeChild(node);
-			}
-		}
-
-		update();
-
-		return {
-			update,
-			destroy
-		};
-	}
 </script>
 
 {#if isShowing}
