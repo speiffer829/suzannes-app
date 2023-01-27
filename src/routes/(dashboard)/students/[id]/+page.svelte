@@ -29,8 +29,8 @@
 
 <div id="student-grid" class="page-grid gap-8  mt-14">
 	<div class="btn-panel">
-		<div class="sticky">
-			<div class="absolute">
+		<div class="sticky z-10 top-10">
+			<div class="absolute z-10 isolate">
 				<a href="/students" title="Go Back To Students">
 					<span class="icon">
 						<Icon icon="arrow-left" />
@@ -184,7 +184,7 @@
 
 	.btn-panel {
 		position: relative;
-		z-index: 100;
+		z-index: 40;
 		.absolute {
 			width: 45px;
 			transition: width 300ms;

@@ -1,4 +1,4 @@
-export function teleport(node) {
+export function teleport(node, { fullScreen = true } = {}) {
 	if (fullScreen === false) return;
 	let target;
 

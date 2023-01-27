@@ -13,7 +13,6 @@
 
 	export let scanner_cards, student_id;
 	export let form;
-	$: console.log(form);
 
 	let is_add_card_modal_open = false;
 
