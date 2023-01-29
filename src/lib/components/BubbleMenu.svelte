@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Icon from './Icon.svelte';
 	import { fly, slide, scale } from 'svelte/transition';
 	import { backIn, backInOut, backOut } from 'svelte/easing';
+	import { MoreHorizontal } from 'lucide-svelte';
 
 	interface optionType {
 		text: string;
@@ -24,7 +24,7 @@
 
 <div class="bubble-menu-contain" bind:this={this_bubble}>
 	<button class="circle-btn" title="Show Options" on:click={() => (is_open = !is_open)}>
-		<Icon icon="more" size={20} />
+		<MoreHorizontal size={20} />
 	</button>
 
 	{#if is_open}

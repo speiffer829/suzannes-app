@@ -3,13 +3,13 @@
 	import Modal from '$lib/components/Modal.svelte';
 	import { enhance } from '$app/forms';
 	import { is_full_screen_loading } from '$store';
-	import Icon from '$lib/components/Icon.svelte';
 	import { toast } from '$toast';
 	import BubbleMenu from '$lib/components/BubbleMenu.svelte';
 	import { flip } from 'svelte/animate';
 	import { fade, slide } from 'svelte/transition';
 	import supabase from '$lib/db';
 	import { invalidateAll } from '$app/navigation';
+	import { CreditCard, Plus } from 'lucide-svelte';
 
 	export let scanner_cards, student_id;
 	export let form;
@@ -55,7 +55,7 @@
 						in:slide
 						out:fade|local
 					>
-						<Icon icon="credit-card" />
+						<CreditCard />
 						<span class="text-xl flex-1">{card_number}</span>
 						<BubbleMenu
 							options={[{ text: `Delete Card #${card_number}`, callback: () => removeCard(id) }]}
@@ -75,7 +75,7 @@
 			class:mx-auto={!scanner_cards.length}
 			on:click={() => (is_add_card_modal_open = !is_add_card_modal_open)}
 		>
-			<Icon icon="plus" size={20} />
+			<Plus size={20} />
 			Add A Card
 		</button>
 	</div>
@@ -91,6 +91,6 @@
 			other_stuff={{ autocomplete: 'off' }}
 		/>
 		<input type="hidden" value={student_id} name="student_id" />
-		<button class="btn" type="submit"><Icon icon="plus" /> Add Card</button>
+		<button class="btn" type="submit"><Plus /> Add Card</button>
 	</form>
 </Modal>

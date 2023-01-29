@@ -4,7 +4,7 @@
 	import { parseISO, differenceInYears } from 'date-fns';
 	import ScannerCards from './ScannerCards.svelte';
 	import type { PageData } from './$types';
-	import Icon from '$lib/components/Icon.svelte';
+	import { ArrowLeft, Edit, Printer, Trash2 } from 'lucide-svelte';
 
 	export let form;
 	export let data: PageData;
@@ -33,7 +33,7 @@
 			<div class="absolute z-10 isolate">
 				<a href="/students" title="Go Back To Students">
 					<span class="icon">
-						<Icon icon="arrow-left" />
+						<ArrowLeft />
 					</span>
 					<span class="text">Go Back</span>
 				</a>
@@ -43,7 +43,7 @@
 					title={`Edit ${student.first_name}`}
 				>
 					<span class="icon">
-						<Icon icon="edit" />
+						<Edit />
 					</span>
 					<span class="text">Edit Student</span>
 				</a>
@@ -53,7 +53,7 @@
 					title={`Print ${student.first_name}`}
 				>
 					<span class="icon">
-						<Icon icon="printer" />
+						<Printer />
 					</span>
 					<span class="text">Print Student</span>
 				</button>
@@ -64,7 +64,7 @@
 						title={`Archive ${student.first_name}`}
 					>
 						<span class="icon">
-							<Icon icon="trash" />
+							<Trash2 />
 						</span>
 						<span class="text">Archive Student</span>
 					</button>

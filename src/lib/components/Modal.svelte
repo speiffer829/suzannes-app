@@ -2,7 +2,7 @@
 	import { fade, scale } from 'svelte/transition';
 	import Portal from '$lib/components/Portal.svelte';
 	import { backInOut } from 'svelte/easing';
-	import Icon from './Icon.svelte';
+	import { X } from 'lucide-svelte';
 
 	export let is_open: boolean = false;
 
@@ -17,7 +17,7 @@
 	<div class="overlay" on:click|self={() => (is_open = false)}>
 		<div class="card modal-body" transition:scale={{ easing: backInOut, duration: 500 }}>
 			<button class="close-btn" title="close window" on:click={() => (is_open = false)}>
-				<Icon icon="x" size={20} stroke_width={3} />
+				<X size={20} strokeWidth={3} />
 			</button>
 			<slot />
 		</div>

@@ -2,11 +2,11 @@
 	import DateInput from '$lib/components/DateInput.svelte';
 	import Input from '$lib/components/Input.svelte';
 	import Loading from '$lib/components/Loading.svelte';
-	import Icon from '$lib/components/Icon.svelte';
 	import { scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import { enhance } from '$app/forms';
 	import MaskInput from 'svelte-input-mask/MaskInput.svelte';
+	import { Plus, Check } from 'lucide-svelte';
 
 	let isLoading = false;
 
@@ -118,14 +118,14 @@
 				type="button"
 				on:click={() => (phoneArr = [...phoneArr, Math.round(Math.random() * 100)])}
 			>
-				<Icon icon="plus" />
+				<Plus />
 				<span class="block color-pink">Add Another Phone</span>
 			</button>
 		</div>
 
 		<div class="flex justify-end pb-10">
 			<button class="btn save-btn mt-16" type="submit">
-				<Icon icon="check" />
+				<Check />
 				Save Student
 			</button>
 		</div>

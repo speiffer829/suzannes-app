@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { scale } from 'svelte/transition';
 	import { page, navigating } from '$app/stores';
-	import Icon from '$lib/components/Icon.svelte';
 	import { enhance, type SubmitFunction } from '$app/forms';
 	import supabase from '$lib/db';
 	import { toast } from '$lib/components/toast/toast';
+	import { Home, Users, Clipboard, Clock, Settings, LogOut } from 'lucide-svelte';
 
 	$: {
 		if ($navigating !== null && isNavShowing) {
@@ -31,15 +31,15 @@
 
 	<nav class="p-3">
 		<a href="/" class="px-3 py-1 mb-1" class:active={$page.route.id === '/(dashboard)'}>
-			<Icon icon="home" size={20} />
+			<Home size={20} />
 			<span>Home</span>
 		</a>
 		<a href="/students" class="px-3 py-1" class:active={$page.url.pathname.includes('/students')}>
-			<Icon icon="user" size={20} />
+			<Users size={20} />
 			<span>Students</span>
 		</a>
 		<a href="/classes" class="px-3 py-1" class:active={$page.url.pathname.includes('/classes')}>
-			<Icon icon="clipboard" size={20} />
+			<Clipboard size={20} />
 			<span>Classes</span>
 		</a>
 		<a
@@ -47,7 +47,7 @@
 			class="px-3 py-1"
 			class:active={$page.url.pathname.includes('/time-sheets')}
 		>
-			<Icon icon="clock" size={20} />
+			<Clock size={20} />
 			<span>Time Sheets</span>
 		</a>
 		<a
@@ -55,7 +55,7 @@
 			class="px-3 py-1"
 			class:active={$page.url.pathname.includes('/my-account')}
 		>
-			<Icon icon="settings" size={20} />
+			<Settings size={20} />
 			<span>My Account</span>
 		</a>
 	</nav>
@@ -63,7 +63,7 @@
 	<nav class="secondary-nav px-3 py-2 ">
 		<form action="/logout" method="Post">
 			<button type="submit" class="px-3 py-1">
-				<Icon icon="logout" size={20} />
+				<LogOut size={20} />
 				<span>Logout</span>
 			</button>
 		</form>

@@ -2,9 +2,9 @@
 	import { page } from '$app/stores';
 	import { format } from 'date-fns';
 	import { scale } from 'svelte/transition';
-	import Icon from '$lib/components/Icon.svelte';
 	import type { PageData } from './$types';
 	import { invalidateAll, goto } from '$app/navigation';
+	import { X, Search, UserPlus } from 'lucide-svelte';
 
 	export let data: PageData;
 	$: ({ students } = data);
@@ -53,16 +53,16 @@
 			class="clear-btn"
 			title="Clear Search"
 		>
-			<Icon icon="x" />
+			<X />
 		</button>
 	{/if}
 	<button type="submit" title="Submit Search">
-		<Icon icon="search" />
+		<Search />
 	</button>
 </form>
 
 <a href="/students/add-student" class="btn mb-2" title="Add A New Students">
-	<Icon icon="user-plus" />
+	<UserPlus />
 	<span>New Student</span>
 </a>
 
