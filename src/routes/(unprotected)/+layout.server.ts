@@ -11,9 +11,11 @@ export const load: PageLoad = async () => {
 		'beam-oil',
 		'van-gogh-ballerina'
 	];
-	const img = imgs[Math.round(Math.random() * imgs.length - 1)];
+	const num = Math.floor(Math.random() * imgs.length);
+	const img = imgs[num];
 
 	return {
-		img
+		img,
+		num
 	};
 };
