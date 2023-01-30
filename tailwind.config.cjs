@@ -4,7 +4,19 @@ const config = {
 	theme: {
 		extend: {
 			colors: {
-				dark: '#0b0e1f',
+				dark: {
+					DEFAULT: '#0B0E1F',
+					50: '#A6AEDF',
+					100: '#96A1DA',
+					200: '#7885CF',
+					300: '#5A6AC5',
+					400: '#4052B6',
+					500: '#364497',
+					600: '#2B3779',
+					700: '#20295B',
+					800: '#161C3D',
+					900: '#0B0E1F'
+				},
 				'dark-transparent': 'rgb(11 14 31 / 10%)',
 				pink: {
 					DEFAULT: '#FF61C7',
