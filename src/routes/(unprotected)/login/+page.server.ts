@@ -1,5 +1,6 @@
 import { AuthApiError } from '@supabase/supabase-js';
 import { fail, redirect } from '@sveltejs/kit';
+import { getErrorMap } from 'zod';
 
 export const actions: Actions = {
 	login: async ({ request, locals }) => {
@@ -11,13 +12,16 @@ export const actions: Actions = {
 		});
 
 		if (err) {
+			console.log('err', err);
+
 			if (err instanceof AuthApiError && err.status === 400) {
 				return fail(400, {
 					error: 'Invalid credentials'
 				});
 			}
 			return fail(500, {
-				error: 'Server Error 500'
+				error: 'Server Error 500',
+				msg: err
 			});
 		}
 

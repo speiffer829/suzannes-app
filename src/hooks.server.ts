@@ -7,7 +7,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.sb = supabaseClient;
 	event.locals.session = session;
 
-	if (event.route.id.includes('(dashboard)') && !event.locals.session) {
+	if (event?.route?.id?.includes('(dashboard)') && !event.locals.session) {
 		throw redirect(303, '/login');
 	}
 

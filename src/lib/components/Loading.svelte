@@ -7,7 +7,7 @@
 </script>
 
 {#if isShowing}
-	<div class="loading-contain" class:full-screen={fullScreen} {style} use:teleport>
+	<div class="loading-contain" class:full-screen={fullScreen} {style} use:teleport={{ fullScreen }}>
 		<span class="circle">
 			<span class="spinner spin-1" />
 			<span class="spinner spin-2" />

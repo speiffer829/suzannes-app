@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-netlify';
 import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -14,9 +14,9 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			$toast: '/src/lib/components/toast/toast.ts',
-			$store: '/src/lib/store.ts',
-			$types: '/src/lib/types.ts'
+			$toast: './src/lib/components/toast/toast.ts',
+			$store: './src/lib/store.ts',
+			$types: './src/lib/types.ts'
 		}
 	}
 };
