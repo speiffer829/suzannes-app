@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../styles/app.postcss';
+	import '../styles/app.css';
 	import Toast from '$lib/components/toast/Toast.svelte';
 	import { is_full_screen_loading } from '$lib/store';
 	import Loading from '$lib/components/Loading.svelte';

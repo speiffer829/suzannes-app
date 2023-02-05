@@ -15,7 +15,7 @@
 
 {#if is_open}
 	<div class="overlay" on:click|self={() => (is_open = false)}>
-		<div class="card modal-body" transition:scale={{ easing: backInOut, duration: 500 }}>
+		<div class="card modal-body pt-9" transition:scale={{ easing: backInOut, duration: 500 }}>
 			<button class="close-btn" title="close window" on:click={() => (is_open = false)}>
 				<X size={20} strokeWidth={3} />
 			</button>

@@ -4,6 +4,7 @@ const config = {
 	theme: {
 		extend: {
 			colors: {
+				light: '#f9f8ff',
 				dark: {
 					DEFAULT: '#0B0E1F',
 					50: '#A6AEDF',

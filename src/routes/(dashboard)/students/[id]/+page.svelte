@@ -5,12 +5,15 @@
 	import ScannerCards from './ScannerCards.svelte';
 	import type { PageData } from './$types';
 	import { ArrowLeft, Edit, Printer, Trash2 } from 'lucide-svelte';
+	import Prompt from '$lib/components/Prompt.svelte';
 
 	export let form;
 	export let data: PageData;
 	let student: studentType;
 	$: ({ student } = data);
 	$: ({ phones, scanner_cards } = student);
+
+	let show_archive_prompt = false;
 
 	function getAge(dob: string): number {
 		const date = parseISO(dob);
@@ -21,11 +24,27 @@
 	function handlePrint() {
 		//TODO: Print functionality
 	}
+
+	function handleArchive() {}
 </script>
 
 <svelte:head>
 	<title>{student.first_name} {student.last_name}</title>
 </svelte:head>
+
+<Prompt
+	bind:is_open={show_archive_prompt}
+	confirm_color="red"
+	cancel_text="No"
+	confirm_text="Yes, Delete Them For Good"
+>
+	<h4 class="text-2xl font-bold">Are you Sure You Want To Delete {student.first_name}?</h4>
+	<p class="mt-4">
+		<strong class="font-bold text-red">You Cannot Undo This.</strong> So think real long and hard about
+		what you are doing. If its just to simply clean house then maybe consider just archiving the kid
+		instead.
+	</p>
+</Prompt>
 
 <div id="student-grid" class="page-grid gap-8  mt-14">
 	<div class="btn-panel">
@@ -59,7 +78,7 @@
 				</button>
 				{#if student.active}
 					<button
-						on:click={handlePrint}
+						on:click={() => (show_archive_prompt = true)}
 						style="--color: var(--red)"
 						title={`Archive ${student.first_name}`}
 					>
