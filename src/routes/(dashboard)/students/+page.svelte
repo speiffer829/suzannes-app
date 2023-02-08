@@ -14,6 +14,18 @@
 	let search_form;
 	let student_search = $page.url.searchParams.get('search') || '';
 
+	export const snapshot = {
+		capture: () => {
+			console.log('student search', student_search);
+
+			return student_search;
+		},
+		restore: (value) => {
+			student_search = value;
+			console.log(value);
+		}
+	};
+
 	async function allStudents() {
 		student_search = '';
 		$page.url.searchParams.delete('search');
@@ -79,7 +91,7 @@
 			<tr>
 				<td
 					><a
-						href={`/students/${student.id}`}
+						href={`/students/${student.id}${$page.url.search}`}
 						title={`View ${student.first_name} ${student.last_name}'s Profile`}
 						>{student.first_name} <strong>{student.last_name}</strong></a
 					></td
@@ -87,14 +99,14 @@
 				<!-- <td><a href={`/students/${student.id}`}>{student.dob}</a></td> -->
 				<td
 					><a
-						href={`/students/${student.id}`}
+						href={`/students/${student.id}${$page.url.search}`}
 						title={`View ${student.first_name} ${student.last_name}'s Profile`}
 						>{format(new Date(student.dob), 'MM/dd/yyyy')}</a
 					></td
 				>
 				<td
 					><a
-						href={`/students/${student.id}`}
+						href={`/students/${student.id}${$page.url.search}`}
 						title={`View ${student.first_name} ${student.last_name}'s Profile`}>{student.grade}</a
 					></td
 				>

@@ -4,8 +4,9 @@
 	import { parseISO, differenceInYears } from 'date-fns';
 	import ScannerCards from './ScannerCards.svelte';
 	import type { PageData } from './$types';
-	import { ArrowLeft, Edit, Printer, Trash2 } from 'lucide-svelte';
+	import { ArrowLeft, Edit, Printer, Trash2, Upload } from 'lucide-svelte';
 	import Prompt from '$lib/components/Prompt.svelte';
+	import { page } from '$app/stores';
 
 	export let form;
 	export let data: PageData;
@@ -25,7 +26,9 @@
 		//TODO: Print functionality
 	}
 
-	function handleArchive() {}
+	function handleArchive() {
+		console.log('archived');
+	}
 </script>
 
 <svelte:head>
@@ -35,22 +38,25 @@
 <Prompt
 	bind:is_open={show_archive_prompt}
 	confirm_color="red"
-	cancel_text="No"
-	confirm_text="Yes, Delete Them For Good"
+	cancel_text="Nevermind"
+	confirm_text={`Yes, Archive ${student.first_name}`}
+	on:confirm={handleArchive}
 >
-	<h4 class="text-2xl font-bold">Are you Sure You Want To Delete {student.first_name}?</h4>
+	<h4 class="text-2xl font-bold text-red-500">
+		Are you Sure You Want To Archive {student.first_name}?
+	</h4>
 	<p class="mt-4">
-		<strong class="font-bold text-red">You Cannot Undo This.</strong> So think real long and hard about
-		what you are doing. If its just to simply clean house then maybe consider just archiving the kid
-		instead.
+		<strong class="font-bold">This will NOT permanently delete {student.first_name}</strong>
+		but will more or less just hide them from the student page and search.
+		<strong class="font-bold"> They can be recovered if need be </strong>.
 	</p>
 </Prompt>
 
-<div id="student-grid" class="page-grid gap-8  mt-14">
+<div id="student-grid" class="page-grid gap-8 mt-14">
 	<div class="btn-panel">
 		<div class="sticky z-10 top-10">
 			<div class="absolute z-10 isolate">
-				<a href="/students" title="Go Back To Students">
+				<a href={`/students${$page.url.search}`} title="Go Back To Students">
 					<span class="icon">
 						<ArrowLeft />
 					</span>
@@ -68,7 +74,7 @@
 				</a>
 				<button
 					on:click={handlePrint}
-					style="--color: var(--yellow)"
+					style="--color: var(--periwinkle)"
 					title={`Print ${student.first_name}`}
 				>
 					<span class="icon">
@@ -79,13 +85,24 @@
 				{#if student.active}
 					<button
 						on:click={() => (show_archive_prompt = true)}
-						style="--color: var(--red)"
+						style="--color: var(--coral)"
 						title={`Archive ${student.first_name}`}
 					>
 						<span class="icon">
 							<Trash2 />
 						</span>
 						<span class="text">Archive Student</span>
+					</button>
+				{:else}
+					<button
+						on:click={() => (show_archive_prompt = true)}
+						style="--color: var(--yellow)"
+						title={`Unarchive ${student.first_name}`}
+					>
+						<span class="icon">
+							<Upload />
+						</span>
+						<span class="text">Unarchive Student</span>
 					</button>
 				{/if}
 			</div>
@@ -152,7 +169,7 @@
 	<ScannerCards {scanner_cards} student_id={student.id} bind:form />
 </div>
 
-<style lang="scss">
+<style lang="postcss">
 	.grey-box {
 		@apply bg-dark-transparent rounded-lg py-1.5 px-2.5 mb-4;
 
@@ -175,21 +192,13 @@
 	}
 
 	h1 {
-		position: relative;
-		font-weight: 900;
-		font-size: 2.875rem;
-		text-align: center;
-		padding: 10px;
-		margin-bottom: 30px;
-		line-height: 1;
+		@apply relative font-black text-5xl text-center p-3 mb-7;
 
 		&::after {
 			content: '';
+			@apply bg-pink rounded-full absolute;
 			width: 70px;
 			height: 10px;
-			background: var(--pink);
-			border-radius: 100px;
-			position: absolute;
 			bottom: -10px;
 			left: 50%;
 			transform: translateX(-50%);
@@ -220,7 +229,6 @@
 			overflow: hidden;
 			background: var(--color);
 			display: block;
-			// white-space: nowrap;
 			border-radius: 16px;
 			box-shadow: var(--shadow);
 			display: flex;
