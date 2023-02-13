@@ -179,7 +179,7 @@
 		</section>
 	</div>
 
-	<ScannerCards {scanner_cards} student_id={student.id} bind:form />
+	<ScannerCards scanner_cards={scanner_cards || []} student_id={student.id} bind:form />
 </div>
 
 <style lang="postcss">

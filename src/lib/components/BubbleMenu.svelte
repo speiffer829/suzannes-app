@@ -2,6 +2,7 @@
 	import { fly, slide, scale } from 'svelte/transition';
 	import { backIn, backInOut, backOut } from 'svelte/easing';
 	import { MoreHorizontal } from 'lucide-svelte';
+	import { click_outside } from '$lib/helpers/click_outside';
 
 	interface optionType {
 		text: string;
@@ -10,19 +11,15 @@
 
 	export let options: optionType[];
 	export let is_open = false;
-	let this_bubble;
-
-	function clickAway(e) {
-		if (!this_bubble) return;
-		if (!this_bubble.contains(e.target) && is_open) {
-			is_open = false;
-		}
-	}
+	let this_bubble: HTMLElement;
 </script>
 
-<svelte:window on:click={clickAway} />
-
-<div class="bubble-menu-contain" bind:this={this_bubble}>
+<div
+	class="bubble-menu-contain"
+	bind:this={this_bubble}
+	use:click_outside
+	on:click-outside={() => (is_open = false)}
+>
 	<button class="circle-btn" title="Show Options" on:click={() => (is_open = !is_open)}>
 		<MoreHorizontal size={20} />
 	</button>

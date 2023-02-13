@@ -5,6 +5,7 @@
 	import supabase from '$lib/db';
 	import { toast } from '$lib/components/toast/toast';
 	import { Home, Users, Clipboard, Clock, Settings, LogOut } from 'lucide-svelte';
+	import type { ActionResult } from '@sveltejs/kit';
 
 	$: {
 		if ($navigating !== null && isNavShowing) {
@@ -13,14 +14,6 @@
 	}
 
 	let isNavShowing = false;
-
-	async function submitLogout({ cancel }) {
-		const { error } = await supabase.auth.signOut();
-		if (error) {
-			toast.send('Logout Error');
-		}
-		cancel();
-	}
 </script>
 
 <aside

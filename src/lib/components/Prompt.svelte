@@ -1,28 +1,3 @@
-<!--
-@component
-
-## Prompt 
-Shows a prompt window with a default confirm btn and cancel btn
-
-**default slot** - The Main question area
-
-**btns slot** - option to add additional buttons in between the cancel and confirm buttons
-
-### props
-`is_open` - `boolean` - is the window open or not
-
-`confirm_text` - `string` - Text on the confirm button
-
-`confirm_color` - `'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow'` - color of confirm button
-
-`cancel_text` - `string` - Text on the cancel button
-
-`cancel_color` - `'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow'` - color of cancel button
-
-### events
-`on:confirm` = on confirm
-`on:cancel` = on cancel, default close window
--->
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import Modal from './Modal.svelte';
@@ -49,17 +24,43 @@ Shows a prompt window with a default confirm btn and cancel btn
 	</div>
 
 	<div class="flex justify-end gap-2 mt-8">
-		<button title="Cancel" on:click={handleCancel} class="btn cancel-btn {cancel_color}"
+		<button title={cancel_text} on:click={handleCancel} class="btn cancel-btn {cancel_color}"
 			>{cancel_text}</button
 		>
 		<slot name="btns" />
 		<button
-			title="Confirm"
+			title={confirm_text}
 			on:click={() => dispatch('confirm')}
 			class="btn confirm-btn {confirm_color}">{confirm_text}</button
 		>
 	</div>
 </Modal>
+
+<!--
+@component
+
+## Prompt 
+Shows a prompt window with a default confirm btn and cancel btn
+
+**default slot** - The Main question area
+
+**btns slot** - option to add additional buttons in between the cancel and confirm buttons
+
+### props
+`is_open` - `boolean` - is the window open or not
+
+`confirm_text` - `string` - Text on the confirm button
+
+`confirm_color` - `'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow'` - color of confirm button
+
+`cancel_text` - `string` - Text on the cancel button
+
+`cancel_color` - `'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow'` - color of cancel button
+
+### events
+`on:confirm` = on confirm
+`on:cancel` = on cancel, default close window
+-->
 
 <style lang="postcss">
 	.btn {
