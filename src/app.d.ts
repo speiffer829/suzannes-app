@@ -14,6 +14,12 @@ declare global {
 		interface PageData {
 			session: import('@supabase/supabase-js').Session | null;
 		}
+		interface LayoutData {
+			session: import('@supabase/supabase-js').Session | null;
+		}
+		interface LayoutServerLoad {
+			session: import('@supabase/supabase-js').Session | null;
+		}
 		// interface Platform {}
 		// interface PrivateEnv {}
 		// interface PublicEnv {}

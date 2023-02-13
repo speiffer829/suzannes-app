@@ -4,11 +4,11 @@
 	import { parseISO, differenceInYears } from 'date-fns';
 	import ScannerCards from './ScannerCards.svelte';
 	import type { PageData } from './$types';
-	import { ArrowLeft, Edit, Printer, Trash2, Upload } from 'lucide-svelte';
+	import { ArrowLeft, Edit, Printer, Trash2, Upload, Archive } from 'lucide-svelte';
 	import Prompt from '$lib/components/Prompt.svelte';
 	import { page } from '$app/stores';
 
-	export let form;
+	export let form: HTMLFormElement;
 	export let data: PageData;
 	let student: studentType;
 	$: ({ student } = data);
@@ -89,7 +89,7 @@
 						title={`Archive ${student.first_name}`}
 					>
 						<span class="icon">
-							<Trash2 />
+							<Archive />
 						</span>
 						<span class="text">Archive Student</span>
 					</button>
@@ -105,6 +105,17 @@
 						<span class="text">Unarchive Student</span>
 					</button>
 				{/if}
+				<!-- TODO: lock this behind a user level -->
+				<button
+					on:click={() => (show_archive_prompt = true)}
+					style="--color: var(--red)"
+					title={`Delete ${student.first_name}`}
+				>
+					<span class="icon">
+						<Trash2 />
+					</span>
+					<span class="text">Delete Student</span>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -140,7 +151,9 @@
 				<p class="text-sm flex items-center gap-1">Email</p>
 				<p class="text-2xl">{student.email}</p>
 			</div>
-			{#if phones.length === 1}
+			{#if !phones}
+				<h2>No Phones</h2>
+			{:else if phones.length === 1}
 				{@const phone = phones[0]}
 				<div class="grey-box">
 					<p class="text-sm">Phone {phone.label ? `(${phone.label})` : ''}</p>

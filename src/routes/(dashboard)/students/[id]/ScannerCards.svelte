@@ -10,13 +10,16 @@
 	import supabase from '$lib/db';
 	import { invalidateAll } from '$app/navigation';
 	import { CreditCard, Plus } from 'lucide-svelte';
+	import type { scannerCardType } from '$lib/types';
+	import type { ActionResult } from '@sveltejs/kit';
 
-	export let scanner_cards, student_id;
+	export let scanner_cards: scannerCardType[];
+	export let student_id: number;
 	export let form;
 
 	let is_add_card_modal_open = false;
 
-	async function removeCard(id) {
+	async function removeCard(id: number) {
 		const { data, error } = await supabase.from('scanner_cards').delete().eq('id', id);
 		if (!error) {
 			scanner_cards = [...scanner_cards].filter((card) => card.id !== id);
@@ -28,14 +31,14 @@
 
 	async function handleForm({}) {
 		$is_full_screen_loading = true;
-		return async ({ result }) => {
+		return async ({ result }: { result: ActionResult }) => {
 			$is_full_screen_loading = false;
 			is_add_card_modal_open = false;
 			console.log(result);
 
-			if (result.type === 'success') {
+			if (result.type === 'success' && result.data) {
 				invalidateAll();
-				toast.send(`Card #${result.data.card_number} Has Been Added!`, { color: 'green' });
+				toast.send(`Card #${result?.data.card_number} Has Been Added!`, { color: 'green' });
 			} else if (result.type === 'error') {
 				toast.send(`Error: ${result.error.details}`, { duration: 10000, color: 'red' });
 			}

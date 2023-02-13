@@ -9,7 +9,7 @@
 	export let data: PageData;
 	$: ({ students } = data);
 
-	let search_input;
+	let search_input: HTMLInputElement;
 
 	let search_form;
 	let student_search = $page.url.searchParams.get('search') || '';
@@ -20,7 +20,7 @@
 
 			return student_search;
 		},
-		restore: (value) => {
+		restore: (value: string) => {
 			student_search = value;
 			console.log(value);
 		}

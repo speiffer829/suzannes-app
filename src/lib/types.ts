@@ -1,6 +1,6 @@
 export interface phoneType {
 	phone_id: number;
-	student_id?: number;
+	student_id: number;
 	phone: string;
 	label?: null | string;
 }
@@ -20,7 +20,7 @@ export interface studentType {
 	address?: string;
 	city?: string;
 	zip?: string;
-	dob?: string;
+	dob: string;
 	grade?: string;
 	notes?: string;
 	phones?: phoneType[];

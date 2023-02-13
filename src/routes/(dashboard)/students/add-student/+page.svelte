@@ -5,12 +5,9 @@
 	import { scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import { enhance } from '$app/forms';
-	import MaskInput from 'svelte-input-mask/MaskInput.svelte';
 	import { Plus, Check } from 'lucide-svelte';
 
 	let isLoading = false;
-
-	let first_name, last_name, grade, dob;
 
 	let phoneArr = [1];
 
@@ -66,7 +63,7 @@
 				<option value="12th Grade">12th Grade</option>
 				<option value="None">None</option>
 			</select>
-			<DateInput name="dob" label="Date Of Birth" bind:value={dob} />
+			<DateInput name="dob" label="Date Of Birth" />
 		</div>
 
 		<!-- PHONE STUFF  -->
@@ -74,7 +71,11 @@
 		<div class="card mt-14">
 			<h2 class="text-3xl font-black mb-6 text-left pink-underline">Phones</h2>
 			{#each phoneArr as phone_item (phone_item)}
-				<fieldset class="phone-group" animate:flip={{ duration: 200 }} transition:scale|local>
+				<fieldset
+					class="phone-group shadow-md p-2"
+					animate:flip={{ duration: 200 }}
+					transition:scale|local
+				>
 					<label class="input">
 						<span class="w-full block text-lg">Phone Label</span>
 						<input
@@ -124,7 +125,7 @@
 		</div>
 
 		<div class="flex justify-end pb-10">
-			<button class="btn save-btn mt-16" type="submit">
+			<button class="btn save-btn bg-green hover:text-green mt-16" type="submit">
 				<Check />
 				Save Student
 			</button>
@@ -132,40 +133,17 @@
 	</form>
 </div>
 
-<style lang="scss">
+<style lang="postcss">
 	.more-btn {
-		display: block;
-		width: 100%;
-		border-radius: 8px;
-		padding: 10px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: solid 2px var(--pink);
-		background: hsl(var(--pinkHSL) / 10%);
-		color: var(--pink-dark);
-		margin: 40px 0 20px;
-		transition: all 250ms;
-
-		&:hover {
-			background: hsl(var(--pinkHSL) / 40%);
-		}
+		@apply w-full rounded-xl p-3 flex items-center justify-center border-2 border-pink bg-pink-200 text-pink-900 mt-10 mx-0 mb-5 transition-all duration-300 hover:bg-pink-300;
 	}
 
 	.phone-group {
-		position: relative;
-		margin-bottom: 40px;
-		padding-left: 20px;
+		@apply relative mb-10 pl-5;
 
 		&::before {
 			content: '';
-			height: 100%;
-			background: var(--pink);
-			border-radius: 100px;
-			width: 5px;
-			position: absolute;
-			top: 0;
-			left: 0;
+			@apply h-full bg-pink rounded-full w-[5px] absolute top-0 left-0;
 		}
 	}
 
@@ -188,16 +166,6 @@
 			background: var(--dark);
 			color: var(--pink);
 			border-color: var(--dark);
-		}
-	}
-
-	.save-btn {
-		background: var(--green);
-		color: var(--dark-green);
-
-		&:hover {
-			background-color: var(--dark);
-			color: var(--green);
 		}
 	}
 </style>
