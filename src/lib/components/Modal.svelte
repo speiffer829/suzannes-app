@@ -7,6 +7,8 @@
 	export let is_open: boolean = false;
 
 	function handleKeyDown(e) {
+		console.log(e);
+
 		if (e.key === 'Escape') is_open = false;
 	}
 </script>
@@ -44,7 +46,7 @@
 
 		display: flex;
 		justify-content: center;
-		align-items: flex-start;
+		align-items: center;
 
 		overflow-y: auto;
 		padding: 3rem 0;

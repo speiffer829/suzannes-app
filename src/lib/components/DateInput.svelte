@@ -1,10 +1,10 @@
 <script lang="ts">
-	export let value: string = null;
-	export let placeholder: string = null;
-	export let disabled: boolean = null;
-	export let label: string = null;
-	export let name: string = null;
-	export let classes: string = null;
+	export let value: string | null = null;
+	export let placeholder: string | null = null;
+	export let disabled: boolean | null = null;
+	export let label: string | null = null;
+	export let name: string | null = null;
+	export let classes: string | null = null;
 </script>
 
 <label>

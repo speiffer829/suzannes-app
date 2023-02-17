@@ -1,10 +1,10 @@
 <script lang="ts">
-	export let value: string = null,
-		placeholder: string = null,
+	export let value: string | null = null,
+		placeholder: string | null = null,
 		disabled: boolean = false,
-		label: string = null,
-		name: string = null;
-	export let classes: string = null;
+		label: string | null = null,
+		name: string | null = null;
+	export let classes: string | null = null;
 	export let autofocus: boolean = false;
 	export let other_stuff = {};
 	export let type = 'text';
