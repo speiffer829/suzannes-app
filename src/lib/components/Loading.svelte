@@ -3,66 +3,44 @@
 
 	export let style: string = '';
 	export let fullScreen: boolean = false;
-	export let isShowing: boolean = true;
+	export let is_showing: boolean = true;
 </script>
 
-{#if isShowing}
-	<div class="loading-contain" class:full-screen={fullScreen} {style} use:teleport={{ fullScreen }}>
-		<span class="circle">
-			<span class="spinner spin-1" />
-			<span class="spinner spin-2" />
-			<span class="spinner spin-3" />
-		</span>
+{#if is_showing}
+	<div
+		class="overlay w-full h-full flex justify-center items-center bg-dark bg-opacity-50 fixed top-0 left-0 z-[500]"
+		{style}
+		use:teleport={{ fullScreen }}
+	>
+		<div class="pp flex-shrink-0 w-[20px] bg-pub-blue-300 h-[20px] rounded-full" />
+		<div class="bg-transparent text-sm px-4 py-3 rounded-2xl w-fit">
+			<svg viewBox="0 0 580 140" width="150" height="50">
+				<circle r="50" cx="50" cy="90" class=" transition-all circle" style="--delay: 0ms" />
+				<circle r="50" cx="170" cy="90" class=" transition-all circle" style="--delay: 100ms" />
+				<circle r="50" cx="290" cy="90" class=" transition-all circle" style="--delay: 200ms" />
+				<circle r="50" cx="410" cy="90" class=" transition-all circle" style="--delay: 300ms" />
+				<circle r="50" cx="530" cy="90" class=" transition-all circle" style="--delay: 400ms" />
+			</svg>
+		</div>
 	</div>
 {/if}
 
-<style lang="scss">
-	.loading-contain {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		min-height: var(--min-height);
-
-		&.full-screen {
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: 1100;
-			background: hsl(var(--darkHSL) / 50%);
-		}
-	}
-
+<style lang="postcss">
 	.circle {
-		width: 60px;
-		height: 60px;
-		border-radius: 100px;
-		border: solid var(--dark-transparent) 4px;
-		position: relative;
-		isolation: isolate;
+		@apply fill-pink-500;
+		animation: run 1000ms infinite forwards;
+		animation-delay: var(--delay);
 	}
 
-	.spinner {
-		position: absolute;
-		left: -4px;
-		top: -4px;
-		width: calc(100% + 8px);
-		height: calc(100% + 8px);
-		border-radius: 100px;
-		border: solid transparent 4px;
-		border-top-color: var(--pink);
-		animation: spin 500ms infinite;
-		z-index: 3;
-		animation-timing-function: linear;
-	}
-
-	@keyframes spin {
+	@keyframes run {
 		0% {
-			transform: rotate(0turn);
+			translate: 0 0;
+			@apply fill-pink-500;
 		}
-		100% {
-			transform: rotate(1turn);
+
+		50% {
+			translate: 0px -40px;
+			@apply fill-coral;
 		}
 	}
 </style>

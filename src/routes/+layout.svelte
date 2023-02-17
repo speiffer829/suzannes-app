@@ -39,6 +39,6 @@
 	});
 </script>
 
-<Loading fullScreen={true} isShowing={$is_full_screen_loading} />
+<Loading fullScreen={true} is_showing={$is_full_screen_loading} />
 <Toast />
 <slot />
