@@ -89,35 +89,22 @@ body {
 	}
 }
 
-.input {
-	margin: 1rem 0;
-	display: block;
+@layer base{
+	.input {
+		@apply my-4 mx-0 block;
 
-	input {
-		width: 100%;
-		font-size: 24px;
-		padding: 8px 15px;
-		border: solid 2px var(--dark);
-		border-radius: 8px;
-		outline: none;
+	
+		input {
+			@apply w-full text-2xl py-2 px-4 border-2 border-dark rounded-lg outline-none focus:border-pink;
 
-		&:focus {
-			border-color: var(--pink);
 		}
 	}
+
 }
 
 select {
-	width: 100%;
-	font-size: 24px;
-	padding: 8px 15px;
-	border: solid 2px var(--dark);
-	border-radius: 8px;
-	outline: none;
+	@apply w-full text-2xl py-2 px-4 border-2 border-dark rounded-lg outline-none focus:border-pink;
 
-	&:focus {
-		border-color: var(--pink);
-	}
 }
 
 ::selection {

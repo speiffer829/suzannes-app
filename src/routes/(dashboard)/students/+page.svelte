@@ -16,13 +16,10 @@
 
 	export const snapshot = {
 		capture: () => {
-			console.log('student search', student_search);
-
 			return student_search;
 		},
 		restore: (value: string) => {
 			student_search = value;
-			console.log(value);
 		}
 	};
 

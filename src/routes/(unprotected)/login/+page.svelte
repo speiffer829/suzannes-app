@@ -20,7 +20,7 @@
 	class="block self-center max-w-md w-11/12 relative"
 	use:enhance={handleForm}
 >
-	<Loading isShowing={is_loading} fullScreen={true} />
+	<Loading is_showing={is_loading} fullScreen={true} />
 	<h1 class="text-3xl font-bold">Login</h1>
 	<Input label="Email" type="email" name="email" />
 	<Input label="Password" type="password" name="password" />

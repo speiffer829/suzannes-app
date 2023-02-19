@@ -7,8 +7,6 @@
 	export let is_open: boolean = false;
 
 	function handleKeyDown(e) {
-		console.log(e);
-
 		if (e.key === 'Escape') is_open = false;
 	}
 </script>

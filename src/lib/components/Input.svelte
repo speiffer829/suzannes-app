@@ -8,9 +8,10 @@
 	export let autofocus: boolean = false;
 	export let other_stuff = {};
 	export let type = 'text';
+	export let label_classes: string | null = null;
 </script>
 
-<label class="input">
+<label class="input {label_classes}">
 	<span class="w-full block text-lg">{label}</span>
 	{#if type === 'text'}
 		<input

@@ -6,13 +6,14 @@
 	import { flip } from 'svelte/animate';
 	import { enhance } from '$app/forms';
 	import { Plus, Check } from 'lucide-svelte';
+	import type { phoneType } from '$lib/types';
 
-	let isLoading = false;
+	let isLoading: boolean = false;
 
-	let phoneArr = [1];
+	let phoneArr = [{ id: 1, label: '', phone: '' }];
 
 	function removePhoneGroup(id): void {
-		phoneArr = [...phoneArr].filter((p) => p !== id);
+		phoneArr = [...phoneArr].filter((p) => p.id !== id);
 	}
 
 	function useRegex(input) {
@@ -25,13 +26,14 @@
 	<title>Add Student | SuzApp</title>
 </svelte:head>
 
-<Loading fullScreen isShowing={isLoading} />
+<Loading fullScreen is_showing={isLoading} />
 
 <div class="max-w-xl">
 	<form
 		method="POST"
 		autocomplete="off"
-		use:enhance={() => {
+		use:enhance={({ data }) => {
+			data.set('phones', JSON.stringify(phoneArr));
 			return async ({ result }) => {
 				// @ts-ignore
 				console.log(result.data);
@@ -64,13 +66,21 @@
 				<option value="None">None</option>
 			</select>
 			<DateInput name="dob" label="Date Of Birth" />
+			<Input
+				name="address"
+				placeholder="717 North 8th Ave."
+				label="Address"
+				label_classes="mt-16"
+			/>
+			<Input name="city" placeholder="Lebanon" label="City" />
+			<Input name="zip" placeholder="17042" label="Zip" />
 		</div>
 
 		<!-- PHONE STUFF  -->
 
 		<div class="card mt-14">
 			<h2 class="text-3xl font-black mb-6 text-left pink-underline">Phones</h2>
-			{#each phoneArr as phone_item (phone_item)}
+			{#each phoneArr as { id, phone, label } (id)}
 				<fieldset
 					class="phone-group shadow-md p-2"
 					animate:flip={{ duration: 200 }}
@@ -79,20 +89,20 @@
 					<label class="input">
 						<span class="w-full block text-lg">Phone Label</span>
 						<input
-							name={`phone-label[${phone_item}]`}
+							name={`ignore-phone-label`}
 							type="text"
 							title="phone label"
 							placeholder="Optional"
+							bind:value={label}
 						/>
 					</label>
 					<label class="input">
 						<span class="w-full block text-lg">Phone Number</span>
-
-						<input name={`phone[${phone_item}]`} type="tel" title="phone" />
+						<input name={`ignore-phone`} type="tel" title="phone" bind:value={phone} />
 					</label>
 					{#if phoneArr.length > 1}
 						<button
-							on:click={() => removePhoneGroup(phone_item)}
+							on:click={() => removePhoneGroup(id)}
 							transition:scale|local
 							type="button"
 							title="Remove This Phone Group"
@@ -117,7 +127,8 @@
 			<button
 				class="more-btn"
 				type="button"
-				on:click={() => (phoneArr = [...phoneArr, Math.round(Math.random() * 100)])}
+				on:click={() =>
+					(phoneArr = [...phoneArr, { id: Math.round(Math.random() * 100), label: '', phone: '' }])}
 			>
 				<Plus />
 				<span class="block color-pink">Add Another Phone</span>
