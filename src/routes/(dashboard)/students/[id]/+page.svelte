@@ -11,6 +11,7 @@
 	export let form: HTMLFormElement;
 	export let data: PageData;
 	let student: studentType;
+
 	$: ({ student } = data);
 	$: ({ phones, scanner_cards } = student);
 

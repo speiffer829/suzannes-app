@@ -84,7 +84,7 @@
 	</div>
 </section>
 
-<Modal bind:is_open={is_add_card_modal_open}>
+<Modal bind:is_open={is_add_card_modal_open} classes="max-w-md">
 	<form method="POST" action="?/add_card" use:enhance={handleForm}>
 		<Input
 			name="card_number"

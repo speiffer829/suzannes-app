@@ -23,9 +23,8 @@
 				}
 			}, 300);
 			setTimeout(() => {
-				console.log('timeout');
-
 				if (watching_load) {
+					console.log('timeout');
 					$is_full_screen_loading = false;
 					show_timeout_popup = true;
 				}

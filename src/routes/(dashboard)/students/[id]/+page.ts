@@ -1,9 +1,11 @@
 import supabase from '$lib/db';
+import type { studentType } from '$lib/types';
 
-export const load: PageLoad = async ({ params }) => {
+export const load = (async ({ params }) => {
 	const { id } = params;
+
 	const { data: student, error: err } = await supabase
-		.from<studentType>('students')
+		.from('students')
 		.select(`*, phones(*), scanner_cards(*)`)
 		.eq('id', id)
 		.single();
@@ -15,4 +17,4 @@ export const load: PageLoad = async ({ params }) => {
 	return {
 		student
 	};
-};
+}) satisfies PageLoad<studentType>;
