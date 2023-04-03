@@ -53,7 +53,7 @@
 	</p>
 </Prompt>
 
-<div id="student-grid" class="page-grid gap-8 mt-14">
+<div id="student-grid" class="page-grid">
 	<div class="btn-panel">
 		<div class="sticky z-10 top-10">
 			<div class="absolute z-10 isolate">
@@ -185,23 +185,10 @@
 
 <style lang="postcss">
 	.grey-box {
-		@apply bg-dark-transparent rounded-lg py-1.5 px-2.5 mb-4;
+		@apply bg-dark/10 rounded-lg py-1.5 px-2.5 mb-4;
 
 		&.mb-0 {
 			margin-bottom: 0;
-		}
-	}
-
-	.page-grid {
-		display: grid;
-		grid-template-columns: 45px 1fr;
-
-		.btn-panel {
-			grid-row: 1/-3;
-		}
-
-		@media screen and (min-width: 1250px) {
-			grid-template-columns: 45px 1fr 375px;
 		}
 	}
 
