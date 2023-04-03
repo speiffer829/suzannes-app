@@ -8,7 +8,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.session = session;
 
 	if (event?.route?.id?.includes('(dashboard)') && !event.locals.session) {
-		throw redirect(303, '/login');
+		const last_url = event.url.pathname + event.url.search;
+		throw redirect(303, `/login?redirect_to=${last_url}`);
 	}
 
 	return resolve(event);

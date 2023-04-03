@@ -14,12 +14,7 @@
 	<title>Login | Suzanne's</title>
 </svelte:head>
 
-<form
-	action="?/login"
-	method="POST"
-	class="block self-center max-w-md w-11/12 relative"
-	use:enhance={handleForm}
->
+<form method="POST" class="block self-center max-w-md w-11/12 relative" use:enhance={handleForm}>
 	<Loading is_showing={is_loading} fullScreen={true} />
 	<h1 class="text-3xl font-bold">Login</h1>
 	<Input label="Email" type="email" name="email" />

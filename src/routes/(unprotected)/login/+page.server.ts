@@ -3,7 +3,8 @@ import { fail, redirect } from '@sveltejs/kit';
 import { getErrorMap } from 'zod';
 
 export const actions: Actions = {
-	login: async ({ request, locals }) => {
+	default: async (event) => {
+		const { request, locals } = event;
 		const body = Object.fromEntries(await request.formData());
 
 		const { data, error: err } = await locals.sb.auth.signInWithPassword({
@@ -24,7 +25,12 @@ export const actions: Actions = {
 				msg: err
 			});
 		}
+		const redirect_to = event.url.searchParams.get('redirect_to');
+		console.log('redirect_to', event);
 
+		if (redirect_to) {
+			throw redirect(303, `${redirect_to}`);
+		}
 		throw redirect(303, '/');
 	}
 };
