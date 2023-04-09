@@ -14,11 +14,15 @@ export const actions = {
 		delete new_data.phones;
 
 		// Add student to database
-		const { data, error } = await supabase.from('students').insert([
-			{
-				...new_data
-			}
-		]);
+		const { data, error } = await supabase
+			.from('students')
+			.insert([
+				{
+					...new_data
+				}
+			])
+			.select()
+			.single();
 
 		if (error) {
 			return { error };
