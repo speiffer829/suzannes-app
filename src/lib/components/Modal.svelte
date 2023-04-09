@@ -5,7 +5,8 @@
 	import { X } from 'lucide-svelte';
 
 	export let is_open: boolean = false;
-	export let classes = '';
+	let classes = '';
+	export { classes as class };
 
 	function handleKeyDown(e) {
 		if (e.key === 'Escape') is_open = false;

@@ -4,6 +4,10 @@
 
 	export let is_open: boolean = false;
 
+	let classes = '';
+
+	export { classes as class };
+
 	export let confirm_text = 'Confirm';
 	export let confirm_color: 'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow' = 'pink';
 
@@ -18,12 +22,12 @@
 	}
 </script>
 
-<Modal bind:is_open>
+<Modal bind:is_open class={classes}>
 	<div class="text-lg">
 		<slot />
 	</div>
 
-	<div class="flex justify-end gap-2 mt-8">
+	<div class="grid grid-cols-1 sm:flex justify-end flex-wrap gap-2 mt-8">
 		<button title={cancel_text} on:click={handleCancel} class="btn cancel-btn {cancel_color}"
 			>{cancel_text}</button
 		>
@@ -61,7 +65,6 @@ Shows a prompt window with a default confirm btn and cancel btn
 `on:confirm` = on confirm
 `on:cancel` = on cancel, default close window
 -->
-
 <style lang="postcss">
 	.btn {
 		@apply bg-slate-300 hover:text-slate-300 hover:bg-dark;

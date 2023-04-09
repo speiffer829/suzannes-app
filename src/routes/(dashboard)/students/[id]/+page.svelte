@@ -7,6 +7,9 @@
 	import { ArrowLeft, Edit, Printer, Trash2, Upload, Archive } from 'lucide-svelte';
 	import Prompt from '$lib/components/Prompt.svelte';
 	import { page } from '$app/stores';
+	import supabase from '$lib/db';
+	import { toast } from '$toast';
+	import { goto } from '$app/navigation';
 
 	export let form: HTMLFormElement;
 	export let data: PageData;
@@ -16,6 +19,7 @@
 	$: ({ phones, scanner_cards } = student);
 
 	let show_archive_prompt = false;
+	let show_delete_prompt = false;
 
 	function getAge(dob: string): number {
 		const date = parseISO(dob);
@@ -30,6 +34,25 @@
 	function handleArchive() {
 		console.log('archived');
 	}
+
+	async function handle_delete_student() {
+		// Delete student from the database
+		const { data: delete_data, error: delete_error } = await supabase
+			.from('students')
+			.delete()
+			.eq('id', student.id)
+			.limit(1)
+			.order('id', { ascending: true });
+
+		if (delete_error) {
+			toast.send('there was an error deleting the student', {
+				color: 'red'
+			});
+		} else {
+			toast.send('Student Deleted', { color: 'green' });
+			goto('/students');
+		}
+	}
 </script>
 
 <svelte:head>
@@ -38,12 +61,12 @@
 
 <Prompt
 	bind:is_open={show_archive_prompt}
-	confirm_color="red"
+	confirm_color="coral"
 	cancel_text="Nevermind"
 	confirm_text={`Yes, Archive ${student.first_name}`}
 	on:confirm={handleArchive}
 >
-	<h4 class="text-2xl font-bold text-red-500">
+	<h4 class="text-2xl font-bold text-coral-500">
 		Are you Sure You Want To Archive {student.first_name}?
 	</h4>
 	<p class="mt-4">
@@ -51,6 +74,31 @@
 		but will more or less just hide them from the student page and search.
 		<strong class="font-bold"> They can be recovered if need be </strong>.
 	</p>
+</Prompt>
+<Prompt
+	class="border-4 border-dashed border-red-500"
+	bind:is_open={show_delete_prompt}
+	confirm_color="red"
+	cancel_text="Nevermind"
+	confirm_text={`Yes, Delete ${student.first_name}`}
+	on:confirm={handle_delete_student}
+>
+	<h4 class="text-2xl font-bold text-red-500">
+		Are you Sure You Want To Delete {student.first_name}?
+	</h4>
+	<p class="mt-4">
+		<strong class="font-bold">This will permanently delete {student.first_name}</strong>. They will
+		be wiped out from the database and unless you are told otherwise I would advise against this and
+		instead use the archive feature.
+		<strong class="font-bold uppercase text-red-500 block mt-6 text-xl underline"
+			>This cannot be undone.</strong
+		>
+	</p>
+	<span slot="btns">
+		<button class="btn bg-coral hover:text-coral" on:click={handleArchive}
+			>Just Archive {student.first_name}</button
+		>
+	</span>
 </Prompt>
 
 <div id="student-grid" class="page-grid">
@@ -108,7 +156,7 @@
 				{/if}
 				<!-- TODO: lock this behind a user level -->
 				<button
-					on:click={() => (show_archive_prompt = true)}
+					on:click={() => (show_delete_prompt = true)}
 					style="--color: var(--red)"
 					title={`Delete ${student.first_name}`}
 				>

@@ -89,10 +89,11 @@
 					<label class="input">
 						<span class="w-full block text-lg">Phone Label</span>
 						<input
-							name={`ignore-phone-label`}
+							name={`ignore-label`}
 							type="text"
 							title="phone label"
 							placeholder="Optional"
+							autocomplete="off"
 							bind:value={label}
 						/>
 					</label>
