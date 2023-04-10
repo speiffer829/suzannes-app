@@ -34,7 +34,6 @@
 		return async ({ result }: { result: ActionResult }) => {
 			$is_full_screen_loading = false;
 			is_add_card_modal_open = false;
-			console.log(result);
 
 			if (result.type === 'success' && result.data) {
 				invalidateAll();
@@ -84,7 +83,7 @@
 	</div>
 </section>
 
-<Modal bind:is_open={is_add_card_modal_open} classes="max-w-md">
+<Modal bind:is_open={is_add_card_modal_open} class="max-w-md">
 	<form method="POST" action="?/add_card" use:enhance={handleForm}>
 		<Input
 			name="card_number"

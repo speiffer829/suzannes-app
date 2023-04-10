@@ -13,8 +13,6 @@ export const actions: Actions = {
 		});
 
 		if (err) {
-			console.log('err', err);
-
 			if (err instanceof AuthApiError && err.status === 400) {
 				return fail(400, {
 					error: 'Invalid credentials'
@@ -26,7 +24,6 @@ export const actions: Actions = {
 			});
 		}
 		const redirect_to = event.url.searchParams.get('redirect_to');
-		console.log('redirect_to', event);
 
 		if (redirect_to) {
 			throw redirect(303, `${redirect_to}`);

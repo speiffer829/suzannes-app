@@ -102,7 +102,7 @@
 </Prompt>
 
 <div id="student-grid" class="page-grid">
-	<div class="btn-panel">
+	<div class="btn-panel print:hidden">
 		<div class="sticky z-10 top-10">
 			<div class="absolute z-10 isolate">
 				<a href={`/students${$page.url.search}`} title="Go Back To Students">
@@ -122,7 +122,7 @@
 					<span class="text">Edit Student</span>
 				</a>
 				<button
-					on:click={handlePrint}
+					on:click={() => window.print()}
 					style="--color: var(--periwinkle)"
 					title={`Print ${student.first_name}`}
 				>

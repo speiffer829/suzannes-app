@@ -126,6 +126,13 @@ select {
 		@media screen and (min-width: 1250px) {
 			grid-template-columns: 45px 1fr 375px;
 		}
+
+		@media print{
+			grid-template-columns: 1fr;
+			.btn-panel{
+				display: none;
+			}
+		}
 	}
 
 }

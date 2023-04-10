@@ -7,6 +7,7 @@
 	import { enhance } from '$app/forms';
 	import { Plus, Check } from 'lucide-svelte';
 	import type { phoneType } from '$lib/types';
+	import { goto } from '$app/navigation';
 
 	let isLoading: boolean = false;
 
@@ -36,7 +37,7 @@
 			data.set('phones', JSON.stringify(phoneArr));
 			return async ({ result }) => {
 				// @ts-ignore
-				console.log(result.data);
+				goto(`/students/${result.data.id}`);
 			};
 		}}
 	>
@@ -44,6 +45,7 @@
 			<h1 class="pink-underline text-4xl font-black">Add Student</h1>
 			<Input name="first_name" label="First Name" />
 			<Input name="last_name" label="Last Name" />
+			<Input name="email" label="Email" type="email" />
 			<label class="select-label" for="grade">
 				<span>Grade</span>
 			</label>

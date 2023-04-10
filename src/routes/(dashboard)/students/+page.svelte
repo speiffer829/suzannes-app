@@ -8,7 +8,6 @@
 
 	export let data: PageData;
 	$: ({ students } = data);
-	$: console.log($page);
 
 	let search_input: HTMLInputElement;
 
@@ -26,7 +25,6 @@
 
 	async function allStudents() {
 		student_search = '';
-		console.log($page);
 		$page.url.searchParams.delete('search');
 
 		history.pushState({}, '', $page.url);

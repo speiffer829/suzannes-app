@@ -29,7 +29,9 @@ export const actions = {
 
 			const { data: new_card, error: err } = await supabase
 				.from('scanner_cards')
-				.upsert(formObj, { ignoreDuplicates: true, onConflict: 'card_number' });
+				.upsert(formObj, { ignoreDuplicates: true, onConflict: 'card_number' })
+				.select()
+				.single();
 
 			console.log('new_card', new_card);
 			console.log('err', err);

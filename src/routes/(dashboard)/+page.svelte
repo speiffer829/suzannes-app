@@ -2,8 +2,6 @@
 	import type { LayoutData, LayoutParentData, LayoutServerData, PageData } from './$types';
 
 	export let data: PageData;
-
-	$: console.log(data);
 </script>
 
 <h1>Welcome to SvelteKit</h1>

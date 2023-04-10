@@ -5,8 +5,6 @@
 	import { ChevronDown } from 'lucide-svelte';
 
 	let is_code_open = false;
-
-	$: console.log($page);
 </script>
 
 <svelte:head>

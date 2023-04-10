@@ -7,6 +7,8 @@
 	export let is_open: boolean = false;
 	let classes = '';
 	export { classes as class };
+	export let ariaDescribedby = '';
+	export let ariaLabelledby = '';
 
 	function handleKeyDown(e) {
 		if (e.key === 'Escape') is_open = false;
@@ -16,7 +18,15 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 {#if is_open}
-	<div class="overlay" on:click|self={() => (is_open = false)}>
+	<div
+		class="overlay"
+		on:click|self={() => (is_open = false)}
+		on:keydown={handleKeyDown}
+		role="alertdialog"
+		aria-labelledby={ariaLabelledby}
+		aria-describedby={ariaDescribedby}
+		aria-modal="true"
+	>
 		<div
 			class="card modal-body pt-9 {classes}"
 			transition:scale={{ easing: backInOut, duration: 500 }}
