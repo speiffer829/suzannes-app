@@ -45,9 +45,10 @@
 			.order('id', { ascending: true });
 
 		if (delete_error) {
-			toast.send('there was an error deleting the student', {
+			toast.send('There was an error deleting the student', {
 				color: 'red'
 			});
+			console.log(delete_error);
 		} else {
 			toast.send('Student Deleted', { color: 'green' });
 			goto('/students');

@@ -18,18 +18,14 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 {#if is_open}
-	<div
-		class="overlay"
-		on:click|self={() => (is_open = false)}
-		on:keydown={handleKeyDown}
-		role="alertdialog"
-		aria-labelledby={ariaLabelledby}
-		aria-describedby={ariaDescribedby}
-		aria-modal="true"
-	>
+	<div class="overlay" on:click|self={() => (is_open = false)} on:keydown={handleKeyDown}>
 		<div
+			role="alertdialog"
+			aria-labelledby={ariaLabelledby}
+			aria-describedby={ariaDescribedby}
+			aria-modal="true"
 			class="card modal-body pt-9 {classes}"
-			transition:scale={{ easing: backInOut, duration: 500 }}
+			transition:scale|local={{ easing: backInOut, duration: 500 }}
 		>
 			<button class="close-btn" title="close window" on:click={() => (is_open = false)}>
 				<X size={20} strokeWidth={3} />

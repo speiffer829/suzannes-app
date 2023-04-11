@@ -69,7 +69,7 @@ body {
 	}
 
 	.card {
-		@apply py-6 px-10 bg-light shadow-lg rounded-2xl;
+		@apply py-6 px-10 bg-light shadow-lg print:shadow-none rounded-2xl;
 	}
 }
 
@@ -116,7 +116,7 @@ select {
 }
 
 .page-grid {
-		@apply gap-8 mt-14 grid;
+		@apply gap-8 mt-14 print:mt-0 grid;
 		grid-template-columns: 45px 1fr;
 
 		.btn-panel {
