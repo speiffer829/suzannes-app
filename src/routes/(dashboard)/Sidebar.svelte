@@ -16,8 +16,8 @@
 	let isNavShowing = false;
 </script>
 
-<aside
-	class="bg-dark min-h-screen h-full text-light flex flex-col justify-between"
+<header
+	class="bg-dark min-h-screen h-full text-light flex flex-col justify-between print:hidden"
 	class:active={isNavShowing}
 >
 	<h2 class="p-6 text-3xl">Hello, <span class="text-pink font-bold">Spenser</span></h2>
@@ -73,10 +73,10 @@
 			<rect class="line bottom" width="100" height="10" rx="5" x="0" y="75" />
 		</svg>
 	</button>
-</aside>
+</header>
 
 <style lang="scss">
-	aside {
+	header {
 		position: fixed;
 		top: 0;
 		left: 0;

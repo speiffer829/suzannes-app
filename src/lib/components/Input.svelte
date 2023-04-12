@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let value: string | null = null,
+	export let value: string | null | undefined | FormDataEntryValue = null,
 		placeholder: string | null = null,
 		disabled: boolean = false,
 		label: string | null = null,
@@ -9,6 +9,7 @@
 	export let other_stuff = {};
 	export let type = 'text';
 	export let label_classes: string | null = null;
+	export let validation_error: string | null = null;
 </script>
 
 <label class="input {label_classes}">
@@ -22,6 +23,7 @@
 			{disabled}
 			title={label}
 			class={classes}
+			class:border-red-500={validation_error}
 			{...other_stuff}
 		/>
 	{:else if type === 'email'}
@@ -33,6 +35,7 @@
 			{disabled}
 			title={label}
 			class={classes}
+			class:border-red-500={validation_error}
 			{...other_stuff}
 		/>
 	{:else if type === 'password'}
@@ -44,7 +47,12 @@
 			{disabled}
 			title={label}
 			class={classes}
+			class:border-red-500={validation_error}
 			{...other_stuff}
 		/>
+	{/if}
+
+	{#if validation_error}
+		<span class="text-red-500 text-sm">{validation_error}</span>
 	{/if}
 </label>

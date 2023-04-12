@@ -9,6 +9,9 @@
 	import type { phoneType } from '$lib/types';
 	import { goto } from '$app/navigation';
 
+	export let form;
+	$: console.log(form);
+
 	let isLoading: boolean = false;
 
 	let phoneArr = [{ id: 1, label: '', phone: '' }];
@@ -34,22 +37,42 @@
 		method="POST"
 		autocomplete="off"
 		use:enhance={({ data }) => {
-			data.set('phones', JSON.stringify(phoneArr));
-			return async ({ result }) => {
-				// @ts-ignore
-				goto(`/students/${result.data.id}`);
-			};
+			// if (phoneArr.length > 0 && phoneArr[0].phone !== '') {
+			// 	data.set('phones', JSON.stringify(phoneArr));
+			// }
 		}}
 	>
 		<div class="card mt-14">
 			<h1 class="pink-underline text-4xl font-black">Add Student</h1>
-			<Input name="first_name" label="First Name" />
-			<Input name="last_name" label="Last Name" />
-			<Input name="email" label="Email" type="email" />
+			<Input
+				name="first_name"
+				value={form?.data?.first_name ?? ''}
+				label="First Name"
+				validation_error={form?.error.first_name}
+			/>
+			<Input
+				name="last_name"
+				value={form?.data?.last_name ?? ''}
+				label="Last Name"
+				validation_error={form?.error.last_name}
+			/>
+			<Input
+				name="email"
+				value={form?.data?.email ?? ''}
+				label="Email"
+				type="email"
+				validation_error={form?.error.email}
+			/>
 			<label class="select-label" for="grade">
 				<span>Grade</span>
 			</label>
-			<select name="grade" id="grade" tabindex="0" title="Grade">
+			<select
+				name="grade"
+				id="grade"
+				tabindex="0"
+				title="Grade"
+				value={form?.data?.grade ?? 'Select Grade'}
+			>
 				<option value="Select Grade" disabled selected>Select Grade</option>
 				<option value="Pre">Pre</option>
 				<option value="Kindergarden">Kindergarden</option>
