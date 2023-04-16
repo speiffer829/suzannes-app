@@ -41,8 +41,21 @@ export const actions = {
 		// Validate form data
 		try {
 			const result = zod_schema.parse(new_data);
-			console.log('res', result);
-			return;
+			// Add student to database
+			const { data, error } = await supabase
+				.from('students')
+				.insert([
+					{
+						...new_data
+					}
+				])
+				.select()
+				.single();
+			if (error) {
+				return { error };
+			}
+
+			return { ...data };
 		} catch (zod_error) {
 			const { fieldErrors: error } = zod_error.flatten();
 			console.log('err', error);
@@ -56,22 +69,5 @@ export const actions = {
 
 		//remove phones from new_data
 		// delete new_data.phones;
-
-		// Add student to database
-		const { data, error } = await supabase
-			.from('students')
-			.insert([
-				{
-					...new_data
-				}
-			])
-			.select()
-			.single();
-
-		if (error) {
-			return { error };
-		}
-
-		return { ...data };
 	}
 };

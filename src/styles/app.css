@@ -97,10 +97,9 @@ body {
 		@apply my-4 mx-0 block;
 
 	
-		input {
-			@apply w-full text-2xl py-2 px-4 border-2 border-dark rounded-lg outline-none focus:border-pink;
-
-		}
+	}
+	input {
+		@apply w-full text-2xl py-2 px-4 border-2 border-dark rounded-lg outline-none focus:border-pink;
 	}
 
 }

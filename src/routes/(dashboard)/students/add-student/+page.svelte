@@ -24,44 +24,51 @@
 		let regex = /phone\[[0-9]+\]/i;
 		return regex.test(input);
 	}
+
+	function handle_form({ data }) {
+		// if (phoneArr.length > 0 && phoneArr[0].phone !== '') {
+		// 	data.set('phones', JSON.stringify(phoneArr));
+		// }
+		return async ({ result, update }) => {
+			console.log('result', result);
+			form = result.data;
+		};
+	}
 </script>
 
 <svelte:head>
 	<title>Add Student | SuzApp</title>
 </svelte:head>
 
+<button on:click={() => alert('foobar')}>Foo</button>
+
 <Loading fullScreen is_showing={isLoading} />
 
 <div class="max-w-xl">
-	<form
-		method="POST"
-		autocomplete="off"
-		use:enhance={({ data }) => {
-			// if (phoneArr.length > 0 && phoneArr[0].phone !== '') {
-			// 	data.set('phones', JSON.stringify(phoneArr));
-			// }
-		}}
-	>
+	<form method="POST" autocomplete="off" use:enhance={handle_form}>
 		<div class="card mt-14">
 			<h1 class="pink-underline text-4xl font-black">Add Student</h1>
 			<Input
 				name="first_name"
-				value={form?.data?.first_name ?? ''}
+				value={form?.data?.first_name}
 				label="First Name"
-				validation_error={form?.error.first_name}
+				validation_error={form?.error?.first_name}
+				required
 			/>
 			<Input
 				name="last_name"
 				value={form?.data?.last_name ?? ''}
 				label="Last Name"
-				validation_error={form?.error.last_name}
+				validation_error={form?.error?.last_name}
+				required
 			/>
 			<Input
 				name="email"
 				value={form?.data?.email ?? ''}
 				label="Email"
 				type="email"
-				validation_error={form?.error.email}
+				validation_error={form?.error?.email}
+				required
 			/>
 			<label class="select-label" for="grade">
 				<span>Grade</span>
