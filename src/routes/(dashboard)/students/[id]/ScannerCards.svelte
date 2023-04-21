@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Input from '$lib/components/Input.svelte';
-	import Modal from '$lib/components/Modal.svelte';
+	import Dialog from '$lib/components/Dialog.svelte';
 	import { enhance } from '$app/forms';
 	import { is_full_screen_loading } from '$store';
 	import { toast } from '$toast';
@@ -17,7 +17,7 @@
 	export let student_id: number;
 	export let form;
 
-	let is_add_card_modal_open = false;
+	let card_dialog: HTMLDialogElement;
 
 	async function removeCard(id: number) {
 		const { data, error } = await supabase.from('scanner_cards').delete().eq('id', id);
@@ -31,10 +31,10 @@
 
 	async function handleForm({}) {
 		$is_full_screen_loading = true;
-		return async ({ result }: { result: ActionResult }) => {
+		return async ({ result, update }: { result: ActionResult; update }) => {
 			$is_full_screen_loading = false;
-			is_add_card_modal_open = false;
-
+			card_dialog.close();
+			update();
 			if (result.type === 'success' && result.data) {
 				invalidateAll();
 				toast.send(`Card #${result?.data.card_number} Has Been Added!`, { color: 'green' });
@@ -75,7 +75,7 @@
 			title="Add Scan Card"
 			class="btn small-btn mx-auto mt-4"
 			class:mx-auto={!scanner_cards.length}
-			on:click={() => (is_add_card_modal_open = !is_add_card_modal_open)}
+			on:click={() => card_dialog.showModal()}
 		>
 			<Plus size={20} />
 			Add A Card
@@ -83,7 +83,7 @@
 	</div>
 </section>
 
-<Modal bind:is_open={is_add_card_modal_open} class="max-w-md">
+<Dialog bind:dialog={card_dialog} class="max-w-md">
 	<form method="POST" action="?/add_card" use:enhance={handleForm}>
 		<Input
 			name="card_number"
@@ -95,4 +95,4 @@
 		<input type="hidden" value={student_id} name="student_id" />
 		<button class="btn" type="submit"><Plus /> Add Card</button>
 	</form>
-</Modal>
+</Dialog>

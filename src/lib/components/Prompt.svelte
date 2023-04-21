@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import Modal from './Modal.svelte';
+	import Dialog from './Dialog.svelte';
 
-	export let is_open: boolean = false;
+	/**
+	 * This Must be set to BIND
+	 */
+	export let prompt;
 
 	let classes = '';
 
@@ -17,12 +21,12 @@
 	const dispatch = createEventDispatcher();
 
 	function handleCancel() {
-		is_open = false;
+		prompt.close();
 		dispatch('cancel');
 	}
 </script>
 
-<Modal bind:is_open class={classes}>
+<Dialog bind:dialog={prompt} class={classes}>
 	<div class="text-lg">
 		<slot />
 	</div>
@@ -38,7 +42,7 @@
 			class="btn confirm-btn {confirm_color}">{confirm_text}</button
 		>
 	</div>
-</Modal>
+</Dialog>
 
 <!--
 @component

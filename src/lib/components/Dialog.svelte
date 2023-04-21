@@ -5,13 +5,28 @@
 	export let dialog: HTMLDialogElement;
 	let classes: string = '';
 	export { classes as class };
+
+	$: dialog?.querySelector('::backdrop')?.addEventListener('click', () => dialog.close());
+
+	function click_stuff(e: MouseEvent) {
+		if (e.target === dialog) dialog.close();
+	}
 </script>
 
-<dialog bind:this={dialog} on:close class="card modal-body pt-9 {classes}" use:portal>
-	<slot />
-	<button class="close-btn" title="close window" on:click={() => dialog.close()}>
-		<X size={20} strokeWidth={3} />
-	</button>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<dialog
+	bind:this={dialog}
+	on:close
+	use:portal
+	on:click={click_stuff}
+	class="card modal-body p-0 {classes}"
+>
+	<div class="pt-9 pb-6 px-10">
+		<slot />
+		<button class="close-btn" title="close window" on:click={() => dialog.close()}>
+			<X size={20} strokeWidth={3} />
+		</button>
+	</div>
 </dialog>
 
 <style lang="postcss">
@@ -19,7 +34,19 @@
 		width: min(90%, 700px);
 
 		&::backdrop {
-			@apply bg-dark/50;
+			@apply bg-dark/50 backdrop-blur-sm;
+		}
+	}
+
+	dialog[open] {
+		animation: show 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275) normal;
+	}
+	@keyframes show {
+		from {
+			scale: 0;
+		}
+		to {
+			scale: 1;
 		}
 	}
 

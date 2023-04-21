@@ -18,8 +18,8 @@
 	$: ({ student } = data);
 	$: ({ phones, scanner_cards } = student);
 
-	let show_archive_prompt = false;
-	let show_delete_prompt = false;
+	let archive_prompt: HTMLDialogElement;
+	let delete_prompt: HTMLDialogElement;
 
 	function getAge(dob: string): number {
 		const date = parseISO(dob);
@@ -61,7 +61,7 @@
 </svelte:head>
 
 <Prompt
-	bind:is_open={show_archive_prompt}
+	bind:prompt={archive_prompt}
 	confirm_color="coral"
 	cancel_text="Nevermind"
 	confirm_text={`Yes, Archive ${student.first_name}`}
@@ -78,7 +78,7 @@
 </Prompt>
 <Prompt
 	class="border-4 border-dashed border-red-500"
-	bind:is_open={show_delete_prompt}
+	bind:prompt={delete_prompt}
 	confirm_color="red"
 	cancel_text="Nevermind"
 	confirm_text={`Yes, Delete ${student.first_name}`}
@@ -134,7 +134,7 @@
 				</button>
 				{#if student.active}
 					<button
-						on:click={() => (show_archive_prompt = true)}
+						on:click={() => archive_prompt.showModal()}
 						style="--color: var(--coral)"
 						title={`Archive ${student.first_name}`}
 					>
@@ -145,7 +145,7 @@
 					</button>
 				{:else}
 					<button
-						on:click={() => (show_archive_prompt = true)}
+						on:click={() => archive_prompt.showModal()}
 						style="--color: var(--yellow)"
 						title={`Unarchive ${student.first_name}`}
 					>
@@ -157,7 +157,7 @@
 				{/if}
 				<!-- TODO: lock this behind a user level -->
 				<button
-					on:click={() => (show_delete_prompt = true)}
+					on:click={() => delete_prompt.showModal()}
 					style="--color: var(--red)"
 					title={`Delete ${student.first_name}`}
 				>
