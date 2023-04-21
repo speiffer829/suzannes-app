@@ -11,7 +11,6 @@
 	export let label_classes: string | null = null;
 	export let validation_error: string | null = null;
 	export let required: boolean = false;
-	$: console.log(`${name} value: ${value}`);
 
 	function wipe_error() {
 		validation_error = null;

@@ -8,9 +8,9 @@
 	import { Plus, Check } from 'lucide-svelte';
 	import type { phoneType } from '$lib/types';
 	import { goto } from '$app/navigation';
+	import Dialog from '$lib/components/Dialog.svelte';
 
 	export let form;
-	$: console.log(form);
 
 	let isLoading: boolean = false;
 
@@ -30,17 +30,23 @@
 		// 	data.set('phones', JSON.stringify(phoneArr));
 		// }
 		return async ({ result, update }) => {
-			console.log('result', result);
 			form = result.data;
 		};
 	}
+
+	let the_dialog: HTMLDialogElement;
+	$: console.log(the_dialog);
 </script>
 
 <svelte:head>
 	<title>Add Student | SuzApp</title>
 </svelte:head>
 
-<button on:click={() => alert('foobar')}>Foo</button>
+<button on:click={() => the_dialog.showModal()}>Test</button>
+
+<Dialog bind:dialog={the_dialog}>
+	<h2 class="text-4xl font-black">Test Dialog</h2>
+</Dialog>
 
 <Loading fullScreen is_showing={isLoading} />
 
