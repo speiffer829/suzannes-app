@@ -12,34 +12,42 @@
 /* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
 :root {
 	--dark: #0b0e1f;
+	--color-dark: 11 14 31;
 	--dark-transparent: hsl(231 47.6% 8.2% / 10%);
 	--darkHSL: 231 47.6% 8.2%;
 
 	--grey: #e7e7e9;
 
 	--pink: #ff61c7;
+	--color-pink: 255 97 199;
 	--pink-dark: #ab1e7c;
 	--pinkHSL: 321.3 100% 69%;
 
 	--light: #f9f8ff;
 
 	--dark-purple: #372952;
+	--color-purple: 55 41 82;
 	--dark-purpleHSL: 260.5 33.3% 24.2%;
 
 	--coral: #f69080;
+	--color-coral: 246 144 128;
 	--coralHSL: 8.2 86.9% 73.4%;
 
 	--periwinkle: #a2a7ec;
+	--color-periwinkle: 162 167 236;
 	--periwinkleHSL: 235.9 65.9% 78%;
 
 	--red: #ff6161;
+	--color-red: 255 97 97;
 	--redHSL: 0 100% 69%;
 
 	--green: #61ff8d;
+	--color-green: 97 255 141;
 	--dark-green: #072d12;
 	--greenHSL: 136.7 100% 69%;
 
 	--yellow: #ffe261;
+	--color-yellow: 255 226 97;
 	--yellowHSL: 49 100% 69%;
 
 	--shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1), 0px 10px 10px 0px rgba(0, 0, 0, 0.1);
@@ -123,7 +131,7 @@ select {
 		}
 
 		@media screen and (min-width: 1250px) {
-			grid-template-columns: 45px 1fr 375px;
+			grid-template-columns: 45px 1fr minmax(200px, 375px);
 		}
 
 		@media print{

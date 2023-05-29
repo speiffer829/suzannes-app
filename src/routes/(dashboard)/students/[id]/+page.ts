@@ -10,8 +10,13 @@ export const load = (async ({ params }) => {
 		.eq('id', id)
 		.single();
 
+		console.log(student);
+		
+
 	if (err) {
-		throw fail(err);
+		console.error('ahhhhhhhhhh')
+		console.error(err);
+		throw fail(`supabase err ${err}`);
 	}
 
 	return {

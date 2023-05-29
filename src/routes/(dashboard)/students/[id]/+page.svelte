@@ -198,6 +198,10 @@
 				</address>
 			</div>
 			<div class="grey-box">
+				<p class="text-sm">Grade</p>
+				<p class="text-2xl">{student.grade}</p>
+			</div>
+			<div class="grey-box">
 				<p class="text-sm flex items-center gap-1">Email</p>
 				<p class="text-2xl">{student.email}</p>
 			</div>
@@ -225,6 +229,15 @@
 						{/each}
 					</ul>
 				</section>
+			{/if}
+
+			{#if student.notes}
+				<div class="grey-box sm:col-span-2 md:col-span-3 mb-0">
+					<p class="text-sm">Notes</p>
+					<p class="text-base" class:text-2xl={student.notes.length > 100}>
+						{student.notes}
+					</p>
+				</div>
 			{/if}
 		</section>
 	</div>

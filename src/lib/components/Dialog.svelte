@@ -14,13 +14,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<dialog
-	bind:this={dialog}
-	on:close
-	use:portal
-	on:click={click_stuff}
-	class="card modal-body p-0 {classes}"
->
+<dialog bind:this={dialog} on:close on:click={click_stuff} class="card modal-body p-0 {classes}">
 	<div class="pt-9 pb-6 px-10">
 		<slot />
 		<button class="close-btn" title="close window" on:click={() => dialog.close()}>
@@ -34,7 +28,7 @@
 		width: min(90%, 700px);
 
 		&::backdrop {
-			@apply bg-dark/50 backdrop-blur-sm;
+			@apply bg-dark/70 backdrop-blur-sm;
 		}
 	}
 
