@@ -215,7 +215,7 @@
 				</div>
 			{:else if phones.length > 1}
 				<section>
-					<h2 class="text-3xl font-black mb-2 text-center">Phones</h2>
+					<h2 class="text-3xl font-black mb-2 text-left mt-9">Phones</h2>
 					<ul class="phones-list">
 						{#each phones as phone (phone.phone_id)}
 							<li>
@@ -232,10 +232,11 @@
 			{/if}
 
 			{#if student.notes}
-				<div class="grey-box sm:col-span-2 md:col-span-3 mb-0">
-					<p class="text-sm">Notes</p>
-					<p class="text-base" class:text-2xl={student.notes.length > 100}>
+				<h2 class="text-3xl font-black mb-2 text-left mt-9">Notes</h2>
+				<div class="grey-box sm:col-span-2 md:col-span-3">
+					<p class="{student.notes.length < 100 ? 'text-2xl' : 'text-base'} py-4">
 						{student.notes}
+						{student.notes.length}
 					</p>
 				</div>
 			{/if}
