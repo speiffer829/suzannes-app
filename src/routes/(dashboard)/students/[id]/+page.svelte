@@ -236,7 +236,6 @@
 				<div class="grey-box sm:col-span-2 md:col-span-3">
 					<p class="{student.notes.length < 100 ? 'text-2xl' : 'text-base'} py-4">
 						{student.notes}
-						{student.notes.length}
 					</p>
 				</div>
 			{/if}
