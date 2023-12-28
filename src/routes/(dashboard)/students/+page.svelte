@@ -56,7 +56,7 @@
 	{#if student_search}
 		<button
 			value="clear"
-			transition:scale|local={{ duration: 250 }}
+			transition:scale={{ duration: 250 }}
 			type="button"
 			on:click|preventDefault={allStudents}
 			class="clear-btn"

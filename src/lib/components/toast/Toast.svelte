@@ -12,8 +12,8 @@
 		{#each $toast as { msg, duration, id, color, isPersisting } (id)}
 			<div
 				class="toast {color}"
-				out:scale={{ easing: backIn }}
-				in:fly={{ x: 100 }}
+				out:scale|global={{ easing: backIn }}
+				in:fly|global={{ x: 100 }}
 				animate:flip={{ duration: 1000, delay: 200 }}
 				on:click={() => toast.remove(id)}
 			>

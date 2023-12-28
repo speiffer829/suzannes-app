@@ -37,7 +37,7 @@ export const actions = {
 			console.log('new_card', new_card);
 			console.log('err', err);
 			if (err) {
-				throw error('Supabase Error', err);
+				error('Supabase Error', err);
 			}
 
 			console.log('new card', new_card);

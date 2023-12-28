@@ -180,7 +180,7 @@
 				<div class="grey-box sm:col-span-2 md:col-span-3 mb-0">
 					<p class="text-sm">Grade</p>
 					<p class="text-2xl">
-						{student.grade}
+						{student.grade || '--'}
 					</p>
 				</div>
 			</div>
@@ -197,10 +197,7 @@
 					{/if}
 				</address>
 			</div>
-			<div class="grey-box">
-				<p class="text-sm">Grade</p>
-				<p class="text-2xl">{student.grade}</p>
-			</div>
+			
 			<div class="grey-box">
 				<p class="text-sm flex items-center gap-1">Email</p>
 				<p class="text-2xl">{student.email}</p>

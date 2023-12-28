@@ -32,7 +32,7 @@
 				</span>
 			</button>
 			{#if is_code_open}
-				<div transition:slide|local class="p-4 pt-0 font-mono">
+				<div transition:slide class="p-4 pt-0 font-mono">
 					<div class="border-t-periwinkle-500/50 border-t-2 pt-4">
 						<JsonView json={$page} --jsonBracketColor="var(--pink)" />
 					</div>

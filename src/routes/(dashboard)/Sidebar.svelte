@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { scale } from 'svelte/transition';
 	import { page, navigating } from '$app/stores';
-	import { enhance, type SubmitFunction } from '$app/forms';
+	import { enhance } from '$app/forms';
 	import supabase from '$lib/db';
 	import { toast } from '$lib/components/toast/toast';
 	import { Home, Users, Clipboard, Clock, Settings, LogOut } from 'lucide-svelte';
@@ -53,7 +52,7 @@
 		</a>
 	</nav>
 
-	<nav class="secondary-nav px-3 py-2 ">
+	<nav class="secondary-nav px-3 py-2">
 		<form action="/logout" method="Post">
 			<button type="submit" class="px-3 py-1">
 				<LogOut size={20} />
@@ -154,14 +153,19 @@
 		overflow: hidden;
 		overflow: clip;
 		padding: 5px;
-		transition: background 250ms, translate 250ms;
+		transition:
+			background 250ms,
+			translate 250ms;
 
 		@media screen and (min-width: 1024px) {
 			display: none;
 		}
 
 		.line {
-			transition: y 200ms ease-in 200ms, rotate 200ms ease-in, opacity 0ms 200ms;
+			transition:
+				y 200ms ease-in 200ms,
+				rotate 200ms ease-in,
+				opacity 0ms 200ms;
 			transform-origin: center;
 		}
 
@@ -175,7 +179,10 @@
 				border-radius: 0 5px 5px 0;
 			}
 			.line {
-				transition: y 200ms ease-in, rotate 200ms ease-in 200ms, opacity 0ms 200ms;
+				transition:
+					y 200ms ease-in,
+					rotate 200ms ease-in 200ms,
+					opacity 0ms 200ms;
 			}
 
 			.top,

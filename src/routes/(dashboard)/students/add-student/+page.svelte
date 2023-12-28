@@ -122,7 +122,7 @@
 				<fieldset
 					class="phone-group shadow-md p-2"
 					animate:flip={{ duration: 200 }}
-					transition:scale|local
+					transition:scale
 				>
 					<label class="input">
 						<span class="w-full block text-lg">Phone Label</span>
@@ -142,7 +142,7 @@
 					{#if phoneArr.length > 1}
 						<button
 							on:click={() => removePhoneGroup(id)}
-							transition:scale|local
+							transition:scale
 							type="button"
 							title="Remove This Phone Group"
 							class="remove-phone-btn"

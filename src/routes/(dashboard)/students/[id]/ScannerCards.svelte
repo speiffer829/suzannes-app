@@ -54,8 +54,8 @@
 					<li
 						class="py-2 flex items-center gap-2 border-b-dark border-b-2"
 						animate:flip
-						in:slide
-						out:fade|local
+						in:slide|global
+						out:fade
 					>
 						<CreditCard />
 						<span class="text-xl flex-1">{card_number}</span>

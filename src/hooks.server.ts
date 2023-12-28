@@ -9,7 +9,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (event?.route?.id?.includes('(dashboard)') && !event.locals.session) {
 		const last_url = event.url.pathname + event.url.search;
-		throw redirect(303, `/login?redirect_to=${last_url}`);
+		redirect(303, `/login?redirect_to=${last_url}`);
 	}
 
 	return resolve(event);

@@ -26,8 +26,8 @@ export const actions: Actions = {
 		const redirect_to = event.url.searchParams.get('redirect_to');
 
 		if (redirect_to) {
-			throw redirect(303, `${redirect_to}`);
+			redirect(303, `${redirect_to}`);
 		}
-		throw redirect(303, '/');
+		redirect(303, '/');
 	}
 };

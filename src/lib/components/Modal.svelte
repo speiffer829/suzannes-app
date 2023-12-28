@@ -25,7 +25,7 @@
 			aria-describedby={ariaDescribedby}
 			aria-modal="true"
 			class="card modal-body pt-9 {classes}"
-			transition:scale|local={{ easing: backInOut, duration: 500 }}
+			transition:scale={{ easing: backInOut, duration: 500 }}
 		>
 			<button class="close-btn" title="close window" on:click={() => (is_open = false)}>
 				<X size={20} strokeWidth={3} />

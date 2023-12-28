@@ -25,7 +25,7 @@
 	</button>
 
 	{#if is_open}
-		<div class="bubble-body" transition:scale={{ easing: backInOut }} id="bubble-body">
+		<div class="bubble-body" transition:scale|global={{ easing: backInOut }} id="bubble-body">
 			{#each options as option}
 				<button on:click={option.callback}>{option.text}</button>
 			{/each}
