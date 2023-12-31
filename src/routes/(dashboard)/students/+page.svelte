@@ -4,7 +4,6 @@
 	import { scale } from 'svelte/transition';
 	import type { PageData } from './$types';
 	import { invalidateAll, goto } from '$app/navigation';
-	import { X, Search, UserPlus } from 'lucide-svelte';
 
 	export let data: PageData;
 	$: ({ students } = data);
@@ -46,7 +45,7 @@
 
 <form bind:this={search_form} method="GET">
 	<input
-		type="text"
+		type="search"
 		name="search"
 		bind:this={search_input}
 		bind:value={student_search}
@@ -62,16 +61,55 @@
 			class="clear-btn"
 			title="Clear Search"
 		>
-			<X />
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg
+			>
 		</button>
 	{/if}
 	<button type="submit" title="Submit Search">
-		<Search />
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			class="lucide lucide-search"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
+		>
 	</button>
 </form>
 
 <a href="/students/add-student" class="btn mb-2" title="Add A New Students">
-	<UserPlus />
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		class="lucide lucide-user-plus"
+		><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><line
+			x1="19"
+			x2="19"
+			y1="8"
+			y2="14"
+		/><line x1="22" x2="16" y1="11" y2="11" /></svg
+	>
 	<span>New Student</span>
 </a>
 
@@ -112,7 +150,7 @@
 	</tbody>
 </table>
 
-<style lang="scss">
+<style lang="postcss">
 	table {
 		width: 100%;
 		border-radius: 16px;

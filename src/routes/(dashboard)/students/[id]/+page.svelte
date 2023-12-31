@@ -4,7 +4,6 @@
 	import { parseISO, differenceInYears } from 'date-fns';
 	import ScannerCards from './ScannerCards.svelte';
 	import type { PageData } from './$types';
-	import { ArrowLeft, Edit, Printer, Trash2, Upload, Archive } from 'lucide-svelte';
 	import Prompt from '$lib/components/Prompt.svelte';
 	import { page } from '$app/stores';
 	import supabase from '$lib/db';
@@ -108,7 +107,18 @@
 			<div class="absolute z-10 isolate">
 				<a href={`/students${$page.url.search}`} title="Go Back To Students">
 					<span class="icon">
-						<ArrowLeft />
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg
+						>
 					</span>
 					<span class="text">Go Back</span>
 				</a>
@@ -118,7 +128,23 @@
 					title={`Edit ${student.first_name}`}
 				>
 					<span class="icon">
-						<Edit />
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-file-edit"
+							><path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5" /><polyline
+								points="14 2 14 8 20 8"
+							/><path
+								d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"
+							/></svg
+						>
 					</span>
 					<span class="text">Edit Student</span>
 				</a>
@@ -128,7 +154,21 @@
 					title={`Print ${student.first_name}`}
 				>
 					<span class="icon">
-						<Printer />
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-printer"
+							><polyline points="6 9 6 2 18 2 18 9" /><path
+								d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+							/><rect width="12" height="8" x="6" y="14" /></svg
+						>
 					</span>
 					<span class="text">Print Student</span>
 				</button>
@@ -139,7 +179,21 @@
 						title={`Archive ${student.first_name}`}
 					>
 						<span class="icon">
-							<Archive />
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								class="lucide lucide-archive"
+								><rect width="20" height="5" x="2" y="3" rx="1" /><path
+									d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"
+								/><path d="M10 12h4" /></svg
+							>
 						</span>
 						<span class="text">Archive Student</span>
 					</button>
@@ -150,7 +204,23 @@
 						title={`Unarchive ${student.first_name}`}
 					>
 						<span class="icon">
-							<Upload />
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								class="lucide lucide-archive-restore"
+								><rect width="20" height="5" x="2" y="3" rx="1" /><path
+									d="M4 8v11a2 2 0 0 0 2 2h2"
+								/><path d="M20 8v11a2 2 0 0 1-2 2h-2" /><path d="m9 15 3-3 3 3" /><path
+									d="M12 12v9"
+								/></svg
+							>
 						</span>
 						<span class="text">Unarchive Student</span>
 					</button>
@@ -162,7 +232,26 @@
 					title={`Delete ${student.first_name}`}
 				>
 					<span class="icon">
-						<Trash2 />
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-trash-2"
+							><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path
+								d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"
+							/><line x1="10" x2="10" y1="11" y2="17" /><line
+								x1="14"
+								x2="14"
+								y1="11"
+								y2="17"
+							/></svg
+						>
 					</span>
 					<span class="text">Delete Student</span>
 				</button>
@@ -197,7 +286,7 @@
 					{/if}
 				</address>
 			</div>
-			
+
 			<div class="grey-box">
 				<p class="text-sm flex items-center gap-1">Email</p>
 				<p class="text-2xl">{student.email}</p>
@@ -294,7 +383,9 @@
 			display: flex;
 			padding: 10px 10px 10px 0;
 			margin-bottom: 15px;
-			transition: background 250ms, color 250ms;
+			transition:
+				background 250ms,
+				color 250ms;
 
 			&:hover {
 				background: var(--dark);

@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { fly, slide, scale } from 'svelte/transition';
-	import { backIn, backInOut, backOut } from 'svelte/easing';
-	import { MoreHorizontal } from 'lucide-svelte';
+	import { scale } from 'svelte/transition';
+	import { backInOut } from 'svelte/easing';
 	import { click_outside } from '$lib/helpers/click_outside';
 
 	interface optionType {
@@ -9,9 +8,14 @@
 		callback?: () => any;
 	}
 
-	export let options: optionType[];
-	export let is_open = false;
-	let this_bubble: HTMLElement;
+	interface Props {
+		options: optionType[];
+		is_open: boolean;
+	}
+
+	let { options, is_open = false } = $props<Props>();
+
+	let this_bubble: HTMLElement | undefined = $state();
 </script>
 
 <div
@@ -21,7 +25,23 @@
 	on:click-outside={() => (is_open = false)}
 >
 	<button class="circle-btn" title="Show Options" on:click={() => (is_open = !is_open)}>
-		<MoreHorizontal size={20} />
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="20"
+			height="20"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			class="lucide lucide-more-horizontal"
+			><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle
+				cx="5"
+				cy="12"
+				r="1"
+			/></svg
+		>
 	</button>
 
 	{#if is_open}
@@ -33,7 +53,7 @@
 	{/if}
 </div>
 
-<style lang="scss">
+<style lang="postcss">
 	.bubble-menu-contain {
 		position: relative;
 		isolation: isolate;

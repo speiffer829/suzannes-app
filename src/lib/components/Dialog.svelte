@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { portal } from '$lib/scripts/portal';
-	import { X } from 'lucide-svelte';
 
 	export let dialog: HTMLDialogElement;
 	let classes: string = '';
@@ -18,7 +17,18 @@
 	<div class="pt-9 pb-6 px-10">
 		<slot />
 		<button class="close-btn" title="close window" on:click={() => dialog.close()}>
-			<X size={20} strokeWidth={3} />
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="3"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg
+			>
 		</button>
 	</div>
 </dialog>

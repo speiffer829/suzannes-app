@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { JsonView } from '@zerodevx/svelte-json-view';
 	import { page } from '$app/stores';
 	import { slide } from 'svelte/transition';
-	import { ChevronDown } from 'lucide-svelte';
 
 	let is_code_open = false;
 </script>
@@ -28,13 +26,28 @@
 			>
 				{is_code_open ? 'Hide' : 'View'} Error Object
 				<span class:rotate-180={is_code_open} class="transition-transform duration-300">
-					<ChevronDown />
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6" /></svg
+					>
 				</span>
 			</button>
 			{#if is_code_open}
 				<div transition:slide class="p-4 pt-0 font-mono max-w-full overflow-scroll">
-					<div class="border-t-periwinkle-500/50 border-t-2 pt-4 ">
-						<JsonView json={$page} --jsonBracketColor="var(--pink)" />
+					<div class="border-t-periwinkle-500/50 border-t-2 pt-4">
+						<code>
+							<pre>
+								{$page}
+							</pre>
+						</code>
 					</div>
 				</div>
 			{/if}

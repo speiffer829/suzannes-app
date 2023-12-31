@@ -9,7 +9,6 @@
 	import { fade, slide } from 'svelte/transition';
 	import supabase from '$lib/db';
 	import { invalidateAll } from '$app/navigation';
-	import { CreditCard, Plus } from 'lucide-svelte';
 	import type { scannerCardType } from '$lib/types';
 	import type { ActionResult } from '@sveltejs/kit';
 
@@ -57,7 +56,24 @@
 						in:slide|global
 						out:fade
 					>
-						<CreditCard />
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="lucide lucide-credit-card"
+							><rect width="20" height="14" x="2" y="5" rx="2" /><line
+								x1="2"
+								x2="22"
+								y1="10"
+								y2="10"
+							/></svg
+						>
 						<span class="text-xl flex-1">{card_number}</span>
 						<BubbleMenu
 							options={[{ text: `Delete Card #${card_number}`, callback: () => removeCard(id) }]}
@@ -77,7 +93,18 @@
 			class:mx-auto={!scanner_cards.length}
 			on:click={() => card_dialog.showModal()}
 		>
-			<Plus size={20} />
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="lucide lucide-plus"><path d="M5 12h14" /><path d="M12 5v14" /></svg
+			>
 			Add A Card
 		</button>
 	</div>
@@ -93,6 +120,19 @@
 			other_stuff={{ autocomplete: 'off' }}
 		/>
 		<input type="hidden" value={student_id} name="student_id" />
-		<button class="btn" type="submit"><Plus /> Add Card</button>
+		<button class="btn" type="submit"
+			><svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="lucide lucide-plus"><path d="M5 12h14" /><path d="M12 5v14" /></svg
+			> Add Card</button
+		>
 	</form>
 </Dialog>

@@ -11,7 +11,7 @@
 	</main>
 </div>
 
-<style lang="scss">
+<style lang="postcss">
 	#page {
 		max-width: 1330px;
 		width: 90%;

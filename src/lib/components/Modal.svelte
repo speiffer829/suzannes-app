@@ -2,7 +2,6 @@
 	import { fade, scale } from 'svelte/transition';
 	import Portal from '$lib/components/Portal.svelte';
 	import { backInOut } from 'svelte/easing';
-	import { X } from 'lucide-svelte';
 
 	export let is_open: boolean = false;
 	let classes = '';
@@ -28,14 +27,25 @@
 			transition:scale={{ easing: backInOut, duration: 500 }}
 		>
 			<button class="close-btn" title="close window" on:click={() => (is_open = false)}>
-				<X size={20} strokeWidth={3} />
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg
+				>
 			</button>
 			<slot />
 		</div>
 	</div>
 {/if}
 
-<style lang="scss">
+<style lang="postcss">
 	.modal-body {
 		position: relative;
 		width: min(90%, 700px);

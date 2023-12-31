@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { JsonView } from '@zerodevx/svelte-json-view';
 	import { page } from '$app/stores';
 	import { slide } from 'svelte/transition';
-	import { ChevronDown } from 'lucide-svelte';
 
 	let is_code_open = false;
 </script>
@@ -34,7 +32,11 @@
 			{#if is_code_open}
 				<div transition:slide class="p-4 pt-0 font-mono">
 					<div class="border-t-periwinkle-500/50 border-t-2 pt-4">
-						<JsonView json={$page} --jsonBracketColor="var(--pink)" />
+						<code>
+							<pre>
+								{$page}
+							</pre>
+						</code>
 					</div>
 				</div>
 			{/if}

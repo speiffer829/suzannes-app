@@ -12,7 +12,7 @@
 	<input {name} type="date" bind:value {placeholder} {disabled} title={label} class={classes} />
 </label>
 
-<style lang="scss">
+<style lang="postcss">
 	label {
 		margin: 1rem 0;
 		display: block;

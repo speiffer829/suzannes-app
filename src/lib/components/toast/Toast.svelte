@@ -23,7 +23,7 @@
 	</div>
 </Portal>
 
-<style lang="scss">
+<style lang="postcss">
 	.toast-wrapper {
 		position: fixed;
 		bottom: 20px;
