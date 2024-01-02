@@ -9,6 +9,9 @@
 	import { goto } from '$app/navigation';
 	import Dialog from '$lib/components/Dialog.svelte';
 
+	// TODO: Add phone validation
+	// TODO: Submit Phones
+
 	export let form;
 
 	let isLoading: boolean = false;
@@ -24,7 +27,7 @@
 		return regex.test(input);
 	}
 
-	function handle_form({ data }) {
+	function handle_form({ formData }) {
 		// if (phoneArr.length > 0 && phoneArr[0].phone !== '') {
 		// 	data.set('phones', JSON.stringify(phoneArr));
 		// }
