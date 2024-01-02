@@ -38,6 +38,8 @@ export const actions = {
 		form_data.delete('ignore-phone');
 
 		const new_data = Object.fromEntries(await form_data);
+		console.log('new_data', new_data);
+
 		// Validate form data
 		try {
 			const result = zod_schema.parse(new_data);

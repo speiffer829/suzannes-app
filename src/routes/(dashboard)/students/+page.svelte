@@ -3,15 +3,19 @@
 	import { format } from 'date-fns';
 	import { scale } from 'svelte/transition';
 	import type { PageData } from './$types';
+	import { browser } from '$app/environment';
 	import { invalidateAll, goto } from '$app/navigation';
 
-	export let data: PageData;
-	$: ({ students } = data);
+	let { data } = $props<{ data: PageData }>();
+	const students = $derived(data.students);
 
-	let search_input: HTMLInputElement;
+	let search_input: HTMLInputElement | undefined = $state();
 
-	let search_form;
-	let student_search = $page.url.searchParams.get('search') || '';
+	let search_form: HTMLFormElement | undefined = $state();
+	let student_search: string = $state($page.url.searchParams.get('search') || '');
+
+	const is_mac = $derived(browser ? navigator?.userAgent.includes('Mac') : false);
+	$inspect(is_mac);
 
 	export const snapshot = {
 		capture: () => {
@@ -31,13 +35,13 @@
 
 	function handleHotKey(e: KeyboardEvent) {
 		if (e.metaKey && e.key === 'k') {
-			search_input.focus();
-			search_input.select();
+			search_input?.focus();
+			search_input?.select();
 		}
 	}
 </script>
 
-<svelte:window on:keydown={handleHotKey} />
+<svelte:window onkeydown={handleHotKey} />
 
 <svelte:head>
 	<title>Students | SuzApp</title>
@@ -49,7 +53,7 @@
 		name="search"
 		bind:this={search_input}
 		bind:value={student_search}
-		placeholder="Search Students (⌘ + k)"
+		placeholder={`Search Students ${is_mac ? `(⌘ + k)` : `(ctrl + k)`}`}
 		autocomplete="off"
 	/>
 	{#if student_search}

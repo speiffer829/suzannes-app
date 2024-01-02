@@ -10,15 +10,13 @@
 	import { toast } from '$toast';
 	import { goto } from '$app/navigation';
 
-	export let form: HTMLFormElement;
-	export let data: PageData;
-	let student: studentType;
+	let { form, data } = $props<{ form: HTMLFormElement; data: PageData }>();
 
-	$: ({ student } = data);
-	$: ({ phones, scanner_cards } = student);
+	const { student } = data;
+	const { phones, scanner_cards } = student;
 
-	let archive_prompt: HTMLDialogElement;
-	let delete_prompt: HTMLDialogElement;
+	let archive_prompt = $state<HTMLDialogElement>();
+	let delete_prompt = $state<HTMLDialogElement>();
 
 	function getAge(dob: string): number {
 		const date = parseISO(dob);
@@ -95,7 +93,7 @@
 		>
 	</p>
 	<span slot="btns">
-		<button class="btn bg-coral hover:text-coral" on:click={handleArchive}
+		<button class="btn bg-coral hover:text-coral" onclick={handleArchive}
 			>Just Archive {student.first_name}</button
 		>
 	</span>
@@ -174,7 +172,7 @@
 				</button>
 				{#if student.active}
 					<button
-						on:click={() => archive_prompt.showModal()}
+						on:click={() => archive_prompt?.showModal()}
 						style="--color: var(--coral)"
 						title={`Archive ${student.first_name}`}
 					>
@@ -199,7 +197,7 @@
 					</button>
 				{:else}
 					<button
-						on:click={() => archive_prompt.showModal()}
+						on:click={() => archive_prompt?.showModal()}
 						style="--color: var(--yellow)"
 						title={`Unarchive ${student.first_name}`}
 					>
@@ -227,7 +225,7 @@
 				{/if}
 				<!-- TODO: lock this behind a user level -->
 				<button
-					on:click={() => delete_prompt.showModal()}
+					on:click={() => delete_prompt?.showModal()}
 					style="--color: var(--red)"
 					title={`Delete ${student.first_name}`}
 				>
@@ -280,7 +278,8 @@
 			<div class="grey-box">
 				<p class="text-sm">Address</p>
 				<address class="text-2xl">
-					{student.address || '--'}<br />
+					{student.address ?? '--'}
+					<br />
 					{#if student.address}
 						{student.city}, PA {student.zip}
 					{/if}
