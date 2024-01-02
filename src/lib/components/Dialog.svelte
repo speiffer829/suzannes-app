@@ -1,11 +1,17 @@
 <script lang="ts">
 	import { portal } from '$lib/scripts/portal';
+	import type { Snippet } from 'svelte';
 
-	export let dialog: HTMLDialogElement;
-	let classes: string = '';
-	export { classes as class };
+	type Props = {
+		dialog: HTMLDialogElement | undefined;
+		class?: string;
+		children: Snippet;
+	};
+	let { dialog, class: classes, children } = $props<Props>();
 
-	$: dialog?.querySelector('::backdrop')?.addEventListener('click', () => dialog.close());
+	$effect(() => {
+		dialog?.querySelector('::backdrop')?.addEventListener('click', () => dialog?.close());
+	});
 
 	function click_stuff(e: MouseEvent) {
 		if (e.target === dialog) dialog.close();
@@ -13,10 +19,11 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog bind:this={dialog} on:close on:click={click_stuff} class="card modal-body p-0 {classes}">
 	<div class="pt-9 pb-6 px-10">
-		<slot />
-		<button class="close-btn" title="close window" on:click={() => dialog.close()}>
+		{@render children()}
+		<button class="close-btn" title="close window" on:click={() => dialog?.close()}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"

@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { slide } from 'svelte/transition';
 
-	let is_code_open = false;
+	let is_code_open = $state(false);
 </script>
 
 <svelte:head>

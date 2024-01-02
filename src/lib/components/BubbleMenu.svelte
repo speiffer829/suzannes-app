@@ -10,7 +10,7 @@
 
 	interface Props {
 		options: optionType[];
-		is_open: boolean;
+		is_open?: boolean;
 	}
 
 	let { options, is_open = false } = $props<Props>();

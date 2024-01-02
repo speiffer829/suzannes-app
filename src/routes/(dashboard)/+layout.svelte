@@ -1,13 +1,17 @@
-<script>
+<script lang="ts">
 	import Sidebar from './Sidebar.svelte';
-	import Breadcrumbs from './Breadcrumbs.svelte';
+	import type { Snippet } from 'svelte';
+
+	type Props = {
+		children: Snippet;
+	};
+	let { children } = $props<Props>();
 </script>
 
 <div id="page" class="pt-16 lg:pt-0">
 	<Sidebar />
 	<main>
-		<!-- <Breadcrumbs /> -->
-		<slot />
+		{@render children()}
 	</main>
 </div>
 

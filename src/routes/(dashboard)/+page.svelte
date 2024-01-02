@@ -1,10 +1,8 @@
 <script lang="ts">
-	import type { LayoutData, LayoutParentData, LayoutServerData, PageData } from './$types';
+	import type { LayoutData } from './$types';
 
-	export let data: PageData;
+	let { data } = $props<{ data: LayoutData }>();
 </script>
-
-<h1>Welcome to SvelteKit</h1>
 
 {#if data?.session}
 	<h2>you can be here {data?.session.user.email}</h2>

@@ -1,17 +1,16 @@
 <script lang="ts">
 	import { page, navigating } from '$app/stores';
-	import { enhance } from '$app/forms';
-	import supabase from '$lib/db';
-	import { toast } from '$lib/components/toast/toast';
-	import type { ActionResult } from '@sveltejs/kit';
+	import { untrack } from 'svelte';
 
-	$: {
+	let isNavShowing = $state(false);
+
+	$effect(() => {
 		if ($navigating !== null && isNavShowing) {
-			isNavShowing = false;
+			untrack(() => {
+				isNavShowing = false;
+			});
 		}
-	}
-
-	let isNavShowing = false;
+	});
 </script>
 
 <header

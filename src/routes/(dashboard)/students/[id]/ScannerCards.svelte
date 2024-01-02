@@ -12,11 +12,15 @@
 	import type { scannerCardType } from '$lib/types';
 	import type { ActionResult } from '@sveltejs/kit';
 
-	export let scanner_cards: scannerCardType[];
-	export let student_id: number;
-	export let form;
+	type Props = {
+		scanner_cards: scannerCardType[];
+		student_id: number;
+		form: HTMLFormElement;
+	};
 
-	let card_dialog: HTMLDialogElement;
+	let { scanner_cards, student_id, form } = $props<Props>();
+
+	let card_dialog = $state<HTMLDialogElement>();
 
 	async function removeCard(id: number) {
 		const { data, error } = await supabase.from('scanner_cards').delete().eq('id', id);
@@ -32,7 +36,7 @@
 		$is_full_screen_loading = true;
 		return async ({ result, update }: { result: ActionResult; update }) => {
 			$is_full_screen_loading = false;
-			card_dialog.close();
+			card_dialog?.close();
 			update();
 			if (result.type === 'success' && result.data) {
 				invalidateAll();
@@ -91,7 +95,7 @@
 			title="Add Scan Card"
 			class="btn small-btn mx-auto mt-4"
 			class:mx-auto={!scanner_cards.length}
-			on:click={() => card_dialog.showModal()}
+			on:click={() => card_dialog?.showModal()}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
