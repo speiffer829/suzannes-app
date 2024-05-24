@@ -3,7 +3,6 @@ import { error, fail } from '@sveltejs/kit';
 import type { scannerCardType } from '$types';
 import { z } from 'zod';
 
-
 //ZOD Stuff
 const registerSchema = z.object({
 	card_number: z
@@ -34,10 +33,8 @@ export const actions = {
 				.select()
 				.single();
 
-			console.log('new_card', new_card);
-			console.log('err', err);
 			if (err) {
-				error('Supabase Error', err);
+				return fail('Supabase Error', err);
 			}
 
 			console.log('new card', new_card);

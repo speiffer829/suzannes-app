@@ -44,12 +44,6 @@
 	<title>Add Student | SuzApp</title>
 </svelte:head>
 
-<button on:click={() => the_dialog.showModal()}>Test</button>
-
-<Dialog bind:dialog={the_dialog}>
-	<h2 class="text-4xl font-black">Test Dialog</h2>
-</Dialog>
-
 <Loading fullScreen is_showing={isLoading} />
 
 <div class="max-w-xl">

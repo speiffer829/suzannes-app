@@ -18,7 +18,7 @@
 		form: HTMLFormElement;
 	};
 
-	let { scanner_cards, student_id, form } = $props<Props>();
+	let { scanner_cards, student_id } = $props<Props>();
 
 	let card_dialog = $state<HTMLDialogElement>();
 
@@ -35,6 +35,8 @@
 	async function handleForm({}) {
 		$is_full_screen_loading = true;
 		return async ({ result, update }: { result: ActionResult; update }) => {
+			console.log('res', result);
+
 			$is_full_screen_loading = false;
 			card_dialog?.close();
 			update();
