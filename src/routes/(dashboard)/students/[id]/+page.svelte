@@ -12,7 +12,7 @@
 
 	// TODO: Print Styles
 
-	let { form, data } = $props<{ form: HTMLFormElement; data: PageData }>();
+	let { form, data }: { form: HTMLFormElement; data: PageData } = $props();
 
 	const { student } = data;
 	const { phones, scanner_cards } = student;
@@ -64,7 +64,7 @@
 	confirm_color="coral"
 	cancel_text="Nevermind"
 	confirm_text={`Yes, Archive ${student.first_name}`}
-	on:confirm={handleArchive}
+	onconfirm={handleArchive}
 >
 	<h4 class="text-2xl font-bold text-coral-500">
 		Are you Sure You Want To Archive {student.first_name}?
@@ -81,7 +81,7 @@
 	confirm_color="red"
 	cancel_text="Nevermind"
 	confirm_text={`Yes, Delete ${student.first_name}`}
-	on:confirm={handle_delete_student}
+	onconfirm={handle_delete_student}
 >
 	<h4 class="text-2xl font-bold text-red-500">
 		Are you Sure You Want To Delete {student.first_name}?
@@ -94,11 +94,11 @@
 			>This cannot be undone.</strong
 		>
 	</p>
-	<span slot="btns">
-		<button class="btn bg-coral hover:text-coral" onclick={handleArchive}
-			>Just Archive {student.first_name}</button
-		>
-	</span>
+	{#snippet btns()}
+	<button class="btn bg-coral hover:text-coral" onclick={handleArchive}
+		>Just Archive {student.first_name}</button
+	>
+	{/snippet}
 </Prompt>
 
 <div id="student-grid" class="page-grid">
@@ -149,7 +149,7 @@
 					<span class="text">Edit Student</span>
 				</a>
 				<button
-					on:click={() => window.print()}
+					onclick={() => window.print()}
 					style="--color: var(--periwinkle)"
 					title={`Print ${student.first_name}`}
 				>
@@ -174,7 +174,7 @@
 				</button>
 				{#if student.active}
 					<button
-						on:click={() => archive_prompt?.showModal()}
+						onclick={() => archive_prompt?.showModal()}
 						style="--color: var(--coral)"
 						title={`Archive ${student.first_name}`}
 					>
@@ -199,7 +199,7 @@
 					</button>
 				{:else}
 					<button
-						on:click={() => archive_prompt?.showModal()}
+						onclick={() => archive_prompt?.showModal()}
 						style="--color: var(--yellow)"
 						title={`Unarchive ${student.first_name}`}
 					>
@@ -227,7 +227,7 @@
 				{/if}
 				<!-- TODO: lock this behind a user level -->
 				<button
-					on:click={() => delete_prompt?.showModal()}
+					onclick={() => delete_prompt?.showModal()}
 					style="--color: var(--red)"
 					title={`Delete ${student.first_name}`}
 				>

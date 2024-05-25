@@ -6,8 +6,10 @@
 		dialog: HTMLDialogElement | undefined;
 		class?: string;
 		children: Snippet;
+		onclose?: () => void;
+		onclick?: (e: MouseEvent) => void;
 	};
-	let { dialog, class: classes, children } = $props<Props>();
+	let { dialog=$bindable(), class: classes, children, onclose, onclick }: Props = $props();
 
 	$effect(() => {
 		dialog?.querySelector('::backdrop')?.addEventListener('click', () => dialog?.close());
@@ -20,10 +22,10 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<dialog bind:this={dialog} on:close on:click={click_stuff} class="card modal-body p-0 {classes}">
+<dialog bind:this={dialog} {onclose} class="card modal-body p-0 {classes}">
 	<div class="pt-9 pb-6 px-10">
 		{@render children()}
-		<button class="close-btn" title="close window" on:click={() => dialog?.close()}>
+		<button class="close-btn" title="close window" onclick={() => dialog?.close()}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"

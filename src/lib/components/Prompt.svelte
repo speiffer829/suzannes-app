@@ -1,44 +1,54 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-	import Modal from './Modal.svelte';
+	import type { Snippet } from 'svelte';
 	import Dialog from './Dialog.svelte';
 
-	/**
-	 * This Must be set to BIND
-	 */
-	export let prompt;
+	interface Props {
+		prompt?: HTMLDialogElement;
+		class?: string;
+		confirm_text?: string;
+		confirm_color?: 'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow';
+		cancel_text?: string;
+		cancel_color?: 'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow';
+		oncancel?: () => void;
+		onconfirm?: () => void;
+		children: Snippet;
+		btns?: Snippet;
+	}
 
-	let classes = '';
-
-	export { classes as class };
-
-	export let confirm_text = 'Confirm';
-	export let confirm_color: 'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow' = 'pink';
-
-	export let cancel_text = 'Cancel';
-	export let cancel_color: 'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow' = 'gray';
-
-	const dispatch = createEventDispatcher();
+	let {
+		prompt = $bindable(),
+		oncancel = () => {},
+		onconfirm = () => {},
+		class: classes,
+		confirm_text = 'Confirm',
+		confirm_color = 'pink',
+		cancel_text = 'Cancel',
+		cancel_color = 'gray',
+		children,
+		btns
+	}: Props = $props();
 
 	function handleCancel() {
-		prompt.close();
-		dispatch('cancel');
+		prompt?.close();
+		oncancel();
 	}
 </script>
 
 <Dialog bind:dialog={prompt} class={classes}>
 	<div class="text-lg">
-		<slot />
+		{@render children()}
 	</div>
 
 	<div class="grid grid-cols-1 sm:flex justify-end flex-wrap gap-2 mt-8">
-		<button title={cancel_text} on:click={handleCancel} class="btn cancel-btn {cancel_color}"
+		<button title={cancel_text} onclick={handleCancel} class="btn cancel-btn {cancel_color}"
 			>{cancel_text}</button
 		>
-		<slot name="btns" />
+		{#if btns}
+			{@render btns()}
+		{/if}
 		<button
 			title={confirm_text}
-			on:click={() => dispatch('confirm')}
+			onclick={() => onconfirm()}
 			class="btn confirm-btn {confirm_color}">{confirm_text}</button
 		>
 	</div>
@@ -66,8 +76,8 @@ Shows a prompt window with a default confirm btn and cancel btn
 `cancel_color` - `'red' | 'gray' | 'green' | 'pink' | 'coral' | 'yellow'` - color of cancel button
 
 ### events
-`on:confirm` = on confirm
-`on:cancel` = on cancel, default close window
+`onconfirm` = on confirm
+`oncancel` = on cancel, default close window
 -->
 <style lang="postcss">
 	.btn {

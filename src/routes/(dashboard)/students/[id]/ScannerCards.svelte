@@ -18,9 +18,9 @@
 		form: HTMLFormElement;
 	};
 
-	let { scanner_cards, student_id } = $props<Props>();
+	let { scanner_cards, student_id, form = $bindable() }: Props = $props();
 
-	let card_dialog = $state<HTMLDialogElement>();
+	let card_dialog: HTMLDialogElement | undefined = $state(undefined);
 
 	async function removeCard(id: number) {
 		const { data, error } = await supabase.from('scanner_cards').delete().eq('id', id);

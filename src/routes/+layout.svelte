@@ -47,12 +47,7 @@
 	});
 </script>
 
-<Prompt
-	bind:is_open={show_timeout_popup}
-	confirm_text="Refresh"
-	cancel_text="Keep Waiting"
-	on:confirm={() => location.reload()}
->
+<Prompt confirm_text="Refresh" cancel_text="Keep Waiting" onconfirm={() => location.reload()}>
 	<h2 class="text-3xl text-red font-black">Page Timeout</h2>
 	<p class="text-xl mt-4">
 		It would seem the page timed out. I'd give it a refresh. You might be having network
