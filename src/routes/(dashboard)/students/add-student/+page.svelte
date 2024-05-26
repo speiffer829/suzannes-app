@@ -12,11 +12,11 @@
 	// TODO: Add phone validation
 	// TODO: Submit Phones
 
-	export let form;
+	let { form } = $props();
 
 	let isLoading: boolean = false;
 
-	let phoneArr = [{ id: 1, label: '', phone: '' }];
+	let phoneArr = $state([{ id: 1, label: '', phone: '' }]);
 
 	function removePhoneGroup(id): void {
 		phoneArr = [...phoneArr].filter((p) => p.id !== id);
@@ -36,8 +36,8 @@
 		};
 	}
 
-	let the_dialog: HTMLDialogElement;
-	$: console.log(the_dialog);
+	let the_dialog: HTMLDialogElement | undefined = $state();
+	$inspect(the_dialog);
 </script>
 
 <svelte:head>
@@ -114,7 +114,7 @@
 
 		<div class="card mt-14">
 			<h2 class="text-3xl font-black mb-6 text-left pink-underline">Phones</h2>
-			{#each phoneArr as { id, phone, label } (id)}
+			{#each phoneArr as { id, phone, label }, index (id)}
 				<fieldset
 					class="phone-group shadow-md p-2"
 					animate:flip={{ duration: 200 }}
@@ -128,16 +128,21 @@
 							title="phone label"
 							placeholder="Optional"
 							autocomplete="off"
-							bind:value={label}
+							bind:value={phoneArr[index].label}
 						/>
 					</label>
 					<label class="input">
 						<span class="w-full block text-lg">Phone Number</span>
-						<input name={`ignore-phone`} type="tel" title="phone" bind:value={phone} />
+						<input
+							name={`ignore-phone`}
+							type="tel"
+							title="phone"
+							bind:value={phoneArr[index].label}
+						/>
 					</label>
 					{#if phoneArr.length > 1}
 						<button
-							on:click={() => removePhoneGroup(id)}
+							onclick={() => removePhoneGroup(id)}
 							transition:scale
 							type="button"
 							title="Remove This Phone Group"
@@ -162,7 +167,7 @@
 			<button
 				class="more-btn"
 				type="button"
-				on:click={() =>
+				onclick={() =>
 					(phoneArr = [...phoneArr, { id: Math.round(Math.random() * 100), label: '', phone: '' }])}
 			>
 				<svg

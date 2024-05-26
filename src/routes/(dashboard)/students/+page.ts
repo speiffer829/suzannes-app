@@ -6,6 +6,7 @@ export const load: PageLoad = async ({ url }) => {
 	const search = url.searchParams.get('search');
 
 	if (search) {
+		console.log('search', search);
 		const { data, error: err } = await supabase.rpc<studentType>('fuzzy_search', {
 			search_string: search
 		});

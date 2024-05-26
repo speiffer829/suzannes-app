@@ -6,7 +6,7 @@
 	import { browser } from '$app/environment';
 	import { invalidateAll, goto } from '$app/navigation';
 
-	let { data } = $props<{ data: PageData }>();
+	let { data }: { data: PageData } = $props();
 	const students = $derived(data.students);
 
 	let search_input: HTMLInputElement | undefined = $state();
@@ -17,20 +17,22 @@
 	const is_mac = $derived(browser ? navigator?.userAgent.includes('Mac') : false);
 	$inspect(is_mac);
 
-	export const snapshot = {
-		capture: () => {
-			return student_search;
-		},
-		restore: (value: string) => {
-			student_search = value;
-		}
-	};
+	// export const snapshot = {
+	// 	capture: () => {
+	// 		return student_search;
+	// 	},
+	// 	restore: (value: string) => {
+	// 		student_search = value;
+	// 	}
+	// };
 
-	async function allStudents() {
+	async function allStudents(e) {
+		e?.preventDefault();
+		console.log('Clearing Search', student_search);
 		student_search = '';
-		$page.url.searchParams.delete('search');
-
-		history.pushState({}, '', $page.url);
+		setTimeout(() => {
+			search_form?.submit();
+		}, 10);
 	}
 
 	function handleHotKey(e: KeyboardEvent) {
@@ -61,7 +63,7 @@
 			value="clear"
 			transition:scale={{ duration: 250 }}
 			type="button"
-			on:click|preventDefault={allStudents}
+			onclick={allStudents}
 			class="clear-btn"
 			title="Clear Search"
 		>
@@ -127,26 +129,22 @@
 	</thead>
 	<tbody>
 		{#each students as student (student.id)}
+			{@const link = `/students/${student.id}`}
 			<tr>
 				<td
-					><a
-						href={`/students/${student.id}${$page.url.search}`}
-						title={`View ${student.first_name} ${student.last_name}'s Profile`}
+					><a href={link} title={`View ${student.first_name} ${student.last_name}'s Profile`}
 						>{student.first_name} <strong>{student.last_name}</strong></a
 					></td
 				>
 				<!-- <td><a href={`/students/${student.id}`}>{student.dob}</a></td> -->
 				<td
-					><a
-						href={`/students/${student.id}${$page.url.search}`}
-						title={`View ${student.first_name} ${student.last_name}'s Profile`}
+					><a href={link} title={`View ${student.first_name} ${student.last_name}'s Profile`}
 						>{format(new Date(student.dob), 'MM/dd/yyyy')}</a
 					></td
 				>
 				<td
-					><a
-						href={`/students/${student.id}${$page.url.search}`}
-						title={`View ${student.first_name} ${student.last_name}'s Profile`}>{student.grade}</a
+					><a href={link} title={`View ${student.first_name} ${student.last_name}'s Profile`}
+						>{student.grade === 'NULL' ? 'N/A' : student.grade}</a
 					></td
 				>
 			</tr>

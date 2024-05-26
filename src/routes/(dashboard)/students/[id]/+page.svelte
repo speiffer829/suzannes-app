@@ -9,6 +9,7 @@
 	import supabase from '$lib/db';
 	import { toast } from '$toast';
 	import { goto } from '$app/navigation';
+	import hi from 'date-fns/locale/hi';
 
 	// TODO: Print Styles
 
@@ -52,6 +53,11 @@
 			toast.send('Student Deleted', { color: 'green' });
 			goto('/students');
 		}
+	}
+
+	function handleBack(e: Event) {
+		e.preventDefault();
+		history.back();
 	}
 </script>
 
@@ -105,7 +111,7 @@
 	<div class="btn-panel print:hidden">
 		<div class="sticky z-10 top-10">
 			<div class="absolute z-10 isolate">
-				<a href={`/students${$page.url.search}`} title="Go Back To Students">
+				<a href='/students' onclick={handleBack} title="Go Back To Students">
 					<span class="icon">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -334,7 +340,10 @@
 
 <style lang="postcss">
 	.grey-box {
-		@apply bg-dark/10 rounded-lg py-1.5 px-2.5 mb-4;
+		background-color: theme('colors.dark.DEFAULT' / 10%);
+		border-radius: theme('borderRadius.lg');
+		padding: theme('spacing[1.5]') theme('spacing[2.5]');
+		margin-bottom: theme('spacing.4');
 
 		&.mb-0 {
 			margin-bottom: 0;
@@ -342,11 +351,18 @@
 	}
 
 	h1 {
-		@apply relative font-black text-5xl text-center p-3 mb-7;
+		position: relative;
+		font-weight: 900;
+		font-size: theme('fontSize.5xl');
+		text-align: center;
+		margin-bottom: theme('spacing.7');
+		padding: theme('spacing.3');
 
 		&::after {
 			content: '';
-			@apply bg-pink rounded-full absolute;
+			background-color: theme('colors.pink.DEFAULT');
+			border-radius: theme('borderRadius.full');
+			position: absolute;
 			width: 70px;
 			height: 10px;
 			bottom: -10px;
