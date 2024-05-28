@@ -8,11 +8,16 @@
 	import { invalidateAll } from '$app/navigation';
 	import { navigating } from '$app/stores';
 	import Prompt from '$lib/components/Prompt.svelte';
+	import { scale } from 'svelte/transition';
 
-	let watching_load = false;
-	let show_timeout_popup = false;
+	let watching_load = $state(false);
+	let show_timeout_popup = $state(false);
 
-	$: handleNavigate($navigating);
+	let showToTopBtn = $state(false);
+
+	$effect(() => {
+		handleNavigate($navigating);
+	});
 
 	function handleNavigate(is_navigating) {
 		if (is_navigating) {
@@ -34,6 +39,10 @@
 		}
 	}
 
+	function toTop() {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
+
 	onMount(() => {
 		const {
 			data: { subscription }
@@ -47,6 +56,8 @@
 	});
 </script>
 
+<svelte:window onscroll={() => (showToTopBtn = window.scrollY > 100)} />
+
 <Prompt confirm_text="Refresh" cancel_text="Keep Waiting" onconfirm={() => location.reload()}>
 	<h2 class="text-3xl text-red font-black">Page Timeout</h2>
 	<p class="text-xl mt-4">
@@ -55,6 +66,28 @@
 	</p>
 </Prompt>
 
+{#if showToTopBtn}
+	<button
+		onclick={toTop}
+		id="to-top-btn"
+		class="btn fixed bottom-6 right-6 p-3 rounded-full z-10"
+		transition:scale
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			class="lucide lucide-arrow-up"><path d="m5 12 7-7 7 7" /><path d="M12 19V5" /></svg
+		>
+		<span class="sr-only">Top Top Of Page</span>
+	</button>
+{/if}
 <Loading fullScreen={true} is_showing={$is_full_screen_loading} />
 <Toast />
 <slot />
