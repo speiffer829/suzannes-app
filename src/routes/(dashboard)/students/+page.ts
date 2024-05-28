@@ -3,11 +3,11 @@ import supabase from '$lib/db';
 import { fail, error } from '@sveltejs/kit';
 
 export const load: PageLoad = async ({ url }) => {
-	const search = url.searchParams.get('search');
+	const search: string = url.searchParams.get('search');
+	const page: number = parseInt(url.searchParams.get('page')) || 1;
 
 	if (search) {
-		console.log('search', search);
-		const { data, error: err } = await supabase.rpc<studentType>('fuzzy_search', {
+		const { data, error: err } = await supabase.rpc('fuzzy_search', {
 			search_string: search
 		});
 		if (err) {
@@ -15,20 +15,29 @@ export const load: PageLoad = async ({ url }) => {
 			return error(500, err);
 		}
 		return {
-			students: data
+			students: data,
+			totalRows: 0,
+			currentPage: page
 		};
 	} else {
-		const { data, error: err } = await supabase
+		const {
+			data,
+			error: err,
+			count
+		} = await supabase
 			.from<studentType[]>('students')
-			.select('*')
+			.select('*', { count: 'exact' })
 			.order('last_name', { ascending: true })
-			.limit(100);
+			.range((page - 1) * 50, (page - 1) * 50 + 49);
 		if (err) {
 			console.error('error stuff', err);
 			return error(500, err);
 		}
+
 		return {
-			students: data
+			students: data,
+			totalRows: count || 0,
+			currentPage: page
 		};
 	}
 };

@@ -46,7 +46,7 @@
 
 <Loading fullScreen is_showing={isLoading} />
 
-<div class="max-w-xl">
+<div class="">
 	<form method="POST" autocomplete="off" use:enhance={handle_form}>
 		<div class="card mt-14">
 			<h1 class="pink-underline text-4xl font-black">Add Student</h1>

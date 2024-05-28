@@ -4,10 +4,10 @@
 	import { scale } from 'svelte/transition';
 	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
-	import { invalidateAll, goto } from '$app/navigation';
+	import Pagination from '$lib/components/Pagination.svelte';
 
 	let { data }: { data: PageData } = $props();
-	const students = $derived(data.students);
+	let { students, totalRows = 0, currentPage = 0 } = $derived(data);
 
 	let search_input: HTMLInputElement | undefined = $state();
 
@@ -151,6 +151,8 @@
 		{/each}
 	</tbody>
 </table>
+
+<Pagination {currentPage} {totalRows} />
 
 <style lang="postcss">
 	table {

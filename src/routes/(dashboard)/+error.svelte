@@ -22,7 +22,7 @@
 		<div class="mt-14 text-periwinkle-500 bg-dark pt-0 rounded-lg overflow-scroll max-w-full">
 			<button
 				class=" p-4 w-full flex justify-between hover:bg-pink-500 hover:text-dark transition-all"
-				on:click={() => (is_code_open = !is_code_open)}
+				onclick={() => (is_code_open = !is_code_open)}
 			>
 				{is_code_open ? 'Hide' : 'View'} Error Object
 				<span class:rotate-180={is_code_open} class="transition-transform duration-300">
@@ -45,7 +45,11 @@
 					<div class="border-t-periwinkle-500/50 border-t-2 pt-4">
 						<code>
 							<pre>
-								{$page}
+								{#if $page.error}
+									{JSON.stringify($page.error, null, 2)}
+								{:else}
+									{JSON.stringify($page, null, 2)}
+								{/if}
 							</pre>
 						</code>
 					</div>
