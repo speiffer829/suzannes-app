@@ -208,15 +208,40 @@
 
 <style lang="postcss">
 	.more-btn {
-		@apply w-full rounded-xl p-3 flex items-center justify-center border-2 border-pink bg-pink-200 text-pink-900 mt-10 mx-0 mb-5 transition-all duration-300 hover:bg-pink-300;
+		width: 100%;
+		border-radius: theme('borderRadius.xl');
+		padding: theme('spacing.3');
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border: 2px solid theme('colors.pink.200');
+		background: theme('colors.pink.200');
+		color: theme('colors.pink.900');
+		transition: all 300ms;
+		margin-bottom: theme('spacing.5');
+		margin-top: theme('spacing.10');
+		margin-inline: 0;
+
+		&:hover {
+			background: theme('colors.pink.300');
+		}
 	}
 
 	.phone-group {
-		@apply relative mb-10 pl-5;
+		position: relative;
+		margin-bottom: theme('spacing.10');
+		padding-left: theme('spacing.5');
 
 		&::before {
 			content: '';
-			@apply h-full bg-pink rounded-full w-[5px] absolute top-0 left-0;
+			height: 100%;
+			background-color: theme('colors.pink.DEFAULT');
+			border-radius: theme('borderRadius.full');
+			width: 5px;
+			position: absolute;
+			top: 0;
+			left: 0;
 		}
 	}
 

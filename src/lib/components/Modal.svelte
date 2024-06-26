@@ -12,12 +12,17 @@
 	function handleKeyDown(e) {
 		if (e.key === 'Escape') is_open = false;
 	}
+
+	function handleOverlayClick(e) {
+		if (e.target === e.currentTarget) is_open = false;
+	}
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
 
 {#if is_open}
-	<div class="overlay" on:click|self={() => (is_open = false)} on:keydown={handleKeyDown}>
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div class="overlay" onclick={handleOverlayClick} onkeydown={handleKeyDown}>
 		<div
 			role="alertdialog"
 			aria-labelledby={ariaLabelledby}
@@ -26,7 +31,7 @@
 			class="card modal-body pt-9 {classes}"
 			transition:scale={{ easing: backInOut, duration: 500 }}
 		>
-			<button class="close-btn" title="close window" on:click={() => (is_open = false)}>
+			<button class="close-btn" title="close window" onclick={() => (is_open = false)}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"
