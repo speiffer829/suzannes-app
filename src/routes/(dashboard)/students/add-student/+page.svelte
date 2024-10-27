@@ -8,6 +8,7 @@
 	import type { phoneType } from '$lib/types';
 	import { goto } from '$app/navigation';
 	import Dialog from '$lib/components/Dialog.svelte';
+	import { page } from '$app/stores';
 
 	// TODO: Add phone validation
 	// TODO: Submit Phones
@@ -137,7 +138,7 @@
 							name={`ignore-phone`}
 							type="tel"
 							title="phone"
-							bind:value={phoneArr[index].label}
+							bind:value={phoneArr[index].phone}
 						/>
 					</label>
 					{#if phoneArr.length > 1}

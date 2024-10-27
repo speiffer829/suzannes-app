@@ -41,6 +41,12 @@
 			search_input?.select();
 		}
 	}
+
+	$effect(() => {
+		if ($page.url.searchParams.has('open_search')) {
+			(document.querySelector('input[name="search"]') as HTMLInputElement)?.focus();
+		}
+	});
 </script>
 
 <svelte:window onkeydown={handleHotKey} />

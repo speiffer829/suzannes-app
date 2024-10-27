@@ -13,7 +13,7 @@
 		is_open?: boolean;
 	}
 
-	let { options, is_open = false } = $props<Props>();
+	let { options, is_open = false }: Props = $props();
 
 	let this_bubble: HTMLElement | undefined = $state();
 </script>

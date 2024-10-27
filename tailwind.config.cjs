@@ -2,6 +2,10 @@ const config = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
+		fontFamily: {
+			sans: ['"DM Sans"', 'Arial', 'Helvetica', 'sans-serif'],
+			serif: ['"DM Serif Display"', 'serif']
+		},
 		extend: {
 			colors: {
 				dark: {

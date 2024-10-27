@@ -5,7 +5,7 @@
 	type Props = {
 		children: Snippet;
 	};
-	let { children } = $props<Props>();
+	let { children }: Props = $props();
 </script>
 
 <div id="page" class="pt-16 lg:pt-0">
